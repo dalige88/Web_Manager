@@ -1,0 +1,122 @@
+﻿@using Web.Manager.WebManager.Entity;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "定时任务管理";
+}
+@await Html.PartialAsync("_nav", new Web.Manager.WebManager.Entity.NavigationModel("定时任务管理", "定时任务"))
+
+<div class="row bgwhitebox10 mymgb15">
+    <div class="detail-search" style="border-bottom: 2px solid #01ACE2;padding-bottom:10px;">
+        <div class="col-sm-9 mypdl0">
+                @*<label class="col-sm-5 edit-group-label">任务名称：</label>
+                <div class="col-sm-5">
+                    <input type="text" id="KeyWord" class="mysearch-text" style="width:350px;" placeholder="任务名称" />
+                </div>*@
+            </div>
+        <div class="col-sm-3 mypdr0" style="text-align:right;">
+            @*<button id="searchBtn" class="btn btn-success btn-sm"><i class="fa fa-search"></i>查询</button>*@
+            <button class="btn btn-primary" type="button" onclick="accountlist.addTask()">添加任务</button>
+        </div>
+        <div class="mycl"></div>
+    </div>
+    <div class="modal fade in" id="addmodel" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="mymodallabel">
+        <div class="modal-dialog modal-lg" role="document" style="height:100%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="accountlist.close()">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">close</span>
+                    </button>
+                    <h4>计划任务管理</h4>
+                </div>
+                <div class="modal-body" ng-form="mymodel">
+                    <div class="row">
+                        <input type="hidden" class="form-control" id="task_id" />
+                        <div class="form-group col-sm-6">
+                            <label class="control-label col-sm-4">任务组:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="task_jobGroup" required placeholder="任务组" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label col-sm-4">任务名称:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="task_jobName" required placeholder="任务名称" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label col-sm-4">CronExpress:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="task_cronExpress" required placeholder="CronExpress" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label col-sm-4">运行状态:</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" required id="task_runStatus">
+                                    @*<option value="1">全部</option>*@
+                                    <option value="1" selected>执行任务中</option>
+                                    <option value="2">暂停任务中</option>
+                                    <option value="4">任务关闭</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label col-sm-4">开始时间:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control mydatetimepicker" id="task_starRunTime" ng-max-date="task_starRunTime||defaultDate" placeholder="开始日期" />
+
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label col-sm-4">结束时间:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control mydatetimepicker" id="task_endRunTime" ng-min-date="task_starRunTime" ng-max-date="defaultDate" placeholder="结束日期" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-disabled="mymodel.$invalid" onclick="accountlist.saveTask()">保 存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mtop15">
+        <div class="row">
+            <div class="col-sm-12" style="padding:0px;">
+                <table class="table table-bordered mytable">
+                    <thead>
+                        <tr>
+                            <th>任务组</th>
+                            <th>任务</th>
+                            <th>CronExpress</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>运行状态</th>
+                            <th>创建时间</th>
+                            <th>修改时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accountbody"></tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div id="infoPage"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section CssExtend{
+    <link rel="stylesheet" href="@HtmlExtention.GetUrlContent("/Scripts/plugins/sspager/ss_page.css")" />
+}
+@section JsExtend{
+    <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/plugins/sspager/ss_page.js")"></script>
+    <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/WebManager/Tasks/tasks.js")"></script>
+}
+
+
+

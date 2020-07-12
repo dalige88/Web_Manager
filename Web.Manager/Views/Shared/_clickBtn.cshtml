@@ -1,0 +1,18 @@
+﻿@using Web.Manager.WebManager.Entity
+@model ClickButtonModel
+@inject AdminUser dysLoginInfo
+@{
+    ViewBag.Title = "_addBtn";
+    string strURL = Model.BtnDoUrl;
+
+    var curMenuPages = dysLoginInfo.CurAuthPages;
+    if (curMenuPages == null)
+    {
+        curMenuPages = new List<SysMenuPage>();
+    }
+    var curMenuPage = curMenuPages.FirstOrDefault(m => m.PageUrl != null && m.PageUrl.ToLower() == strURL.ToLower());
+}
+@if (curMenuPage != null)
+{
+    <button id="@Model.BtnId" class="btn btn-primary" data-url="@strURL">@Html.Raw(!string.IsNullOrEmpty(Model.BtnClassName) ? ("<i class='" + Model.BtnClassName + "'></i>") : "") @curMenuPage.PageViewname</button>
+}

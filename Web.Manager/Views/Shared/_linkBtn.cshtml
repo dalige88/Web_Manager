@@ -1,0 +1,18 @@
+﻿@using Web.Manager.WebManager.Entity
+@model string
+@inject AdminUser dysLoginInfo
+
+@{
+    ViewBag.Title = "_addBtn";
+    string strURL = Model;
+    var curMenuPages = dysLoginInfo.CurAuthPages;
+    if (curMenuPages == null)
+    {
+        curMenuPages = new List<SysMenuPage>();
+    }
+    var curMenuPage = curMenuPages.FirstOrDefault(m => m.PageUrl != null && m.PageUrl.ToLower() == strURL.ToLower());
+}
+@if (curMenuPage != null)
+{
+    <a class="btn btn-primary btn-sm" href="@strURL"><i class="fa fa-plus"></i> @curMenuPage.PageBtnname</a>
+}
