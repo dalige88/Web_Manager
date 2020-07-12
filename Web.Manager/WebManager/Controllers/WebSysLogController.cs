@@ -8,6 +8,7 @@ using Web.Manager.WebManager.Models;
 using YL.Base;
 using Microsoft.AspNetCore.Mvc;
 using YL.Base.Manager.Entity;
+using WebManager.Core.Entity;
 
 namespace Web.Manager.Controllers
 {

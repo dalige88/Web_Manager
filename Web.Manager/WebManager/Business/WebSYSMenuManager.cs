@@ -8,6 +8,7 @@ using Web.Manager.WebManager.Models;
 using Web.Manager.WebManager.Entity;
 using Microsoft.Data.SqlClient;
 using YL.Base.Common;
+using WebManager.Core.Entity;
 
 namespace Web.Manager.WebManager.Business
 {

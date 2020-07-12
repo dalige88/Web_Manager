@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using YL.Filters;
 using YL.Base.Common;
+using WebManager.Core.Entity;
 
 namespace Web.Manager.Controllers
 {
