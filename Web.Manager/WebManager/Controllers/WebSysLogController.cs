@@ -14,10 +14,10 @@ namespace Web.Manager.Controllers
     public class WebSysLogController : BaseController
     {
         AdminLogsManager LogsManager;
-        public WebSysLogController(AdminLogsManager logsManager, AdminUser _user):base(_user)
-        {
-            LogsManager = logsManager;
-        }
+        //public WebSysLogController(AdminLogsManager logsManager, AdminUser _user):base(_user)
+        //{
+        //    LogsManager = logsManager;
+        //}
         [MenuItem("系统日志","日志")]
         public IActionResult Index()
         {

@@ -20,16 +20,16 @@ namespace Web.Manager.Controllers
         WebSYSMenuManager sysMenuManager;
         WebSYSRoleManager sysRoleManager;
         WebSYSUserManager sysUserManager;
-        public WebSystemController(
-            AdminUser _user,
-            WebSYSMenuManager sysMenuManager,
-            WebSYSRoleManager sysRoleManager,
-            WebSYSUserManager sysUserManager) : base(_user)
-        {
-            this.sysMenuManager = sysMenuManager;
-            this.sysRoleManager = sysRoleManager;
-            this.sysUserManager = sysUserManager;
-        }
+        //public WebSystemController(
+        //    AdminUser _user,
+        //    WebSYSMenuManager sysMenuManager,
+        //    WebSYSRoleManager sysRoleManager,
+        //    WebSYSUserManager sysUserManager) : base(_user)
+        //{
+        //    this.sysMenuManager = sysMenuManager;
+        //    this.sysRoleManager = sysRoleManager;
+        //    this.sysUserManager = sysUserManager;
+        //}
         #region 菜单相关
         /// <summary>
         /// 菜单列表页面

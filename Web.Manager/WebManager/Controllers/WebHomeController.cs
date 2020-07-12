@@ -15,15 +15,15 @@ namespace Web.Manager.Controllers
         WebSYSMenuManager menuManager;
         IWebHostEnvironment Host;
 
-        public WebHomeController(
-            WebSYSMenuManager menuManager,
-            AdminUser _user,
-            IWebHostEnvironment host
-            ) : base(_user)
-        {
-            this.menuManager = menuManager;
-            Host = host;
-        }
+        //public WebHomeController(
+        //    WebSYSMenuManager menuManager,
+        //    AdminUser _user,
+        //    IWebHostEnvironment host
+        //    ) : base(_user)
+        //{
+        //    this.menuManager = menuManager;
+        //    Host = host;
+        //}
         // GET: Home
         [AllowAnonymous]
         public IActionResult Index()

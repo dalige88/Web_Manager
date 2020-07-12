@@ -20,17 +20,25 @@ namespace Web.Manager.Controllers
         protected virtual void OnCreateProperties(ActionExecutingContext context)
         {
             object controller = context.Controller;
-            foreach (PropertyInfo declaredProperty in controller.GetType().GetTypeInfo().DeclaredProperties)
-            {
-                if (declaredProperty.CanWrite)
-                {
-                    declaredProperty.GetSetMethod(true).Invoke(controller, new object[1]
-                    {
-                        ActivatorUtilities.GetServiceOrCreateInstance(context.HttpContext.RequestServices, declaredProperty.PropertyType)
-                    });
-                }
-            }
+            //foreach (PropertyInfo declaredProperty in controller.GetType().GetTypeInfo().DeclaredProperties)
+            //{
+            //    if (declaredProperty.CanWrite)
+            //    {
+            //        declaredProperty.GetSetMethod(true).Invoke(controller, new object[1]
+            //        {
+            //            ActivatorUtilities.GetServiceOrCreateInstance(context.HttpContext.RequestServices, declaredProperty.PropertyType)
+            //        });
+            //    }
+            //}
             foreach (var declaredProperty in controller.GetType().GetTypeInfo().DeclaredFields)
+            {
+                declaredProperty.SetValue(controller,
+
+                        ActivatorUtilities.GetServiceOrCreateInstance(context.HttpContext.RequestServices, declaredProperty.FieldType)
+
+                );
+            }
+            foreach (var declaredProperty in controller.GetType().BaseType.GetTypeInfo().DeclaredFields)
             {
                 declaredProperty.SetValue(controller,
 
@@ -41,9 +49,9 @@ namespace Web.Manager.Controllers
         }
 
         AdminUser user;
-        public BaseController(AdminUser _user) {
-            user = _user;
-        }
+        //public BaseController(AdminUser _user) {
+        //    user = _user;
+        //}
         protected SysManager CurAccount
         {
             get

@@ -11,9 +11,9 @@ namespace Web.Manager.Controllers
 {
     public class WebJSExtController : BaseController
     {
-        public WebJSExtController(AdminUser _user) : base(_user)
-        {
-        }
+        //public WebJSExtController(AdminUser _user) : base(_user)
+        //{
+        //}
 
         [AllowAnonymous]
         public ContentResult GetAuthPages(string p)
