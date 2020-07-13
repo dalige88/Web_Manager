@@ -173,8 +173,17 @@ namespace CS.Base
             }
             else
             {
-                var content = new FormUrlEncodedContent(dict.ToDictionary(k => k.Key, v => string.Format("{0}", v.Value)));
-                httpContent = content;
+                var vl = headers.Where(w => w.Key.ToLower() == "Content-Type".ToLower()).Select(s => s.Value).FirstOrDefault();
+                if (string.Compare(vl, "application/json", StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    var content = System.Net.Http.Json.JsonContent.Create(dict.ToDictionary(k => k.Key, v => string.Format("{0}", v.Value)));
+                    httpContent = content;
+                }
+                else
+                {
+                    var content = new FormUrlEncodedContent(dict.ToDictionary(k => k.Key, v => string.Format("{0}", v.Value)));
+                    httpContent = content;
+                }
             }
 
             if (headers != null)
