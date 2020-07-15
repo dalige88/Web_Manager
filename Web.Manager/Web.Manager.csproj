@@ -13,11 +13,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\AIDB\AIDB.csproj" />
     <ProjectReference Include="..\WebManager.Core\WebManager.Core.csproj" />
     <ProjectReference Include="..\YL.Base\YL.Base.csproj" />
     <ProjectReference Include="..\YL.Filters\YL.Filters.csproj" />

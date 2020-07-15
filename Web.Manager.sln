@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Manager", "Web.Manager\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebManager.Core", "WebManager.Core\WebManager.Core.csproj", "{B383C056-9AD6-4A26-9208-010FD66640A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YL.Base", "YL.Base\YL.Base.csproj", "{59721730-9001-4BBF-B367-8C5784A3D2C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YL.Base", "YL.Base\YL.Base.csproj", "{59721730-9001-4BBF-B367-8C5784A3D2C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YL.Filters", "YL.Filters\YL.Filters.csproj", "{63FC760C-3406-43B1-B5C6-3A5E41CF312A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YL.Filters", "YL.Filters\YL.Filters.csproj", "{63FC760C-3406-43B1-B5C6-3A5E41CF312A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIDB", "AIDB\AIDB.csproj", "{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{63FC760C-3406-43B1-B5C6-3A5E41CF312A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63FC760C-3406-43B1-B5C6-3A5E41CF312A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63FC760C-3406-43B1-B5C6-3A5E41CF312A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

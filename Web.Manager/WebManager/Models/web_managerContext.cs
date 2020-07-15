@@ -28,7 +28,7 @@ namespace Web.Manager.WebManager.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=192.168.1.112;Database=web_manager;User ID=sa;Password=sa;");
+                optionsBuilder.UseMySql("server=47.100.172.61;userid=root;pwd=root;port=3306;database=web_manager;sslmode=none;");
             }
         }
 

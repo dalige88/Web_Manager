@@ -18,6 +18,7 @@ using Web.Manager.WebManager.Entity;
 using Web.Manager.WebManager.Models;
 using YL.Base.Interface;
 using YL.Filters;
+using AIDB.Models;
 
 namespace Web.Manager
 {
@@ -43,7 +44,13 @@ namespace Web.Manager
                 c.OperLogsDB.ExecuteSql(SQLTableSentence.SQL_OperLogs);
 
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
-            services.AddDbContext<web_managerContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("web_manager")));
+            services.AddDbContext<web_managerContext>(opt => opt.UseMySql(Configuration.GetConnectionString("web_manager")));
+            services.AddDbContext<ai_platformContext>(opt => opt.UseMySql(Configuration.GetConnectionString("ai_platform")));
+            web_managerContext a = new web_managerContext();
+            if(a.Database.GetPendingMigrations().Any())
+            {
+                a.Database.Migrate();
+            }
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddControllersWithViews(r =>
