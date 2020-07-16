@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YL.Base", "YL.Base\YL.Base.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YL.Filters", "YL.Filters\YL.Filters.csproj", "{63FC760C-3406-43B1-B5C6-3A5E41CF312A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIDB", "AIDB\AIDB.csproj", "{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIDB", "AIDB\AIDB.csproj", "{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIServer", "AIServer\AIServer.csproj", "{9B4FDA01-6918-408C-80B6-51AF1B3FD6F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83DEA3F8-8A09-4B4B-BE52-EAF80BE5FB9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B4FDA01-6918-408C-80B6-51AF1B3FD6F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B4FDA01-6918-408C-80B6-51AF1B3FD6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B4FDA01-6918-408C-80B6-51AF1B3FD6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B4FDA01-6918-408C-80B6-51AF1B3FD6F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
