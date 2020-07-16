@@ -9,4 +9,8 @@
     <ProjectReference Include="..\YL.Base\YL.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+  </ItemGroup>
+
 </Project>
