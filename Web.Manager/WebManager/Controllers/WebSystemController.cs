@@ -199,6 +199,21 @@ namespace Web.Manager.Controllers
             //str += JsonHelper.Serializer(allNewMenus);
             //   return Content(str);
         }
+
+        /// <summary>
+        /// 删除菜单 及 用户权限的内的菜单ID
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [LogAttribute("删除菜单", 0)]
+        public JsonResult DelSubmenu(long Id) 
+        {
+            var result = sysMenuManager.DelSubmenu(Id);
+            return Json(result);
+        }
+
+
+
         #endregion
 
         #region 角色相关

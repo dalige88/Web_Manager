@@ -467,5 +467,79 @@ namespace Web.Manager.WebManager.Business
                 return r;
             }
         }
+
+
+        /// <summary>
+        /// 删除菜单 及 用户权限的内的菜单ID
+        /// </summary>
+        /// <param name="Id">二级菜单ID</param>
+        /// <returns></returns>
+        public AjaxResult<object> DelSubmenu(long Id)
+        {
+            if (Id<1)
+            {
+                return new AjaxResult<Object>("请选择您要删除的菜单！");
+            }
+            List<string> list = new List<string>();//所有删除的主菜单
+            List<string> li_sub = new List<string>();//所有删除的子菜单
+            //删除菜单
+            WebSysMenu menu = db.WebSysMenu.Where(w => w.MenuId == Id).FirstOrDefault();
+            if (menu != null)
+            {
+                list.Add(menu.MenuId.ToString());
+                //删除主菜单
+                db.WebSysMenu.Remove(menu);
+
+
+                //删除所有子菜单
+                List<WebSysMenuPage> list_sub = db.WebSysMenuPage.Where(w => w.MenuId == Id).ToList();
+                foreach (var sub in list_sub)
+                {
+                    li_sub.Add(sub.PageId.ToString());
+                }
+                db.WebSysMenuPage.RemoveRange(list_sub);
+
+
+                //递归调用
+                //DelSubmenu(menu.MenuId);
+            }
+
+            //删除用户权限内的菜单ID
+            List<WebSysRoleMenu> list_menu = db.WebSysRoleMenu.Where(w=>w.MenuId==Id).ToList();//所有权限数据
+            foreach (var item in list_menu)
+            {
+                //从权限表删除主菜单
+                foreach (var me in list)
+                {
+                    if (me == item.MenuId.ToString())
+                    {
+                        db.WebSysRoleMenu.Remove(item);
+                    }
+                }
+
+
+                //从权限表删除子菜单
+                if (!string.IsNullOrWhiteSpace(item.PageIds))
+                {
+                    string[] PageIds = item.PageIds.Split(',');
+                    var cc = PageIds.Where(w => !li_sub.Contains(w)).ToList();
+                    item.PageIds = "";
+                    cc.ForEach(str =>
+                    {
+                        if (item.PageIds != "")
+                            item.PageIds += ",";
+                        item.PageIds += str;
+                    });
+                }
+                
+            }
+            int num = db.SaveChanges();
+            if (num > 0)
+            {
+                return new AjaxResult<Object>("删除完成！", 0);
+            }
+            return new AjaxResult<Object>("删除失败！");
+        }
+
     }
 }
