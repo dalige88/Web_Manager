@@ -18,7 +18,7 @@ namespace AIServer
 
         public List<Platforminfo> ss()
         {
-            return db.Platforminfo.Where(w => w.Id > 0).ToList(); 
+            return db.Platforminfo.Where(w => w.Id > 0).ToList();
         }
 
         /// <summary>
