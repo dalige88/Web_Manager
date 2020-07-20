@@ -67,7 +67,9 @@ namespace CS.Base
                 foreach (var h in headers)
                 {
                     if (string.Compare(h.Key.ToLower(), "Content-Type".ToLower()) == 0)
-                        http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(h.Value));
+                    else if (string.Compare(h.Key.ToLower(), "user-agent".ToLower()) == 0)
+                        http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(h.Value));
                     else
                         http.DefaultRequestHeaders.Add(h.Key, h.Value);
 
@@ -96,7 +98,9 @@ namespace CS.Base
                 foreach (var h in headers)
                 {
                     if (string.Compare(h.Key.ToLower(), "Content-Type".ToLower()) == 0)
-                        http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(h.Value));
+                    else if (string.Compare(h.Key.ToLower(), "user-agent".ToLower()) == 0)
+                        http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(h.Value));
                     else
                         http.DefaultRequestHeaders.Add(h.Key, h.Value);
 
@@ -191,7 +195,9 @@ namespace CS.Base
                 foreach (var h in headers)
                 {
                     if (string.Compare(h.Key.ToLower(), "Content-Type".ToLower()) == 0)
-                        http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(h.Value));
+                    else if (string.Compare(h.Key.ToLower(), "user-agent".ToLower()) == 0)
+                        http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(h.Value));
                     else
                         http.DefaultRequestHeaders.Add(h.Key, h.Value);
                 }
