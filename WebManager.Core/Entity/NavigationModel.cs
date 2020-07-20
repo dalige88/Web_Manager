@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Manager.WebManager.Entity
+namespace WebManager.Core.Entity
 {
     public class NavigationModel
     {
