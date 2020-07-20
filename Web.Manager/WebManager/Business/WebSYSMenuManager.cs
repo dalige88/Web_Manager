@@ -496,12 +496,19 @@ namespace Web.Manager.WebManager.Business
                 foreach (var sub in list_sub)
                 {
                     li_sub.Add(sub.PageId.ToString());
+                    db.WebSysMenuPage.Remove(sub);
                 }
-                db.WebSysMenuPage.RemoveRange(list_sub);
+                //db.WebSysMenuPage.RemoveRange(list_sub);
 
 
                 //递归调用
                 //DelSubmenu(menu.MenuId);
+
+                List<WebSysMenu> list_model = db.WebSysMenu.Where(w => w.MenuPid == menu.MenuId).ToList();
+                foreach (var item in list_model)
+                {
+                    DelSubmenu(item.MenuId);
+                }
             }
 
             //删除用户权限内的菜单ID
@@ -533,12 +540,9 @@ namespace Web.Manager.WebManager.Business
                 }
                 
             }
-            int num = db.SaveChanges();
-            if (num > 0)
-            {
-                return new AjaxResult<Object>("删除完成！", 0);
-            }
-            return new AjaxResult<Object>("删除失败！");
+            db.SaveChanges();
+           
+            return new AjaxResult<Object>("删除完成！", 0);
         }
 
     }

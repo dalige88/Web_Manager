@@ -28,7 +28,7 @@ var menulist = {
                         <td><span style="display: inline-block; width:0px;"></span><span class="folder-open"></span>' + itemData.menuName + '</td>\
                         <td></td>\
                         <td align="center">'+ (itemData.menuStatus == 0 ? '<span class="label label-danger">禁用</span>' : '<span class="label label-primary">启用</span>') + '</td>\
-                        <td align="center">'+ '<a href=\'/WebSystem/DelSubmenu?Id=' + itemData.menuID + '\'>删除</a>&nbsp;&nbsp;' + authHelper.createLink('/WebSystem/MenuEdit', 'menuid=' + itemData.menuID) + '</td>\
+                        <td align="center">'+ '<a href=\'javascript:menulist.delMenu("' + itemData.menuID + '")\'>删除</a>&nbsp;&nbsp;' + authHelper.createLink('/WebSystem/MenuEdit', 'menuid=' + itemData.menuID) + '</td>\
                     </tr>';
                 $.each(itemData.childMenus, function (j) {
                     var itemCData = itemData.childMenus[j];
@@ -36,7 +36,7 @@ var menulist = {
                         <td><span style="display: inline-block; width:20px;"></span><span class="folder-line"></span><span class="folder-open"></span>' + itemCData.menuName + '</td>\
                         <td>' + itemCData.menuLink + '</td>\
                         <td align="center">'+ (itemCData.menuStatus == 0 ? '<span class="label label-danger">禁用</span>' : '<span class="label label-primary">启用</span>') + '</td>\
-                        <td align="center">'+ '<a href=\'javascript:menulist.delMenu("' + itemData.menuID + '")\'>删除</a>&nbsp;&nbsp;' + authHelper.createLink('/WebSystem/MenuEdit', 'menuid=' + itemCData.menuID) + authHelper.createOpenPage('子页面编辑', "/WebSystem/MenuPageList", "menuid=" + itemCData.menuID) + '</td>\
+                        <td align="center">'+ '<a href=\'javascript:menulist.delMenu("' + itemCData.menuID + '")\'>删除</a>&nbsp;&nbsp;' + authHelper.createLink('/WebSystem/MenuEdit', 'menuid=' + itemCData.menuID) + authHelper.createOpenPage('子页面编辑', "/WebSystem/MenuPageList", "menuid=" + itemCData.menuID) + '</td>\
                     </tr>';
                 });
             });
@@ -59,8 +59,7 @@ var menulist = {
         postData.Id = Id;
         ajaxHelper.post(url, postData, function (d) {
             msg.success("删除成功！", function () {
-                if (d > 0)
-                    window.location.reload(true);
+                window.location.reload(true);
             });
         });
     }
