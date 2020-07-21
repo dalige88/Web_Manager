@@ -35,23 +35,13 @@ var platformlist = {
                     <td align="center">' + itemData.addressUrl + '</td >\
                     <td align="center">' + tools.nullToEmptyString(itemData.createTime) + '</td>\
                     <td align="center">' + itemData.remark + '</td>\
-                    <td align="center"><a href=\'javascript:platformlist.delGoods(' + itemData.id + ');\'>删除</a></td>';
-            
+                    <td align="center">'+ authHelper.createLink('/Platforminfo/AddPlatforminfo') + '</td>';
+
             html += '</td></tr>';
         });
         $('#goodsbody').html(html);
     },
-    delGoods: function (id) {
-        var Param = {};
-        Param.id = id;
-        var url = "/Goods/Ajax_DelGoods";
 
-        ajaxHelper.post(url, Param, function (d) {
-            msg.success('操作成功！', function () {
-                platformlist.loadData();
-            });
-        });
-    }
 }
 
 

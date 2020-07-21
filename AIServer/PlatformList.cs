@@ -16,11 +16,6 @@ namespace AIServer
         {
         }
 
-        public List<Platforminfo> ss()
-        {
-            return db.Platforminfo.Where(w => w.Id > 0).ToList();
-        }
-
         /// <summary>
         /// 根据条件查询  推广平台列表
         /// </summary>
@@ -58,8 +53,8 @@ namespace AIServer
             }
 
             Platforminfo model = new Platforminfo();
-            model.PlatformName = req.PlatformName;
-            model.AddressUrl = req.AddressURL;
+            model.PlatformName = req.PlatformName.Trim();
+            model.AddressUrl = req.AddressURL.Trim();
             model.CreateTime = DateTime.Now;
             model.Remark = req.Remark;
             db.Platforminfo.Add(model);

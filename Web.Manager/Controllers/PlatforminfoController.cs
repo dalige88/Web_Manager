@@ -8,6 +8,7 @@ using AIServer;
 using AIServer.Reqs;
 using Microsoft.AspNetCore.Mvc;
 using WebManager.Core.Entity;
+using YL.Base;
 
 namespace Web.Manager.Controllers
 {
@@ -24,10 +25,16 @@ namespace Web.Manager.Controllers
         #endregion
 
         #region 页面
+
         [MenuItemAttribute("推广平台", "平台管理")]
         public IActionResult Index()
         {
-            //List<Platforminfo> list= pl.ss();
+            return View();
+        }
+
+        [MenuItemAttribute("推广平台", "平台管理","添加推广平台")]
+        public IActionResult AddPlatforminfo() 
+        {
             return View();
         }
 
@@ -41,7 +48,19 @@ namespace Web.Manager.Controllers
             return Json(pl.GetList(req));
         }
 
-
+        public JsonResult Ajax_AddPlatforminfo(PlatforminfoReq req) 
+        {
+            if (string.IsNullOrWhiteSpace(req.PlatformName))
+            {
+                return Json(new AjaxResult<Object>("请输入平台名称！"));
+            }
+            if (string.IsNullOrWhiteSpace(req.AddressURL))
+            {
+                return Json(new AjaxResult<Object>("请输入平台地址！"));
+            }
+            
+            return Json(pl.AddPlatforminfo(req));
+        }
 
 
         #endregion
