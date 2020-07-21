@@ -18,6 +18,7 @@ using Web.Manager.WebManager.Entity;
 using Web.Manager.WebManager.Models;
 using YL.Base.Interface;
 using YL.Filters;
+using WebManager.Core;
 using AIDB.Models;
 
 namespace Web.Manager
@@ -65,6 +66,7 @@ namespace Web.Manager
 
             services.AddTransient(typeof(ILogs), typeof(AdminLogsManager));
             services.AddTransient(typeof(ILogin), typeof(WebSYSAccountManager));
+            services.LoadPluginServices();
 
             AppSetting.Start();
         }
