@@ -25,9 +25,5 @@
     <ProjectReference Include="..\YL.Base\YL.Base.csproj" />
     <ProjectReference Include="..\YL.Filters\YL.Filters.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="wwwroot\Scripts\page\platforminfo\" />
-  </ItemGroup>
 
 </Project>

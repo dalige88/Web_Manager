@@ -38,6 +38,13 @@ namespace Web.Manager.Controllers
             return View();
         }
 
+        [MenuItemAttribute("推广平台", "平台管理", "编辑推广平台")]
+        public IActionResult EditPlatforminfo(long id)
+        {
+            var o = pl.SelPlatforminfo(id);
+            return View(o);
+        }
+
         #endregion
 
 
@@ -48,6 +55,7 @@ namespace Web.Manager.Controllers
             return Json(pl.GetList(req));
         }
 
+        [MenuItemAttribute("推广平台", "平台管理", "添加平台（提交）")]
         public JsonResult Ajax_AddPlatforminfo(PlatforminfoReq req) 
         {
             if (string.IsNullOrWhiteSpace(req.PlatformName))
@@ -62,6 +70,36 @@ namespace Web.Manager.Controllers
             return Json(pl.AddPlatforminfo(req));
         }
 
+        [MenuItemAttribute("推广平台", "平台管理", "编辑平台（提交）")]
+        public JsonResult Ajax_EditPlatforminfo(PlatforminfoReq req) 
+        {
+            if (req.ID<1)
+            {
+                return Json(new AjaxResult<Object>("请选择您要编辑的平台！"));
+            }
+            if (string.IsNullOrWhiteSpace(req.PlatformName))
+            {
+                return Json(new AjaxResult<Object>("请输入平台名称！"));
+            }
+            if (string.IsNullOrWhiteSpace(req.AddressURL))
+            {
+                return Json(new AjaxResult<Object>("请输入平台地址！"));
+            }
+
+            return Json(pl.EditPlatforminfo(req));
+        }
+
+        [MenuItemAttribute("推广平台", "平台管理", "删除平台（提交）")]
+        public JsonResult Ajax_DelPlatforminfo(long id) 
+        {
+            return Json(new AjaxResult<Object>("莫慌，推广平台子平台渠道开发完了再说！"));
+            //---------------------------------------------------
+            if (id < 1)
+            {
+                return Json(new AjaxResult<Object>("请选择您要删除的平台！"));
+            }
+            return Json(pl.DelPlatforminfo(id));
+        }
 
         #endregion
 

@@ -11,6 +11,11 @@
             <div class="col-sm-9 mypdl0">
 
 
+                @await Html.PartialAsync("_linkBtn", "/Platforminfo/AddPlatforminfo")
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                关键字：
+                <input type="text" id="KeyWord" class="mysearch-text" style="width:300px;" placeholder="平台名称" maxlength="10" />
 
             </div>
             <div class="col-sm-3 mypdr0" style="text-align:right;">

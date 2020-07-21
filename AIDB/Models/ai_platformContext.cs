@@ -66,7 +66,7 @@ namespace AIDB.Models
 
                 entity.Property(e => e.AddressUrl)
                     .HasColumnName("AddressURL")
-                    .HasColumnType("varchar(400)")
+                    .HasColumnType("text")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 

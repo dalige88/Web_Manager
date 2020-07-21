@@ -10,11 +10,8 @@ var platformlist = {
         });
     },
     loadData: function () {
-        debugger;
         var Param = {};
-        //Param.GoodsTitle = $('#KeyWord').val();
-        //Param.ExamineState = $('#ExamineState').val();
-        //Param.SaleState = $('#SaleState').val();
+        Param.PlatformName = $('#KeyWord').val();
         $("#infoPage").page({
             url: '/Platforminfo/GetList',
             pageSize: 10,
@@ -23,11 +20,9 @@ var platformlist = {
         });
     },
     outList: function (result, j) {
-        debugger;
         var html = '';
         $.each(result, function (i) {
             j++;
-            debugger;
             var itemData = result[i];
             html += '<tr>\
                     <td align="center">' + itemData.id + '</td>\
@@ -35,13 +30,22 @@ var platformlist = {
                     <td align="center">' + itemData.addressUrl + '</td >\
                     <td align="center">' + tools.nullToEmptyString(itemData.createTime) + '</td>\
                     <td align="center">' + itemData.remark + '</td>\
-                    <td align="center">'+ authHelper.createLink('/Platforminfo/AddPlatforminfo') + '</td>';
+                    <td align="center">'+ authHelper.createLink('/Platforminfo/EditPlatforminfo', 'id=' + itemData.id) + '<a href=\'javascript:platformlist.delPlatform("' + itemData.id + '")\'>删除平台</a></td>';
 
             html += '</td></tr>';
         });
         $('#goodsbody').html(html);
     },
-
+    delPlatform: function (Id) {
+        var url = "/Platforminfo/Ajax_DelPlatforminfo";
+        var postData = {};
+        postData.Id = Id;
+        ajaxHelper.post(url, postData, function (d) {
+            msg.success("删除成功！", function () {
+                window.location.reload(true);
+            });
+        });
+    }
 }
 
 
