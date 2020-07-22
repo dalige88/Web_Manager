@@ -94,11 +94,11 @@ namespace Web.Manager.Controllers
         {
             return Json(new AjaxResult<Object>("莫慌，推广平台子平台渠道开发完了再说！"));
             //---------------------------------------------------
-            if (id < 1)
-            {
-                return Json(new AjaxResult<Object>("请选择您要删除的平台！"));
-            }
-            return Json(pl.DelPlatforminfo(id));
+            //if (id < 1)
+            //{
+            //    return Json(new AjaxResult<Object>("请选择您要删除的平台！"));
+            //}
+            //return Json(pl.DelPlatforminfo(id));
         }
 
         #endregion

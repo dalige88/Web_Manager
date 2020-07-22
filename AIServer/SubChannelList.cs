@@ -39,7 +39,7 @@ namespace AIServer
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public AjaxResult<Object> AddSubchannel(SubchannelReq req) 
+        public AjaxResult<Object> AddSubchannel(SubchannelReq req)
         {
             Subchannel model_1 = db.Subchannel.Where(w => w.SubChannelName == req.SubChannelName).FirstOrDefault();
             if (model_1 != null)
@@ -57,15 +57,66 @@ namespace AIServer
             model.Remark = req.Remark;
 
             db.Add(model);
-            if (db.SaveChanges() > 0)
-            {
-                return new AjaxResult<Object>("添加成功！", 0);
-            }
-            return new AjaxResult<Object>("添加失败！");
+            db.SaveChanges();
+            return new AjaxResult<Object>("添加成功！", 0);
         }
 
+        /// <summary>
+        /// 编辑推广平台子平台
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public AjaxResult<Object> EditSubchannel(SubchannelReq req)
+        {
+            Subchannel model = db.Subchannel.Where(w => w.Id == req.ID).FirstOrDefault();
+            if (model == null)
+            {
+                return new AjaxResult<Object>("推广子平台渠道不存在！");
+            }
 
+            model.SubChannelName = req.SubChannelName;
+            model.AddressUrl = req.AddressURL;
+            model.States = req.States;
+            model.UserNameData = req.UserNameData;
+            model.Remark = req.Remark;
 
+            db.SaveChanges();
+            return new AjaxResult<Object>("编辑成功！", 0);
+        }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public AjaxResult<Object> DelSubchannel(long id)
+        {
+            if (id < 1)
+            {
+                return new AjaxResult<Object>("请选择您要删除的推广渠道信息！");
+            }
+            Subchannel model = db.Subchannel.Where(w => w.Id == id).FirstOrDefault();
+            if (model!=null)
+            {
+                return new AjaxResult<Object>("推广子平台渠道不存在！");
+            }
+
+            db.Subchannel.Remove(model);
+            if (db.SaveChanges() > 0)
+            {
+                return new AjaxResult<Object>("删除成功！", 0);
+            }
+            return new AjaxResult<Object>("删除失败！");
+        }
+
+        /// <summary>
+        /// 根据ID 查询子平台信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Subchannel SelSubchannel(long id) 
+        {
+            return db.Subchannel.Where(w => w.Id == id).FirstOrDefault();
+        }
     }
 }
