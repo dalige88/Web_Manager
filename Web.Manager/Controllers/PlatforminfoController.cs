@@ -32,13 +32,13 @@ namespace Web.Manager.Controllers
             return View();
         }
 
-        [MenuItemAttribute("推广平台", "平台管理","添加推广平台")]
+        [MenuItemAttribute("推广平台", "平台管理","添加")]
         public IActionResult AddPlatforminfo() 
         {
             return View();
         }
 
-        [MenuItemAttribute("推广平台", "平台管理", "编辑推广平台")]
+        [MenuItemAttribute("推广平台", "平台管理", "编辑")]
         public IActionResult EditPlatforminfo(long id)
         {
             var o = pl.SelPlatforminfo(id);

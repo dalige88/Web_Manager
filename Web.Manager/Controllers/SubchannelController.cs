@@ -24,13 +24,14 @@ namespace Web.Manager.Controllers
             return View();
         }
 
-        [MenuItemAttribute("推广平台", "推广平台渠道管理", "添加推广平台渠道")]
-        public IActionResult AddSubchannel() 
+        [MenuItemAttribute("推广平台", "推广平台渠道管理", "添加")]
+        public IActionResult AddSubchannel(string pid) 
         {
+            ViewBag.pid = pid;
             return View();
         }
 
-        [MenuItemAttribute("推广平台", "推广平台渠道管理", "编辑推广平台渠道")]
+        [MenuItemAttribute("推广平台", "推广平台渠道管理", "编辑")]
         public IActionResult EditSubchannel(long id) 
         {
             var o = sh.SelSubchannel(id);

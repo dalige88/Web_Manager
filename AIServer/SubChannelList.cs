@@ -6,6 +6,7 @@ using System.Text;
 using YL.Base;
 using YL.Base.Manager.Entity;
 using System.Linq;
+using AIServer.Dtos;
 
 namespace AIServer
 {
@@ -20,18 +21,33 @@ namespace AIServer
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public AjaxResult<Pagination<Subchannel>> GetList(SubchannelReq req)
+        public AjaxResult<Pagination<SubchannelDto>> GetList(SubchannelReq req)
         {
-            Pagination<Subchannel> page = new Pagination<Subchannel>();
+            Pagination<SubchannelDto> page = new Pagination<SubchannelDto>();
             var query = from b in db.Subchannel
-                        select b;
+                        join c in db.Platforminfo on b.PlatformId equals c.Id
+                        select new SubchannelDto
+                        {
+                            ID = b.Id,
+                            PlatformID=(long)b.PlatformId,
+                            SubChannelName=b.SubChannelName,
+                            AddressURL=b.AddressUrl,
+                            CreateTime=Convert.ToDateTime(b.CreateTime),
+                            States=Convert.ToInt32(b.States),
+                            UserName=b.UserName,
+                            UserPwd=b.UserPwd,
+                            Remark=b.Remark,
+                            PlatformName=c.PlatformName,
+                            StatesName= b.States==0?"有效":b.States==1?"无效":"",
+
+                        };
             if (!string.IsNullOrWhiteSpace(req.SubChannelName))
             {
                 query = query.Where(w => w.SubChannelName.Contains(req.SubChannelName));
             }
             page.TotalCount = query.Count();
-            page.dataList = query.OrderByDescending(m => m.Id).Skip((req.PageIndex - 1) * req.PageSize).Take(req.PageSize).ToList();
-            return new AjaxResult<Pagination<Subchannel>>(page);
+            page.dataList = query.OrderByDescending(m => m.ID).Skip((req.PageIndex - 1) * req.PageSize).Take(req.PageSize).ToList();
+            return new AjaxResult<Pagination<SubchannelDto>>(page);
         }
 
         /// <summary>
@@ -53,7 +69,8 @@ namespace AIServer
             model.AddressUrl = req.AddressURL;
             model.CreateTime = DateTime.Now;
             model.States = 0;
-            model.UserNameData = req.UserNameData;
+            model.UserName = req.UserName;
+            model.UserPwd = req.UserPwd;
             model.Remark = req.Remark;
 
             db.Add(model);
@@ -77,7 +94,8 @@ namespace AIServer
             model.SubChannelName = req.SubChannelName;
             model.AddressUrl = req.AddressURL;
             model.States = req.States;
-            model.UserNameData = req.UserNameData;
+            model.UserName = req.UserName;
+            model.UserPwd = req.UserPwd;
             model.Remark = req.Remark;
 
             db.SaveChanges();
@@ -96,7 +114,7 @@ namespace AIServer
                 return new AjaxResult<Object>("请选择您要删除的推广渠道信息！");
             }
             Subchannel model = db.Subchannel.Where(w => w.Id == id).FirstOrDefault();
-            if (model!=null)
+            if (model==null)
             {
                 return new AjaxResult<Object>("推广子平台渠道不存在！");
             }

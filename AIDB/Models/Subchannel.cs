@@ -11,7 +11,8 @@ namespace AIDB.Models
         public string AddressUrl { get; set; }
         public DateTime? CreateTime { get; set; }
         public int? States { get; set; }
-        public string UserNameData { get; set; }
+        public string UserName { get; set; }
+        public string UserPwd { get; set; }
         public string Remark { get; set; }
     }
 }
