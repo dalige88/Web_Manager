@@ -10,6 +10,9 @@ using YL.Base;
 
 namespace Web.Manager.Controllers
 {
+    /// <summary>
+    /// 渠道管理
+    /// </summary>
     public class SubchannelController : BaseController
     {
         #region Menu
@@ -59,6 +62,10 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("请输入渠道地址URL！"));
             }
+            if (string.IsNullOrWhiteSpace(req.AnalogPacket))
+            {
+                return Json(new AjaxResult<Object>("请输入模拟提交数据包！"));
+            }
 
             return Json(sh.AddSubchannel(req));
         }
@@ -77,6 +84,10 @@ namespace Web.Manager.Controllers
             if (string.IsNullOrWhiteSpace(req.AddressURL))
             {
                 return Json(new AjaxResult<Object>("请输入渠道地址URL！"));
+            }
+            if (string.IsNullOrWhiteSpace(req.AnalogPacket))
+            {
+                return Json(new AjaxResult<Object>("请输入模拟提交数据包！"));
             }
             return Json(sh.EditSubchannel(req));
         }

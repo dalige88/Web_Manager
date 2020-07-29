@@ -12,6 +12,9 @@ using YL.Base;
 
 namespace Web.Manager.Controllers
 {
+    /// <summary>
+    /// 平台管理
+    /// </summary>
     public class PlatforminfoController : BaseController
     {
         #region Menu

@@ -5,15 +5,20 @@
     ViewBag.Title = "添加推广平台渠道";
 }
 @await Html.PartialAsync("_nav", new WebManager.Core.Entity.NavigationModel("推广平台", "推广平台渠道管理", "添加推广平台渠道", true))
+<style>
+    .edit-group-label {
+        width: 220px;
+    }
+</style>
 <div class="row bgwhitebox10 mymgb15">
     <div class="mysearchbox">
         <label>添加推广平台渠道</label>
         <div class="mycl"></div>
     </div>
     <div class="row mt30 mtop15">
-        <input type="text" id="PlatformID" name="PlatformID" value="@ViewBag.pid" />
+        <input type="hidden" id="PlatformID" name="PlatformID" value="@ViewBag.pid" />
         <div class="row rowmb15">
-            <div class="col-md-12">
+            <div class="col-md-pull-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>推广平台渠道名称：</label>
                 <div class="col-sm-5">
                     <input class="form-control" id="SubChannelName" name="SubChannelName" type="text" value="" />
@@ -23,15 +28,23 @@
 
         <div class="row rowmb15">
             <div class="col-md-12">
-                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>渠道地址URL（模拟数据提交包）：</label>
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>渠道地址URL：</label>
                 <div class="col-sm-5">
-                    <textarea class="form-control" id="AddressURL" name="AddressURL" ></textarea>
+                    <textarea class="form-control" id="AddressURL" name="AddressURL"></textarea>
                 </div>
             </div>
         </div>
         <div class="row rowmb15">
             <div class="col-md-12">
-                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>账号：</label>
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>模拟提交数据包：</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control" id="AnalogPacket" name="AnalogPacket"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row rowmb15">
+            <div class="col-md-12">
+                <label class="col-sm-3 edit-group-label">账号：</label>
                 <div class="col-sm-5">
                     <input class="form-control" id="UserName" name="UserName" type="text" value="" maxlength="400" />
                 </div>
@@ -39,12 +52,13 @@
         </div>
         <div class="row rowmb15">
             <div class="col-md-12">
-                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>密码：</label>
+                <label class="col-sm-3 edit-group-label">密码：</label>
                 <div class="col-sm-5">
                     <input class="form-control" id="UserPwd" name="UserPwd" type="text" value="" maxlength="400" />
                 </div>
             </div>
         </div>
+
 
 
         <div class="row rowmb15">

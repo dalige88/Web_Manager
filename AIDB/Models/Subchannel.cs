@@ -14,5 +14,6 @@ namespace AIDB.Models
         public string UserName { get; set; }
         public string UserPwd { get; set; }
         public string Remark { get; set; }
+        public string AnalogPacket { get; set; }
     }
 }

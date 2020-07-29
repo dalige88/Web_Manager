@@ -29,11 +29,10 @@ var subchannellist = {
                     <td align="center">' + itemData.platformName + '</td>\
                     <td align="center">' + itemData.subChannelName + '</td>\
                     <td align="center">' + itemData.statesName + '</td >\
-                    <td align="center">' + itemData.userName + '</td >\
-                    <td align="center">' + itemData.userPwd + '</td >\
+                    <td align="center">' + itemData.addressURL + '</td >\
                     <td align="center">' + itemData.remark + '</td>\
                     <td align="center">' + tools.nullToEmptyString(itemData.createTime) + '</td>\
-                    <td align="center">|&nbsp;&nbsp;'+ authHelper.createLink('/Subchannel/EditSubchannel', 'pid=' + itemData.platformID) + '&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'javascript:subchannellist.delSubchannel("' + itemData.id + '")\'>删除</a>&nbsp;&nbsp;|</td>';
+                    <td align="center">|&nbsp;&nbsp;'+ authHelper.createLink('/Subchannel/EditSubchannel', 'id=' + itemData.id) + '&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'javascript:subchannellist.delSubchannel("' + itemData.id + '")\'>删除</a>&nbsp;&nbsp;|</td>';
 
             html += '</td></tr>';
         });

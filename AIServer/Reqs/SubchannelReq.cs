@@ -43,5 +43,9 @@ namespace AIServer.Reqs
         /// 备注说明
         /// </summary>
         public string Remark { get; set; }
+        /// <summary>
+        /// 模拟提交数据包
+        /// </summary>
+        public string AnalogPacket { get; set; }
     }
 }

@@ -72,6 +72,7 @@ namespace AIServer
             model.UserName = req.UserName;
             model.UserPwd = req.UserPwd;
             model.Remark = req.Remark;
+            model.AnalogPacket = req.AnalogPacket;
 
             db.Add(model);
             db.SaveChanges();
@@ -97,6 +98,7 @@ namespace AIServer
             model.UserName = req.UserName;
             model.UserPwd = req.UserPwd;
             model.Remark = req.Remark;
+            model.AnalogPacket = req.AnalogPacket;
 
             db.SaveChanges();
             return new AjaxResult<Object>("编辑成功！", 0);
