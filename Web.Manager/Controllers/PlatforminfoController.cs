@@ -95,13 +95,12 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "平台管理", "删除平台（提交）")]
         public JsonResult Ajax_DelPlatforminfo(long id) 
         {
-            return Json(new AjaxResult<Object>("莫慌，推广平台子平台渠道开发完了再说！"));
-            //---------------------------------------------------
-            //if (id < 1)
-            //{
-            //    return Json(new AjaxResult<Object>("请选择您要删除的平台！"));
-            //}
-            //return Json(pl.DelPlatforminfo(id));
+            if (id < 1)
+            {
+                return Json(new AjaxResult<Object>("请选择您要删除的平台！"));
+            }
+
+            return Json(pl.DelPlatforminfo(id));
         }
 
         #endregion

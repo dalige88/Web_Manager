@@ -17,6 +17,7 @@ var Subchannel = {
         postData.PlatformID = $('#PlatformID').val();
         postData.SubChannelName = $('#SubChannelName').val();
         postData.AddressURL = $('#AddressURL').val();
+        postData.AnalogPacket = $('#AnalogPacket').val();
         postData.UserName = $('#UserName').val();
         postData.UserPwd = $('#UserPwd').val();
         postData.Remark = $('#Remark').val();
@@ -25,7 +26,7 @@ var Subchannel = {
 
         ajaxHelper.post(url, postData, function (d) {
             msg.success('操作成功！', function () {
-                window.location.href = "/Subchannel/Index";
+                window.location.href = "/Platforminfo/Index";
             });
         });
 

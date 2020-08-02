@@ -100,6 +100,13 @@ namespace AIServer
             {
                 return new AjaxResult<Object>("推广平台不存在！");
             }
+
+            int sh_num = db.Subchannel.Where(w => w.PlatformId == id).Count();
+            if (sh_num>0)
+            {
+                return new AjaxResult<Object>("莫慌，先删除平台渠道后再删除平台！");
+            }
+
             db.Platforminfo.Remove(model);
             if (db.SaveChanges() > 0)
             {
