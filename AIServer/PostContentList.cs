@@ -11,7 +11,7 @@ using AIServer.Reqs;
 namespace AIServer
 {
     /// <summary>
-    /// 数据包
+    /// 文章管理
     /// </summary>
     public class PostContentList : AIServiceBase
     {
@@ -86,16 +86,17 @@ namespace AIServer
             model.MsgTitle = req.MsgTitle.Trim();
             model.MsgContent = req.MsgContent.Trim();
             model.MsgAuthor = req.MsgAuthor.Trim();
-            model.CreateTime = req.CreateTime;
+            model.CreateTime = DateTime.Now;
             model.CreateManagerId = req.CreateManagerID;
             model.CreateUserId = req.CreateUserID;
-            model.CreateType = req.CreateType;
-            model.OpenStatus = req.OpenStatus;
-            model.CreateUserType = req.CreateUserType;
+            model.CreateType = (int)AIDB.Enum.PostContentEnum.CreateType.人工创建;
+            model.OpenStatus = (int)AIDB.Enum.PostContentEnum.OpenStatus.启用;
+            model.CreateUserType = (int)AIDB.Enum.PostContentEnum.CreateUserType.管理员;
             model.MsgType = req.MsgType;
             model.PlatformId = req.PlatformID;
             model.SubChannelId = req.SubChannelID;
             db.Postcontent.Add(model);
+
             if (db.SaveChanges() > 0)
             {
                 return new AjaxResult<Object>("添加成功！", 0);
@@ -119,15 +120,15 @@ namespace AIServer
             model.MsgTitle = req.MsgTitle.Trim();
             model.MsgContent = req.MsgContent.Trim();
             model.MsgAuthor = req.MsgAuthor.Trim();
-            model.CreateTime = req.CreateTime;
-            model.CreateManagerId = req.CreateManagerID;
-            model.CreateUserId = req.CreateUserID;
-            model.CreateType = req.CreateType;
+            //model.CreateTime = req.CreateTime;
+            //model.CreateManagerId = req.CreateManagerID;
+            //model.CreateUserId = req.CreateUserID;
+            //model.CreateType = req.CreateType;
             model.OpenStatus = req.OpenStatus;
-            model.CreateUserType = req.CreateUserType;
+            //model.CreateUserType = req.CreateUserType;
             model.MsgType = req.MsgType;
-            model.PlatformId = req.PlatformID;
-            model.SubChannelId = req.SubChannelID;
+            //model.PlatformId = req.PlatformID;
+            //model.SubChannelId = req.SubChannelID;
             db.SaveChanges();
             return new AjaxResult<Object>("编辑成功！", 0);
         }
@@ -155,6 +156,18 @@ namespace AIServer
             }
             return new AjaxResult<Object>("删除失败！");
         }
+
+        /// <summary>
+        /// 根据ID查询文章详情`
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Postcontent SelPostcontent(long id) 
+        {
+            return db.Postcontent.Where(w => w.Id == id).FirstOrDefault();
+        }
+
+
 
     }
 }

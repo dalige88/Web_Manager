@@ -17,6 +17,15 @@ namespace AIServer
         }
 
         /// <summary>
+        /// 无条件查询所有平台
+        /// </summary>
+        /// <returns></returns>
+        public List<Platforminfo> GetAllList() 
+        {
+            return db.Platforminfo.ToList();
+        }
+
+        /// <summary>
         /// 根据条件查询  推广平台列表
         /// </summary>
         /// <param name="model"></param>

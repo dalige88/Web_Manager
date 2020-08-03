@@ -31,7 +31,7 @@ namespace AIDB.Enum
             用户 = 1
         }
         /// <summary>
-        /// 发帖类型：0、纯文本，1、纯图片，2、纯视频，3、文本+图片+视频
+        /// 文章类型：0、纯文本，1、纯图片，2、纯视频，3、文本+图片+视频
         /// </summary>
         public enum MsgType 
         {

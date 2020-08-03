@@ -13,7 +13,7 @@ namespace AIServer.Reqs
         public long ID { get; set; }
 
         /// <summary>
-        /// 发帖内容
+        /// 文章内容
         /// </summary>
         public string MsgContent { get; set; }
 
@@ -50,7 +50,7 @@ namespace AIServer.Reqs
         /// </summary>
         public int CreateUserType { get; set; }
         /// <summary>
-        /// 发帖类型：0、纯文本，1、纯图片，2、纯视频，3、文本+图片+视频
+        /// 文章类型：0、纯文本，1、纯图片，2、纯视频，3、文本+图片+视频
         /// </summary>
         public int MsgType { get; set; }
         /// <summary>
@@ -71,11 +71,11 @@ namespace AIServer.Reqs
         public string SubChannelName { get; set; }
 
         /// <summary>
-        /// 发帖标题
+        /// 文章标题
         /// </summary>
         public string MsgTitle { get; set; }
         /// <summary>
-        /// 发帖作者
+        /// 文章作者
         /// </summary>
         public string MsgAuthor { get; set; }
 

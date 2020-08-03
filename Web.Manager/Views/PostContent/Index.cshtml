@@ -4,15 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Index";
 }
-@await Html.PartialAsync("_nav", new WebManager.Core.Entity.NavigationModel("推广平台", "推广平台渠道管理"))
+@await Html.PartialAsync("_nav", new WebManager.Core.Entity.NavigationModel("发帖管理", "文章管理"))
 
 <div class="row bgwhitebox10 mymgb15">
     <div class="detail-search" style="border-bottom: 2px solid #01ACE2;padding-bottom:10px;">
         <div class="col-sm-9 mypdl0">
 
 
+            @await Html.PartialAsync("_linkBtn", "/PostContent/AddPostContent")
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
             关键字：
-            <input type="text" id="KeyWord" class="mysearch-text" style="width:300px;" placeholder="平台名称" maxlength="10" />
+            <input type="text" id="KeyWord" class="mysearch-text" style="width:300px;" placeholder="文章标题" maxlength="10" />
 
         </div>
         <div class="col-sm-3 mypdr0" style="text-align:right;">
@@ -28,12 +31,13 @@
                     <thead>
                         <tr>
                             <th width="5%">ID</th>
-                            <th width="10%">平台名称</th>
-                            <th width="20%">平台渠道名称</th>
-                            <th width="5%">是否有效</th>
-                            <th width="15%">渠道地址URL</th>
-                            <th width="30%">备注</th>
+                            <th width="20%">标题</th>
+                            <th width="10%">作者</th>
                             <th width="5%">创建时间</th>
+                            <th width="15%">推广平台</th>
+                            <th width="15%">推广渠道</th>
+                            <th width="10%">启用状态</th>
+                            <th width="10%">创建类型</th>
                             <th width="10%">操作</th>
                         </tr>
                     </thead>
@@ -53,5 +57,5 @@
 }
 @section JsExtend{
     <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/plugins/sspager/ss_page.js")"></script>
-    <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/page/subchannel/index.js")"></script>
+    <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/page/postcontent/index.js")"></script>
 }
