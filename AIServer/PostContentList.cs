@@ -41,6 +41,7 @@ namespace AIServer
                             CreateUserID = (long)b.CreateUserId,
                             CreateUserName = "",
                             CreateType = b.CreateType,
+                            CreateTypeName = b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.AI创建 ? "AI创建": b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.人工创建 ? "人工创建" : "",
                             OpenStatus = b.OpenStatus,
                             OpenStatusName = b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.启用 ? "启用" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.禁用 ? "禁用" : "",
                             CreateUserType = b.CreateUserType,

@@ -2,16 +2,17 @@
 //实例化编辑器
 var um = UM.getEditor('myEditor');
 $(function () {
-
+    
     PostContent.createEditor();
     //PostContent.loadPlat();
     PostContent.pageBind();
+    //PostContent.insertHtml($('#msgcontent').val());
 });
 
 
 var PostContent = {
     pageBind: function () {
-
+        
         $('#btn_save').click(function () {
             PostContent.saveInfo();
         });
@@ -43,12 +44,12 @@ var PostContent = {
     },
 
     loadPlat: function () {
-        
+
         var Pid = $('#MenuPid').val();
 
         var postData = {};
         postData.pid = Pid;
-        
+
         var url = "/Subchannel/Ajax_GetAllList";
 
         ajaxHelper.post(url, postData, function (d) {
@@ -61,11 +62,10 @@ var PostContent = {
         });
 
 
-        
+
     },
 
-    loadSub: function (result)
-    {
+    loadSub: function (result) {
         var html = '';
         $.each(result, function (i) {
             var itemData = result[i];
@@ -73,6 +73,11 @@ var PostContent = {
         });
         $('#MenuSub').html(html);
 
+    },
+
+    //按钮的操作
+    insertHtml: function (value) {
+        um.execCommand('insertHtml', value)
     }
 };
 

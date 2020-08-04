@@ -103,6 +103,17 @@ namespace Web.Manager.Controllers
             return Json(pl.DelPlatforminfo(id));
         }
 
+        /// <summary>
+        /// 查询所有平台信息
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Ajax_GetAllList()
+        {
+            List<Platforminfo> list = pl.GetAllList();
+
+            return Json(new AjaxResult<List<Platforminfo>>(list));
+        }
+
         #endregion
 
     }

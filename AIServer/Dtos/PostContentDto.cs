@@ -39,6 +39,10 @@ namespace AIServer.Dtos
         /// </summary>
         public int CreateType { get; set; }
         /// <summary>
+        /// 创建类型：0：人工创建，1：AI创建
+        /// </summary>
+        public string CreateTypeName { get; set; }
+        /// <summary>
         /// 启用状态：0：启用，1：禁用
         /// </summary>
         public int OpenStatus { get; set; }

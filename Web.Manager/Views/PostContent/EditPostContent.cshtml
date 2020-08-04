@@ -1,10 +1,12 @@
 ﻿@using Web.Manager.WebManager.Entity
+@using AIDB.Models;
+@model Postcontent
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = "添加文章";
+    ViewBag.Title = "编辑文章";
 }
-@await Html.PartialAsync("_nav", new WebManager.Core.Entity.NavigationModel("发帖管理", "文章管理", "添加", true))
+@await Html.PartialAsync("_nav", new WebManager.Core.Entity.NavigationModel("发帖管理", "文章管理", "编辑", true))
 <style>
     .edit-group-label {
         width: 220px;
@@ -12,7 +14,7 @@
 </style>
 <div class="row bgwhitebox10 mymgb15">
     <div class="mysearchbox">
-        <label>添加文章</label>
+        <label>编辑文章</label>
         <div class="mycl"></div>
     </div>
     <div class="row mt30 mtop15">
@@ -22,10 +24,18 @@
                 <div class="col-sm-5">
 
                     <select id="MenuPid" name="MenuPid" onclick="PostContent.loadPlat()">
-                        @foreach (var item in Model)
-                        {
-                            <option value="@item.Id"> @item.PlatformName </option>
-                        }
+                        @*@foreach (var item in ViewBag.pl_list)
+                            {
+                                if (item.id == Model.PlatformID)
+                                {
+                                    <option value="@item.Id" selected="selected"> @item.PlatformName </option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id"> @item.PlatformName </option>
+                                }
+
+                            }*@
                     </select>
                 </div>
                 <div class="mycl"></div>
@@ -49,7 +59,7 @@
             <div class="col-md-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>标题：</label>
                 <div class="col-sm-5">
-                    <input class="form-control" id="MsgTitle" name="MsgTitle" type="text" value="" />
+                    <input class="form-control" id="MsgTitle" name="MsgTitle" type="text" value="@Model.MsgTitle" />
                 </div>
             </div>
         </div>
@@ -59,7 +69,7 @@
             <div class="col-md-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>作者：</label>
                 <div class="col-sm-5">
-                    <textarea class="form-control" id="MsgAuthor" name="MsgAuthor"></textarea>
+                    <textarea class="form-control" id="MsgAuthor" name="MsgAuthor">@Model.MsgAuthor</textarea>
                 </div>
             </div>
         </div>
@@ -81,11 +91,13 @@
 
         <div class="row rowmb5">
             <div class="col-md-12">
+                <input type="hidden" id="msgcontent" name="msgcontent" value="@Model.MsgContent" />
                 <label class="col-sm-2 edit-group-label"><span class="spanrequired"></span>内容：</label>
                 <div class="col-md-7">
                     <!--style给定宽度可以影响编辑器的最终宽度-->
                     <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
                         <p>这里我可以写一些输入提示</p>
+                        @*@Html.TextAreaFor(m=>m.MsgContent)*@
                     </script>
                 </div>
             </div>
@@ -123,6 +135,6 @@
 
     <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/plugins/umeditor/umeditor.config.js")"></script>
     <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/plugins/umeditor/umeditor.js")"></script>
-    <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/page/PostContent/add.js")"></script>
+    <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/page/PostContent/edit.js")"></script>
 }
 

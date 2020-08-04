@@ -29,16 +29,16 @@ namespace AIServer
                         select new SubchannelDto
                         {
                             ID = b.Id,
-                            PlatformID=(long)b.PlatformId,
-                            SubChannelName=b.SubChannelName,
-                            AddressURL=b.AddressUrl,
-                            CreateTime=Convert.ToDateTime(b.CreateTime),
-                            States=Convert.ToInt32(b.States),
-                            UserName=b.UserName,
-                            UserPwd=b.UserPwd,
-                            Remark=b.Remark,
-                            PlatformName=c.PlatformName,
-                            StatesName= b.States==0?"有效":b.States==1?"无效":"",
+                            PlatformID = (long)b.PlatformId,
+                            SubChannelName = b.SubChannelName,
+                            AddressURL = b.AddressUrl,
+                            CreateTime = Convert.ToDateTime(b.CreateTime),
+                            States = Convert.ToInt32(b.States),
+                            UserName = b.UserName,
+                            UserPwd = b.UserPwd,
+                            Remark = b.Remark,
+                            PlatformName = c.PlatformName,
+                            StatesName = b.States == 0 ? "有效" : b.States == 1 ? "无效" : "",
 
                         };
             if (!string.IsNullOrWhiteSpace(req.SubChannelName))
@@ -116,7 +116,7 @@ namespace AIServer
                 return new AjaxResult<Object>("请选择您要删除的推广渠道信息！");
             }
             Subchannel model = db.Subchannel.Where(w => w.Id == id).FirstOrDefault();
-            if (model==null)
+            if (model == null)
             {
                 return new AjaxResult<Object>("推广子平台渠道不存在！");
             }
@@ -134,9 +134,18 @@ namespace AIServer
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Subchannel SelSubchannel(long id) 
+        public Subchannel SelSubchannel(long id)
         {
             return db.Subchannel.Where(w => w.Id == id).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 根据平台查询所有渠道
+        /// </summary>
+        /// <returns></returns>
+        public List<Subchannel> GetAllList(long pid)
+        {
+            return db.Subchannel.Where(w => w.PlatformId == pid).OrderByDescending(w => w.Id).ToList();
         }
     }
 }

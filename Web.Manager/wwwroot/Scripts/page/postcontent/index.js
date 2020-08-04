@@ -29,17 +29,17 @@ var postcontentlist = {
                     <td align="center">' + itemData.msgTitle + '</td>\
                     <td align="center">' + itemData.msgAuthor + '</td>\
                     <td align="center">' + tools.nullToEmptyString(itemData.createTime) + '</td >\
-                    <td align="center">' + itemData.platformID + '</td >\
-                    <td align="center">' + itemData.subChannelID + '</td>\
-                    <td align="center">' + itemData.openStatus + '</td>\
-                    <td align="center">' + itemData.createType + '</td>\
-                    <td align="center">|&nbsp;&nbsp;'+ authHelper.createLink('/Subchannel/EditSubchannel', 'id=' + itemData.id) + '&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'javascript:postcontentlist.delSubchannel("' + itemData.id + '")\'>删除</a>&nbsp;&nbsp;|</td>';
+                    <td align="center">' + itemData.platformName + '</td >\
+                    <td align="center">' + itemData.subChannelName + '</td>\
+                    <td align="center">' + itemData.openStatusName + '</td>\
+                    <td align="center">' + itemData.createTypeName + '</td>\
+                    <td align="center">|&nbsp;&nbsp;'+ authHelper.createLink('/PostContent/EditPostContent', 'id=' + itemData.id) + '&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'javascript:postcontentlist.delPostContent("' + itemData.id + '")\'>删除</a>&nbsp;&nbsp;|</td>';
 
             html += '</td></tr>';
         });
         $('#goodsbody').html(html);
     },
-    delSubchannel: function (id) {
+    delPostContent: function (id) {
         var url = "/PostContent/Ajax_DelPostcontent";
         var postData = {};
         postData.id = id;

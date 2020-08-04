@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AIDB.Models;
 using AIServer;
 using AIServer.Reqs;
 using Microsoft.AspNetCore.Mvc;
@@ -102,6 +103,16 @@ namespace Web.Manager.Controllers
             return Json(sh.DelSubchannel(id));
         }
 
+        /// <summary>
+        /// 根据平台ID查询所有平台信息
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Ajax_GetAllList(long pid)
+        {
+            List<Subchannel> list = sh.GetAllList(pid);
+
+            return Json(new AjaxResult<List<Subchannel>>(list));
+        }
         #endregion
     }
 }

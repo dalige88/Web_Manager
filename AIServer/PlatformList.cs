@@ -22,7 +22,7 @@ namespace AIServer
         /// <returns></returns>
         public List<Platforminfo> GetAllList() 
         {
-            return db.Platforminfo.ToList();
+            return db.Platforminfo.OrderByDescending(w => w.Id).ToList();
         }
 
         /// <summary>

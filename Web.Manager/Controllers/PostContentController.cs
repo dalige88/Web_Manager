@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AIDB.Models;
 using AIServer;
 using AIServer.Reqs;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ namespace Web.Manager.Controllers
     {
         #region Menu
         PostContentList pc;
+        PlatformList pl;
 
         #endregion
 
@@ -40,7 +42,8 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "添加")]
         public IActionResult AddPostContent()
         {
-            return View();
+            List<Platforminfo> list= pl.GetAllList();
+            return View(list);
         }
         /// <summary>
         /// 编辑
@@ -49,6 +52,9 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "编辑")]
         public IActionResult EditPostContent(long id)
         {
+            List<Platforminfo> list = pl.GetAllList();
+            ViewBag.pl_list = list;
+
             var o = pc.SelPostcontent(id);
             return View(o);
         }
@@ -153,7 +159,7 @@ namespace Web.Manager.Controllers
             }
             return Json(pc.DelPostcontent(id));
         }
-
+        
         #endregion
     }
 }
