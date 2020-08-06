@@ -159,7 +159,18 @@ namespace Web.Manager.Controllers
             }
             return Json(pc.DelPostcontent(id));
         }
-        
+
+        /// <summary>
+        /// 根据平台ID查询所有平台信息
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Ajax_GetAllList()
+        {
+            List<Platforminfo> list = pl.GetAllList();
+
+            return Json(new AjaxResult<List<Platforminfo>>(list));
+        }
+
         #endregion
     }
 }

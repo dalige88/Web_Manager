@@ -21,7 +21,7 @@
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>平台：</label>
                 <div class="col-sm-5">
 
-                    <select id="MenuPid" name="MenuPid" onclick="PostContent.loadPlat()">
+                    <select id="MenuPid" name="MenuPid" onclick="PostContent.loadSubData()">
                         @foreach (var item in Model)
                         {
                             <option value="@item.Id"> @item.PlatformName </option>
@@ -66,7 +66,7 @@
 
         <div class="row rowmb15">
             <div class="col-md-12">
-                <label class="col-sm-3 edit-group-label">发帖类型：</label>
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>发帖类型：</label>
                 <div class="col-sm-5 radio-pad">
                     <label><input type="radio" value="0" name="MsgType" class="RoleStatus" /> 文本</label>
                     &nbsp;&nbsp;&nbsp;
@@ -81,7 +81,7 @@
 
         <div class="row rowmb5">
             <div class="col-md-12">
-                <label class="col-sm-2 edit-group-label"><span class="spanrequired"></span>内容：</label>
+                <label class="col-sm-2 edit-group-label"><span class="spanrequired">*</span>内容：</label>
                 <div class="col-md-7">
                     <!--style给定宽度可以影响编辑器的最终宽度-->
                     <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">

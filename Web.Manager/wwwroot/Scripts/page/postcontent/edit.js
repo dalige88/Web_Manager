@@ -4,7 +4,7 @@ var um = UM.getEditor('myEditor');
 $(function () {
     
     PostContent.createEditor();
-    //PostContent.loadPlat();
+    PostContent.loadPlaData();
     PostContent.pageBind();
     //PostContent.insertHtml($('#msgcontent').val());
 });
@@ -22,7 +22,9 @@ var PostContent = {
     },
 
     saveInfo: function () {
+        alert($('#id').val());
         var postData = {};
+        postData.ID = $('#id').val();
         postData.MsgTitle = $('#MsgTitle').val();
         postData.MsgAuthor = $('#MsgAuthor').val();
         postData.MsgContent = um.getContent();
@@ -33,7 +35,13 @@ var PostContent = {
             postData.MsgType = $('.RoleStatus:checked').eq(0).val();
         }
 
-        var url = "/PostContent/Ajax_AddPostcontent";
+        postData.OpenStatus = 0;
+        if ($('.OpenStatus:checked').length > 0) {
+            postData.OpenStatus = $('.OpenStatus:checked').eq(0).val();
+        }
+
+
+        var url = "/PostContent/Ajax_EditPostcontent";
 
         ajaxHelper.post(url, postData, function (d) {
             msg.success('操作成功！', function () {
@@ -43,36 +51,59 @@ var PostContent = {
 
     },
 
-    loadPlat: function () {
 
-        var Pid = $('#MenuPid').val();
 
+    loadPlaData: function () {
+        var postData = {};
+        var url = "/PostContent/Ajax_GetAllList";
+        ajaxHelper.post(url, postData, function (d) {
+            if (d.length > 0) {
+                PostContent.loadPlaHtml(d);
+            } else {
+                $('#MenuPid').html('<option value="">--请选择渠道--</option>');
+            }
+        });
+    },
+    loadPlaHtml: function (result) {
+        var Pid = $('#pid').val();
+        PostContent.loadSubData(Pid);
+        var html = '';
+        $.each(result, function (i) {
+            var itemData = result[i];
+            if (Pid == itemData.id) {
+                html += '<option value=' + itemData.id + ' selected=\'selected\'> ' + itemData.platformName + ' </option>';
+            } else {
+                html += '<option value=' + itemData.id + '> ' + itemData.platformName + ' </option>';
+            }
+            
+        });
+        $('#MenuPid').html(html);
+    },
+
+
+
+
+
+    loadSubData: function (Pid) {
         var postData = {};
         postData.pid = Pid;
-
         var url = "/Subchannel/Ajax_GetAllList";
-
         ajaxHelper.post(url, postData, function (d) {
-            console.log(d);
             if (d.length > 0) {
-                PostContent.loadSub(d);
+                PostContent.loadSubHtml(d);
             } else {
                 $('#MenuSub').html('<option value="">--请选择渠道--</option>');
             }
         });
-
-
-
     },
 
-    loadSub: function (result) {
+    loadSubHtml: function (result) {
         var html = '';
         $.each(result, function (i) {
             var itemData = result[i];
             html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
         });
         $('#MenuSub').html(html);
-
     },
 
     //按钮的操作

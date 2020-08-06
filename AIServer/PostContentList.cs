@@ -113,7 +113,7 @@ namespace AIServer
         public AjaxResult<Object> EditPostcontent(PostContentReq req)
         {
             Postcontent model = db.Postcontent.Where(w => w.Id == req.ID).FirstOrDefault();
-            if (model != null)
+            if (model == null)
             {
                 return new AjaxResult<Object>("您编辑的帖子信息不存在！");
             }

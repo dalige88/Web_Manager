@@ -42,7 +42,7 @@ var PostContent = {
 
     },
 
-    loadPlat: function () {
+    loadSubData: function () {
         
         var Pid = $('#MenuPid').val();
 
@@ -54,7 +54,7 @@ var PostContent = {
         ajaxHelper.post(url, postData, function (d) {
             console.log(d);
             if (d.length > 0) {
-                PostContent.loadSub(d);
+                PostContent.loadSubHtml(d);
             } else {
                 $('#MenuSub').html('<option value="">--请选择渠道--</option>');
             }
@@ -64,7 +64,7 @@ var PostContent = {
         
     },
 
-    loadSub: function (result)
+    loadSubHtml: function (result)
     {
         var html = '';
         $.each(result, function (i) {
