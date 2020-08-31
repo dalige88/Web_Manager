@@ -147,5 +147,16 @@ namespace AIServer
         {
             return db.Subchannel.Where(w => w.PlatformId == pid).OrderByDescending(w => w.Id).ToList();
         }
+
+        /// <summary>
+        /// 添加图片库
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int AddJrttImagesinfo(Jrttimagesinfo model) 
+        {
+            db.Jrttimagesinfo.Add(model);
+            return db.SaveChanges();
+        }
     }
 }

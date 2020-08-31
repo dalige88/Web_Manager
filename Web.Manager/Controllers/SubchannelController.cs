@@ -7,6 +7,8 @@ using AIDB.Models;
 using AIServer;
 using AIServer.Reqs;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WebManager.Core.Entity;
 using YL.Base;
 
@@ -36,7 +38,7 @@ namespace Web.Manager.Controllers
             fileName += "linux.sh";*/
             //var psi = new ProcessStartInfo("dotnet", "--info") { RedirectStandardOutput = true };
 
-            var psi = new ProcessStartInfo("python", "E:/work/NET/WebManager/WebManager/Web.Manager/locdb/1234.py C:/Users/Administrator/Desktop/tmp/1212.jpg") { RedirectStandardOutput = true };
+            var psi = new ProcessStartInfo("python", "E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py C:/Users/Administrator/Desktop/temp/1234.jpg") { RedirectStandardOutput = true };
             var proc = Process.Start(psi);
             if (proc == null)
             {
@@ -50,7 +52,20 @@ namespace Web.Manager.Controllers
                 {
                     while (!sr.EndOfStream)
                     {
-                        Console.WriteLine(sr.ReadLine());
+                        //Console.WriteLine(sr.ReadLine());
+                        string jsonText = sr.ReadLine();
+                        JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
+                        
+                        string ss = jo["url"].ToString();
+
+                        Jrttimagesinfo model = new Jrttimagesinfo();
+                        model.PlatforminfoId = 1;
+                        model.Url = jo["url"].ToString();
+                        model.Height = jo["height"].ToString();
+                        model.Width= jo["width"].ToString();
+                        model.WebUrl = jo["web_url"].ToString();
+                        int num = sh.AddJrttImagesinfo(model);
+
                     }
 
                     if (!proc.HasExited)

@@ -15,8 +15,15 @@ namespace AIDB.Models
         {
         }
 
+        public virtual DbSet<Jrttfensiinfo> Jrttfensiinfo { get; set; }
+        public virtual DbSet<Jrttimagesinfo> Jrttimagesinfo { get; set; }
+        public virtual DbSet<Jrttpinluninfo> Jrttpinluninfo { get; set; }
+        public virtual DbSet<Jrttuserinfo> Jrttuserinfo { get; set; }
+        public virtual DbSet<Jrttweitoutiaoinfo> Jrttweitoutiaoinfo { get; set; }
+        public virtual DbSet<Jrttwenzhanginfo> Jrttwenzhanginfo { get; set; }
         public virtual DbSet<Platforminfo> Platforminfo { get; set; }
         public virtual DbSet<Postcontent> Postcontent { get; set; }
+        public virtual DbSet<Postingrecord> Postingrecord { get; set; }
         public virtual DbSet<Subchannel> Subchannel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,6 +37,420 @@ namespace AIDB.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Jrttfensiinfo>(entity =>
+            {
+                entity.ToTable("jrttfensiinfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.AvatarUrl)
+                    .HasColumnName("avatar_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.OpenUrl)
+                    .HasColumnName("open_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ScreenName)
+                    .HasColumnName("screen_name")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Jrttimagesinfo>(entity =>
+            {
+                entity.ToTable("jrttimagesinfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("bigint(20) unsigned");
+
+                entity.Property(e => e.Height)
+                    .HasColumnName("height")
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PlatforminfoId)
+                    .HasColumnName("platforminfo_id")
+                    .HasColumnType("bigint(20)")
+                    .HasComment("平台ID（头条、百度。。。。）");
+
+                entity.Property(e => e.Url)
+                    .HasColumnName("url")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("本地URL")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.WebUrl)
+                    .HasColumnName("web_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Width)
+                    .HasColumnName("width")
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Jrttpinluninfo>(entity =>
+            {
+                entity.ToTable("jrttpinluninfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.AvatarUrl)
+                    .HasColumnName("avatar_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.DongtaiId)
+                    .HasColumnName("dongtai_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.GroupId)
+                    .HasColumnName("group_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ItemId)
+                    .HasColumnName("item_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Text)
+                    .HasColumnName("text")
+                    .HasColumnType("varchar(600)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Jrttuserinfo>(entity =>
+            {
+                entity.ToTable("jrttuserinfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID_")
+                    .HasColumnType("bigint(11)");
+
+                entity.Property(e => e.AvatarUrl)
+                    .HasColumnName("avatar_url")
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.BindMobile)
+                    .HasColumnName("bind_mobile")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CreatorId)
+                    .HasColumnName("creator_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Id1)
+                    .HasColumnName("id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Level)
+                    .HasColumnName("level")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.LocationName)
+                    .HasColumnName("location_name")
+                    .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.VerifiedAvatarUri)
+                    .HasColumnName("verified_avatar_uri")
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.VerifiedDescription)
+                    .HasColumnName("verified_description")
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.VerifiedName)
+                    .HasColumnName("verified_name")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Jrttweitoutiaoinfo>(entity =>
+            {
+                entity.ToTable("jrttweitoutiaoinfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Content)
+                    .HasColumnName("content")
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PublishTime)
+                    .HasColumnName("publish_time")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ThreadId)
+                    .HasColumnName("thread_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.UgcU13CutImageList)
+                    .HasColumnName("ugc_u13_cut_image_list")
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Jrttwenzhanginfo>(entity =>
+            {
+                entity.ToTable("jrttwenzhanginfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Abstract)
+                    .HasColumnName("abstract")
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ArticleGenre)
+                    .HasColumnName("article_genre")
+                    .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.BehotTime)
+                    .HasColumnName("behot_time")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ChineseTag)
+                    .HasColumnName("chinese_tag")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CommentsCount)
+                    .HasColumnName("comments_count")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Composition)
+                    .HasColumnName("composition")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.DetailPlayEffectiveCount)
+                    .HasColumnName("detail_play_effective_count")
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.DisplayUrl)
+                    .HasColumnName("display_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.GallaryImageCount)
+                    .HasColumnName("gallary_image_count")
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.GoDetailCount)
+                    .HasColumnName("go_detail_count")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.GroupId)
+                    .HasColumnName("group_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.GroupSource)
+                    .HasColumnName("group_source")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.HasGallery)
+                    .HasColumnName("has_gallery")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.HasVideo)
+                    .HasColumnName("has_video")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ImageList)
+                    .HasColumnName("image_list")
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ImageUrl)
+                    .HasColumnName("image_url")
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ItemId)
+                    .HasColumnName("item_id")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.MediaUrl)
+                    .HasColumnName("media_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.MiddleMode)
+                    .HasColumnName("middle_mode")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.MoreMode)
+                    .HasColumnName("more_mode")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.SingleMode)
+                    .HasColumnName("single_mode")
+                    .HasColumnType("varchar(40)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Source)
+                    .HasColumnName("source")
+                    .HasColumnType("varchar(80)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.SourceUrl)
+                    .HasColumnName("source_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Tag)
+                    .HasColumnName("tag")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.TagUrl)
+                    .HasColumnName("tag_url")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Title)
+                    .HasColumnName("title")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Visibility)
+                    .HasColumnName("visibility")
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
             modelBuilder.Entity<Platforminfo>(entity =>
             {
                 entity.ToTable("platforminfo");
@@ -108,6 +529,54 @@ namespace AIDB.Models
                 entity.Property(e => e.SubChannelId)
                     .HasColumnName("SubChannelID")
                     .HasColumnType("bigint(20)");
+            });
+
+            modelBuilder.Entity<Postingrecord>(entity =>
+            {
+                entity.ToTable("postingrecord");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20) unsigned");
+
+                entity.Property(e => e.ManagerId)
+                    .HasColumnName("ManagerID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.MsgTitle)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PlatformId)
+                    .HasColumnName("PlatformID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.PostContentId)
+                    .HasColumnName("PostContentID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.PostData)
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PostTime).HasColumnType("datetime");
+
+                entity.Property(e => e.PostType).HasColumnType("int(11)");
+
+                entity.Property(e => e.ReturnData)
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.SubChannelId)
+                    .HasColumnName("SubChannelID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Success).HasColumnType("int(11) unsigned");
             });
 
             modelBuilder.Entity<Subchannel>(entity =>
