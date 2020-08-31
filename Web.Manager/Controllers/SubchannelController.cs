@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AIDB.Models;
@@ -31,6 +32,40 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "推广平台渠道管理", "添加")]
         public IActionResult AddSubchannel(string pid) 
         {
+            /*string fileName = "shell/";
+            fileName += "linux.sh";*/
+            //var psi = new ProcessStartInfo("dotnet", "--info") { RedirectStandardOutput = true };
+
+            var psi = new ProcessStartInfo("python", "E:/work/NET/WebManager/WebManager/Web.Manager/locdb/1234.py C:/Users/Administrator/Desktop/tmp/1212.jpg") { RedirectStandardOutput = true };
+            var proc = Process.Start(psi);
+            if (proc == null)
+            {
+                Console.WriteLine("Can not exec.");
+            }
+            else
+            {
+                Console.WriteLine("-------------Start read standard output--------------");
+                //开始读取
+                using (var sr = proc.StandardOutput)
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        Console.WriteLine(sr.ReadLine());
+                    }
+
+                    if (!proc.HasExited)
+                    {
+                        proc.Kill();
+                    }
+                }
+                Console.WriteLine("---------------Read end------------------");
+                Console.WriteLine($"Total execute time :{(proc.ExitTime - proc.StartTime).TotalMilliseconds} ms");
+                Console.WriteLine($"Exited Code ： {proc.ExitCode}");
+
+            }
+
+
+
             ViewBag.pid = pid;
             return View();
         }
