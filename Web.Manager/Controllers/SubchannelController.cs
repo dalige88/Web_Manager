@@ -34,53 +34,6 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "推广平台渠道管理", "添加")]
         public IActionResult AddSubchannel(string pid) 
         {
-            /*string fileName = "shell/";
-            fileName += "linux.sh";*/
-            //var psi = new ProcessStartInfo("dotnet", "--info") { RedirectStandardOutput = true };
-
-            var psi = new ProcessStartInfo("python", "E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py C:/Users/Administrator/Desktop/temp/1234.jpg") { RedirectStandardOutput = true };
-            var proc = Process.Start(psi);
-            if (proc == null)
-            {
-                Console.WriteLine("Can not exec.");
-            }
-            else
-            {
-                Console.WriteLine("-------------Start read standard output--------------");
-                //开始读取
-                using (var sr = proc.StandardOutput)
-                {
-                    while (!sr.EndOfStream)
-                    {
-                        //Console.WriteLine(sr.ReadLine());
-                        string jsonText = sr.ReadLine();
-                        JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
-                        
-                        string ss = jo["url"].ToString();
-
-                        Jrttimagesinfo model = new Jrttimagesinfo();
-                        model.PlatforminfoId = 1;
-                        model.Url = jo["url"].ToString();
-                        model.Height = jo["height"].ToString();
-                        model.Width= jo["width"].ToString();
-                        model.WebUrl = jo["web_url"].ToString();
-                        int num = sh.AddJrttImagesinfo(model);
-
-                    }
-
-                    if (!proc.HasExited)
-                    {
-                        proc.Kill();
-                    }
-                }
-                Console.WriteLine("---------------Read end------------------");
-                Console.WriteLine($"Total execute time :{(proc.ExitTime - proc.StartTime).TotalMilliseconds} ms");
-                Console.WriteLine($"Exited Code ： {proc.ExitCode}");
-
-            }
-
-
-
             ViewBag.pid = pid;
             return View();
         }

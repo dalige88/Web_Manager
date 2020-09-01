@@ -82,11 +82,17 @@ namespace AIDB.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("bigint(20) unsigned");
+                    .HasColumnType("bigint(20)");
 
                 entity.Property(e => e.Height)
                     .HasColumnName("height")
                     .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.MimeType)
+                    .HasColumnName("mime_type")
+                    .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 

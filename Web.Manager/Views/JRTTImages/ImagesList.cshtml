@@ -1,0 +1,61 @@
+﻿@using Web.Manager.WebManager.Entity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+@await Html.PartialAsync("_nav", new WebManager.Core.Entity.NavigationModel("推广平台", "图片管理", "图片列表"))
+
+<div class="row bgwhitebox10 mymgb15">
+    <input type="hidden" id="pid" name="pid" value="@ViewData["pid"]" />
+    <div class="detail-search" style="border-bottom: 2px solid #01ACE2;padding-bottom:10px;">
+        <div class="col-sm-9 mypdl0">
+            @await Html.PartialAsync("_linkBtn", "/JRTTImages/Add")
+            
+
+
+        </div>
+        <div class="col-sm-3 mypdr0" style="text-align:right;">
+            <button id="btn_add" class="btn btn-primary" onclick="openAdd()"><i class="fa fa-plus"></i>添加图片</button>
+            <button id="btn_cancel" class="btn btn-warning" onclick="history.go(-1)">返回</button>
+        </div>
+
+        <div class="mycl"></div>
+    </div>
+    <div class="row mtop15">
+        <div class="row">
+            <div class="col-sm-12" style="padding:0px;">
+                <div>
+                    @foreach (var item in Model)
+                    {
+                        <a href="/JRTTImages/Sell?id=@item.Id">
+                            <img src="@item.WebUrl" style="width:100px;float:left; margin:5px;" />
+                        </a>
+                    }
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div id="infoPage"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section CssExtend{
+    <link rel="stylesheet" href="@HtmlExtention.GetUrlContent("/Scripts/plugins/sspager/ss_page.css")" />
+}
+@section JsExtend{
+    <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/plugins/sspager/ss_page.js")"></script>
+    <script type="text/javascript">
+
+        function openAdd()
+        {
+            location.href = "/JRTTImages/Add?pid=" + $('#pid').val();
+        }
+
+
+    </script>
+}

@@ -30,6 +30,7 @@ var platformlist = {
                     <td align="center">' + itemData.addressUrl + '</td >\
                     <td align="center">' + tools.nullToEmptyString(itemData.createTime) + '</td>\
                     <td align="center">' + itemData.remark + '</td>\
+                    <td align="center"><a href=\'/JRTTImages/ImagesList?pid=' + itemData.id +'\'>图库管理</a>' + '</td>\
                     <td align="center">|&nbsp;&nbsp;'+ authHelper.createLink('/Platforminfo/EditPlatforminfo', 'id=' + itemData.id) + '&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'javascript:platformlist.delPlatform("' + itemData.id + '")\'>删除</a>&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'/Subchannel/AddSubchannel?pid=' + itemData.id +'\'>添加渠道</a>&nbsp;&nbsp;|</td>';
 
             html += '</td></tr>';
