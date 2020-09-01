@@ -16,13 +16,16 @@ var PostContent = {
         $('#btn_save').click(function () {
             PostContent.saveInfo();
         });
+        $('#btn_post_jrtt').click(function () {
+            PostContent.postJRTT();
+        });
 
     }, createEditor: function () {
         um = UM.getEditor('myEditor');
     },
 
     saveInfo: function () {
-        alert($('#id').val());
+        
         var postData = {};
         postData.ID = $('#id').val();
         postData.MsgTitle = $('#MsgTitle').val();
@@ -109,7 +112,24 @@ var PostContent = {
     //按钮的操作
     insertHtml: function (value) {
         um.execCommand('insertHtml', value)
-    }
+    },
+
+    postJRTT: function () {
+        var postData = {}; 
+        postData.id = $('#id').val();
+        postData.PYScript = $('#PYScript').val();
+        var url = "/PostContent/Ajax_PostJRTTWenZhang";
+        ajaxHelper.post(url, postData, function (d) {
+            msg.success('操作成功！', function () {
+                window.location.href = "/PostContent/Index";
+            });
+        });
+
+
+
+
+
+    },
 };
 
 

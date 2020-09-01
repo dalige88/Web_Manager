@@ -43,7 +43,7 @@ namespace AIServer
                             CreateType = b.CreateType,
                             CreateTypeName = b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.AI创建 ? "AI创建": b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.人工创建 ? "人工创建" : "",
                             OpenStatus = b.OpenStatus,
-                            OpenStatusName = b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.启用 ? "启用" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.禁用 ? "禁用" : "",
+                            OpenStatusName = b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 ? "头条网已发布" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.禁用 ? "禁用" : "",
                             CreateUserType = b.CreateUserType,
                             CreateUserTypeName = b.CreateUserType == (int)AIDB.Enum.PostContentEnum.CreateUserType.用户 ? "用户" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.CreateUserType.管理员 ? "管理员" : "",
                             MsgType = b.MsgType,
@@ -91,7 +91,7 @@ namespace AIServer
             model.CreateManagerId = req.CreateManagerID;
             model.CreateUserId = req.CreateUserID;
             model.CreateType = (int)AIDB.Enum.PostContentEnum.CreateType.人工创建;
-            model.OpenStatus = (int)AIDB.Enum.PostContentEnum.OpenStatus.启用;
+            model.OpenStatus = (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布;
             model.CreateUserType = (int)AIDB.Enum.PostContentEnum.CreateUserType.管理员;
             model.MsgType = req.MsgType;
             model.PlatformId = req.PlatformID;

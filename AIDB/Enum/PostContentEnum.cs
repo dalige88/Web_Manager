@@ -15,12 +15,13 @@ namespace AIDB.Enum
             AI创建=1
         }
         /// <summary>
-        /// 启用状态：0：启用，1：禁用
+        /// 启用状态：0：头条网已发布，1：禁用
         /// </summary>
         public enum OpenStatus
         {
-            启用 = 0,
-            禁用 = 1
+            头条网已发布 = 1,
+            禁用 = 0,
+            
         }
         /// <summary>
         /// 创建人类型：0：管理员，1：用户
