@@ -506,6 +506,19 @@ namespace AIDB.Models
 
                 entity.Property(e => e.CreateUserType).HasColumnType("int(255)");
 
+                entity.Property(e => e.HeadImg)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasComment("头图  服务器  物理  地址")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.HeadImgServer)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("头图  服务器  浏览  地址")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
                 entity.Property(e => e.MsgAuthor)
                     .IsRequired()
                     .HasColumnType("varchar(255)")

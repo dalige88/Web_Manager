@@ -34,6 +34,11 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "图片管理","添加图片")]
         public IActionResult Add(long pid)
         {
+            string str2 = Environment.CurrentDirectory;          //获取和设置当前目录（即该进程从中启动的目录）的完全限定路径。
+            //E:\work\NET\WebManager\WebManager\Web.Manager
+            //E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py
+            ViewBag.pyscript = str2 + "/wwwroot/PY/上传图片到材料库.py";
+
             ViewData["pid"] = pid;
             return View();
         }

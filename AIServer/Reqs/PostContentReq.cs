@@ -78,7 +78,11 @@ namespace AIServer.Reqs
         /// 文章作者
         /// </summary>
         public string MsgAuthor { get; set; }
-
+        /// <summary>
+        /// 首页头图
+        /// </summary>
+        public string HeadImg { get; set; }
+        public string HeadImgServer{ get; set; }
 
 
 

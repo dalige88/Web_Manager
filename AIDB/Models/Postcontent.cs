@@ -18,5 +18,7 @@ namespace AIDB.Models
         public long SubChannelId { get; set; }
         public string MsgTitle { get; set; }
         public string MsgAuthor { get; set; }
+        public string HeadImg { get; set; }
+        public string HeadImgServer { get; set; }
     }
 }

@@ -121,6 +121,8 @@ namespace AIServer
             model.MsgTitle = req.MsgTitle.Trim();
             model.MsgContent = req.MsgContent.Trim();
             model.MsgAuthor = req.MsgAuthor.Trim();
+            model.HeadImg = req.HeadImg.Trim();
+            model.HeadImgServer = req.HeadImgServer.Trim();
             //model.CreateTime = req.CreateTime;
             //model.CreateManagerId = req.CreateManagerID;
             //model.CreateUserId = req.CreateUserID;

@@ -38,6 +38,50 @@ namespace Web.Manager.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 文章内容加上（头条）图片所需要的参数
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private string UpdateContent(string data) 
+        {
+            //截取图片字段
+            //获取截取的src
+            //替换截取的图片字段
+            //循环操作
+
+            int num = 1;
+            string dataes = "";
+
+
+            string[] a1 = data.Split("_src=");
+            foreach (var item in a1)
+            {
+                string items = "_src=";
+                if (item.Contains("pgc-image/"))
+                {
+                    int b = item.IndexOf("pgc-image/");
+                    int c = item.IndexOf(".jpg");
+                    string a2 = item.Substring(b, c - b);
+
+                    if (num > 1)
+                    {
+                        items = "web_uri=\"" + a2 + "\" _src=" + item;
+                    }
+                    else
+                    {
+                        items = item;
+                    }
+                }
+                dataes += items;
+
+                num++;
+            }
+
+            return dataes;
+        }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -45,7 +89,7 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "添加")]
         public IActionResult AddPostContent()
         {
-            List<Platforminfo> list= pl.GetAllList();
+            List<Platforminfo> list = pl.GetAllList();
             return View(list);
         }
         /// <summary>
@@ -55,6 +99,12 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "编辑")]
         public IActionResult EditPostContent(long id)
         {
+            string str2 = Environment.CurrentDirectory;          //获取和设置当前目录（即该进程从中启动的目录）的完全限定路径。
+            //E:\work\NET\WebManager\WebManager\Web.Manager
+            //E:/work/NET/WebManager/WebManager/Web.Manager/wwwroot/PY/发布头条文章.py
+            ViewBag.pyscript = str2 + "/wwwroot/PY/发布头条文章.py";
+
+
             List<Platforminfo> list = pl.GetAllList();
             ViewBag.pl_list = list;
 
@@ -100,11 +150,11 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("文章类型错误！"));
             }
-            if (req.PlatformID<1)
+            if (req.PlatformID < 1)
             {
                 return Json(new AjaxResult<Object>("推广平台信息错误！"));
             }
-            if(req.SubChannelID<1)
+            if (req.SubChannelID < 1)
             {
                 return Json(new AjaxResult<Object>("推广渠道信息错误！"));
             }
@@ -120,7 +170,8 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "编辑文章（提交）")]
         public JsonResult Ajax_EditPostcontent(PostContentReq req)
         {
-            if (req.ID<1)
+            
+            if (req.ID < 1)
             {
                 return Json(new AjaxResult<Object>("请选择您要编辑的文章！"));
             }
@@ -136,13 +187,17 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("请输入作者！"));
             }
-            if (req.OpenStatus!=(int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 && req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.禁用)
+            if (req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 && req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.禁用)
             {
                 return Json(new AjaxResult<Object>("启用状态错误！"));
             }
             if (req.MsgType != (int)AIDB.Enum.PostContentEnum.MsgType.纯文本 && req.MsgType != (int)AIDB.Enum.PostContentEnum.MsgType.纯图片 && req.MsgType != (int)AIDB.Enum.PostContentEnum.MsgType.纯视频 && req.MsgType != (int)AIDB.Enum.PostContentEnum.MsgType.文本图片视频)
             {
                 return Json(new AjaxResult<Object>("文章类型错误！"));
+            }
+            if (string.IsNullOrWhiteSpace(req.HeadImg)||string.IsNullOrWhiteSpace(req.HeadImgServer))
+            {
+                return Json(new AjaxResult<Object>("请上传首页头图！"));
             }
 
             return Json(pc.EditPostcontent(req));
@@ -176,11 +231,26 @@ namespace Web.Manager.Controllers
 
 
         [MenuItemAttribute("发帖管理", "文章管理", "发布头条平台")]
-        public JsonResult Ajax_PostJRTTWenZhang(string PYScript, long id)
+        public JsonResult Ajax_PostJRTTWenZhang(string PYScript, long id,string HeadImg)
         {
-            Postcontent model = pc.SelPostcontent(id);
+            if (id<1)
+            {
+                return Json(new AjaxResult<Object>("信息错误！"));
+            }
+            if (string.IsNullOrWhiteSpace(PYScript))
+            {
+                return Json(new AjaxResult<Object>("脚本地址错误！"));
+            }
+            if (string.IsNullOrWhiteSpace(HeadImg))
+            {
+                return Json(new AjaxResult<Object>("请上传首页头图！"));
+            }
 
-            string script = PYScript + " " + model.MsgTitle + " " + model.MsgContent;
+            Postcontent model = pc.SelPostcontent(id);
+            /*string ss = UpdateContent(model.MsgContent);
+            return null;*/
+
+            string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + UpdateContent(model.MsgContent);
 
             /*var psi = new ProcessStartInfo("python", "E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py C:/Users/Administrator/Desktop/temp/1234.jpg") { RedirectStandardOutput = true };*/
             var psi = new ProcessStartInfo("python", script) { RedirectStandardOutput = true };
@@ -203,24 +273,16 @@ namespace Web.Manager.Controllers
                         string jsonText = sr.ReadLine();
                         JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
 
-                        if (jo["code"].ToString()=="0")
+                        if (jo["code"].ToString() == "0")
                         {
-                            return Json(new AjaxResult<Object>("头条发布成功！",0));
+                            return Json(new AjaxResult<Object>("头条发布成功！", 0));
                         }
                         else
                         {
                             return Json(new AjaxResult<Object>("发布失败！"));
                         }
 
-                        //JrttimagesReq md = new JrttimagesReq();
-                        //md.PlatforminfoID = req.PlatforminfoID;
-                        //md.Url = req.Url;
-                        //md.Height = jo["height"].ToString();
-                        //md.Width = jo["width"].ToString();
-                        //md.WebUrl = jo["web_url"].ToString();
-                        //md.MimeType = jo["mime_type"].ToString();
-
-                        //return Json(jrtt.Add(md));
+                        
                     }
 
                     if (!proc.HasExited)
@@ -241,7 +303,7 @@ namespace Web.Manager.Controllers
 
 
 
-            
+
             return Json(new AjaxResult<Object>("发布到头条失败！"));
         }
 
