@@ -63,6 +63,7 @@ def time_to_date(timestamp,format="%Y-%m-%d %H:%M:%S"):
 
 # 发布文章
 def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writting_race_mode=0,extern_link=None):
+    # print(content)
     # 发布内容
     cont = ''
    
@@ -72,7 +73,7 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
             cont+=item+" "
         num=num+1
     
-    # print(cont)
+    # cont = cont.replace('`','"')
 
     """
     :param title: 图文作品 标题
@@ -128,13 +129,13 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
     data = {
         'article_type': 0,
         'title': title,
-        'content': cont.replace('\"','\\"'),
+        'content': cont.replace('`','"'),
         'save': 1,
         'source':'21',
         'pgc_feed_covers': _cover,
     }
 
-    # print(cont.replace('\"','\\"'))
+    # print(cont)
 
    
     reponse = requests.post(url=url, data=data, headers=headers)
