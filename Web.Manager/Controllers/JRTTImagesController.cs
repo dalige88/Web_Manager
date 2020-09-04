@@ -20,18 +20,14 @@ namespace Web.Manager.Controllers
 
         JRTTImagesList jrtt;
         SubChannelList sh;
+        JrttWeiTouTiaoList wtt;
 
         #endregion
 
 
         #region 页面
-/*        [MenuItemAttribute("推广平台", "图片管理")]
-        public IActionResult Index(long pid)
-        {
-            object o = jrtt.GetList(pid);
-            return View(o);
-        }*/
-        [MenuItemAttribute("推广平台", "图片管理","添加图片")]
+
+        [MenuItemAttribute("推广平台", "图片管理", "添加图片")]
         public IActionResult Add(long pid)
         {
             string str2 = Environment.CurrentDirectory;          //获取和设置当前目录（即该进程从中启动的目录）的完全限定路径。
@@ -49,12 +45,27 @@ namespace Web.Manager.Controllers
             return View(jrtt.Sell(id));
         }
 
-        [MenuItemAttribute("推广平台", "图片管理","图片列表")]
+        [MenuItemAttribute("推广平台", "图片管理", "图片列表")]
         public IActionResult ImagesList(long pid)
         {
             ViewData["pid"] = pid;
             object o = jrtt.GetList(pid);
             return View(o);
+        }
+
+
+
+        [MenuItemAttribute("推广平台", "微头条管理", "微头条列表")]
+        public IActionResult WeiTouTiaoList()
+        {
+            return View();
+        }
+
+        [MenuItemAttribute("推广平台", "微头条管理", "添加微头条")]
+        public IActionResult AddWttPage(long pid)
+        {
+            ViewBag.pid = pid;
+            return View();
         }
 
 
@@ -97,7 +108,7 @@ namespace Web.Manager.Controllers
                         md.Height = jo["height"].ToString();
                         md.Width = jo["width"].ToString();
                         md.WebUrl = jo["web_url"].ToString();
-                        md.MimeType= jo["mime_type"].ToString();
+                        md.MimeType = jo["mime_type"].ToString();
 
                         return Json(jrtt.Add(md));
                     }
@@ -116,6 +127,49 @@ namespace Web.Manager.Controllers
             return Json(new AjaxResult<Object>("上传头条服务器失败！"));
 
         }
+
+
+        /// <summary>
+        /// 微头条列表（已发布 / 未发布）
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [MenuItemAttribute("推广平台", "微头条管理", "微头条列表")]
+        public JsonResult Ajax_WTTGetList(JrttWeiTouTiaoReq req)
+        {
+            if (req.Status == (int)AIDB.Enum.JrttWeiTouTiaoEnum.status.头条平台已发布)
+            {
+                return Json(wtt.GetList(req));
+            }
+            else
+            {
+                YPJrttWeiTouTiaoReq model = new YPJrttWeiTouTiaoReq();
+                model.Content = req.Content;
+                return Json(wtt.YPGetList(model));
+            }
+
+        }
+
+        /// <summary>
+        /// 添加微头条
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [MenuItemAttribute("推广平台", "微头条管理", "添加微头条（提交）")]
+        public JsonResult Ajax_AddWTT(JrttWeiTouTiaoReq req)
+        {
+            if (string.IsNullOrWhiteSpace(req.Content))
+            {
+                return Json(new AjaxResult<Object>("微头条内容不能为空！"));
+            }
+            if (req.Pid<1)
+            {
+                return Json(new AjaxResult<Object>("平台ID错误！"));
+            }
+
+            return Json(wtt.AddYPWTT(req));
+        }
+
 
 
         #endregion

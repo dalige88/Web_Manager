@@ -25,6 +25,7 @@ namespace AIDB.Models
         public virtual DbSet<Postcontent> Postcontent { get; set; }
         public virtual DbSet<Postingrecord> Postingrecord { get; set; }
         public virtual DbSet<Subchannel> Subchannel { get; set; }
+        public virtual DbSet<Ypjrttweitoutiaoinfo> Ypjrttweitoutiaoinfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -644,6 +645,39 @@ namespace AIDB.Models
                     .HasColumnType("varchar(200)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Ypjrttweitoutiaoinfo>(entity =>
+            {
+                entity.ToTable("ypjrttweitoutiaoinfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Content)
+                    .HasColumnName("content")
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Createtime)
+                    .HasColumnName("createtime")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Images)
+                    .HasColumnName("images")
+                    .HasColumnType("text")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PlatformId)
+                    .HasColumnName("PlatformID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasColumnType("int(11)");
             });
 
             OnModelCreatingPartial(modelBuilder);

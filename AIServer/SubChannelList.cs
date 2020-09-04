@@ -74,7 +74,7 @@ namespace AIServer
             model.Remark = req.Remark;
             model.AnalogPacket = req.AnalogPacket;
 
-            db.Add(model);
+            db.Subchannel.Add(model);
             db.SaveChanges();
             return new AjaxResult<Object>("添加成功！", 0);
         }

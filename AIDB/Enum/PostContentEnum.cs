@@ -42,4 +42,22 @@ namespace AIDB.Enum
             文本图片视频 = 3
         }
     }
+
+    /// <summary>
+    /// 今日头条微头条
+    /// </summary>
+    public class JrttWeiTouTiaoEnum 
+    {
+        /// <summary>
+        /// 状态：0:、未发布，1,、头条已发布
+        /// </summary>
+        public enum status
+        {
+            未发布 = 0,
+            头条平台已发布 = 1
+        }
+
+
+
+    }
 }
