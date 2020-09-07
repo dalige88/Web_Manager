@@ -50,11 +50,16 @@ var JRTTImages = {
             });
         });
 
+    },
+    delepic: function (picid) {
+        alert(picid);
+        var box = document.getElementById(picid);
+        box.remove();
     }
 };
 
 
-
+var numimg = 0;
 //上传文件
 function fileLoad(ele) {
     var name = $(ele).val();
@@ -90,9 +95,25 @@ function fileLoad(ele) {
             document.getElementById("showImg").src = responseStr.data.urlPath;
             document.getElementById("ImgUrl_hidden").value = responseStr.data.urlPath;
             document.getElementById("serverFilePath").value = responseStr.data.serverFilePath;
+            /*document.getElementById("ImgUrl_hidden_img").src = responseStr.data.urlPath;*/
 
-            //var src = responseStr.data.urlPath;
-            //$list.append('<li style="border:solid red px; margin:5px 5px;" class="file-item"><img src="' + src + '" alt="" height="70"><span class="file-del">删除</span></li>').children(':last').hide().fadeIn(2500);
+
+            numimg++;
+
+            var Imgids = "ImgUrl_hidden_img_" + numimg;
+            var html = document.getElementById("showui_li").innerHTML;
+            html += "<div class=\"row rowmb15\"><div class=\"col-md-12\"><label class=\"col-sm-2 edit-group-label\"><span class=\"spanrequired\">*</span>图片" + numimg + "：</label><div class=\"col-md-7\" style=\"width:200px;\" ><div class=\"showdiv\"><img class=\"left\" src=\"/Scripts/page/jrttimages/img/Arrow_left.png\"><img class=\"center\" src=\"/Scripts/page/jrttimages/img/delete.png\" onclick=\"JRTTImages.delepic(" + Imgids + ")\" ><img class=\"right\" src=\"/Scripts/page/jrttimages/img/Arrow_right.png\"></div ><img id=\"" + Imgids + "\" name=\"" + Imgids + "\" class=\"showimg\" style=\"width:200px;\" src=\"" + responseStr.data.urlPath + "\"></div></div></div></div>";
+
+
+
+            document.getElementById("showui_li").innerHTML = html;
+
+
+            var serve_img = document.getElementById("serve_URL").innerHTML;
+            serve_img += "<div class=\"row rowmb15\"><div class=\"col-md-12\"><label class=\"col-sm-3 edit-group-label\">服务器地址" + numimg + "：</label><div class=\"col-sm-5\"><textarea class=\"form-control\" name=\"pic_url\" style=\"height: 100px; \" disabled>" + responseStr.data.urlPath + "</textarea></div></ br>";
+            //alert(html);
+            document.getElementById("serve_URL").innerHTML = serve_img;
+
         }
         ,
         error: function (responseStr) {
