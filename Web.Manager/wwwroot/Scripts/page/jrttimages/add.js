@@ -52,9 +52,12 @@ var JRTTImages = {
 
     },
     delepic: function (picid) {
-        alert(picid);
-        var box = document.getElementById(picid);
+        var rowmb15_img_ = "rowmb15_img_" + picid;
+        var rowmb15_fwqdz_ = "rowmb15_fwqdz_" + picid;
+        var box = document.getElementById(rowmb15_img_);
         box.remove();
+        var box1 = document.getElementById(rowmb15_fwqdz_);
+        box1.remove();
     }
 };
 
@@ -100,9 +103,12 @@ function fileLoad(ele) {
 
             numimg++;
 
+            var rowmb15_img_ = "rowmb15_img_" + numimg;
+            var rowmb15_fwqdz_ = "rowmb15_fwqdz_" + numimg;
+
             var Imgids = "ImgUrl_hidden_img_" + numimg;
             var html = document.getElementById("showui_li").innerHTML;
-            html += "<div class=\"row rowmb15\"><div class=\"col-md-12\"><label class=\"col-sm-2 edit-group-label\"><span class=\"spanrequired\">*</span>图片" + numimg + "：</label><div class=\"col-md-7\" style=\"width:200px;\" ><div class=\"showdiv\"><img class=\"left\" src=\"/Scripts/page/jrttimages/img/Arrow_left.png\"><img class=\"center\" src=\"/Scripts/page/jrttimages/img/delete.png\" onclick=\"JRTTImages.delepic(" + Imgids + ")\" ><img class=\"right\" src=\"/Scripts/page/jrttimages/img/Arrow_right.png\"></div ><img id=\"" + Imgids + "\" name=\"" + Imgids + "\" class=\"showimg\" style=\"width:200px;\" src=\"" + responseStr.data.urlPath + "\"></div></div></div></div>";
+            html += "<div class=\"row rowmb15\" id=\"" + rowmb15_img_ + "\"><div class=\"col-md-12\"><label class=\"col-sm-2 edit-group-label\"><span class=\"spanrequired\">*</span>图片" + numimg + "：</label><div class=\"col-md-7\" style=\"width:200px;\" ><div class=\"showdiv\"><img class=\"left\" src=\"/Scripts/page/jrttimages/img/Arrow_left.png\"><img class=\"center\" src=\"/Scripts/page/jrttimages/img/delete.png\" onclick=\"JRTTImages.delepic('" + numimg + "')\" ><img class=\"right\" src=\"/Scripts/page/jrttimages/img/Arrow_right.png\"></div ><img id=\"" + Imgids + "\" name=\"" + Imgids + "\" class=\"showimg\" style=\"width:200px;\" src=\"" + responseStr.data.urlPath + "\"></div></div></div></div>";
 
 
 
@@ -110,7 +116,7 @@ function fileLoad(ele) {
 
 
             var serve_img = document.getElementById("serve_URL").innerHTML;
-            serve_img += "<div class=\"row rowmb15\"><div class=\"col-md-12\"><label class=\"col-sm-3 edit-group-label\">服务器地址" + numimg + "：</label><div class=\"col-sm-5\"><textarea class=\"form-control\" name=\"pic_url\" style=\"height: 100px; \" disabled>" + responseStr.data.urlPath + "</textarea></div></ br>";
+            serve_img += "<div class=\"row rowmb15\" id=\"" + rowmb15_fwqdz_ + "\"><div class=\"col-md-12\"><label class=\"col-sm-3 edit-group-label\">服务器地址" + numimg + "：</label><div class=\"col-sm-5\"><textarea class=\"form-control\" name=\"pic_url\" style=\"height: 100px; \" disabled>" + responseStr.data.urlPath + "</textarea></div></ br>";
             //alert(html);
             document.getElementById("serve_URL").innerHTML = serve_img;
 
