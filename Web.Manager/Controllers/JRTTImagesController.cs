@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AIDB.Models;
 using AIServer;
@@ -58,6 +59,9 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "微头条管理", "微头条列表")]
         public IActionResult WeiTouTiaoList()
         {
+            string str2 = Environment.CurrentDirectory;
+            ViewBag.pyscript = str2 + "\\wwwroot\\PY\\发微头条图文皆可.py";
+
             return View();
         }
 
@@ -162,7 +166,7 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("微头条内容不能为空！"));
             }
-            if (req.Pid<1)
+            if (req.Pid < 1)
             {
                 return Json(new AjaxResult<Object>("平台ID错误！"));
             }
@@ -171,9 +175,117 @@ namespace Web.Manager.Controllers
         }
 
 
+        [MenuItemAttribute("推广平台", "微头条管理", "发布微头条到平台")]
+        public JsonResult Ajax_PostWTT(string PYScript, long id)
+        {
+            if (id < 1)
+            {
+                return Json(new AjaxResult<Object>("信息错误！"));
+            }
+            if (string.IsNullOrWhiteSpace(PYScript))
+            {
+                return Json(new AjaxResult<Object>("脚本地址错误！"));
+            }
+
+            Ypjrttweitoutiaoinfo model = wtt.Sel_Ypjrttweitoutiaoinfo(id);
+            if (model == null)
+            {
+                return Json(new AjaxResult<Object>("头条信息不存在！"));
+            }
+
+
+            //开始同步信息
+            //string[] imgs = model.Images.Split(',');
+            string content= EncodeBase64("utf-8", model.Content);
+
+            string script = PYScript + " " + model.Images + " " + content;
+            //string script = "E:/work/NET/WebManager/WebManager/Web.Manager/wwwroot/PY/发微头条图文皆可.py  1111 123123";
+
+            //PY执行脚本
+            return Json(Ajax_PublicPostWTT(script));
+        }
+
 
         #endregion
+        /// <summary>
+        /// PY执行脚本
+        /// </summary>
+        /// <param name="script"></param>
+        /// <returns></returns>
+        public JsonResult Ajax_PublicPostWTT(string script)
+        {
+            var psi = new ProcessStartInfo("python", script) { RedirectStandardOutput = true };
+            var proc = Process.Start(psi);
+            if (proc == null)
+            {
+                Console.WriteLine("Can not exec.");
+            }
+            else
+            {
+                Console.WriteLine("-------------Start read standard output--------------");
+                //开始读取
+                using (var sr = proc.StandardOutput)
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string jsonText = sr.ReadLine();
+                        JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
+
+                        if (jo["code"].ToString() == "0")
+                        {
+                            return Json(new AjaxResult<Object>("头条发布成功！", 0));
+                        }
+                        else
+                        {
+                            return Json(new AjaxResult<Object>("发布失败！"));
+                        }
 
 
+                    }
+
+                    if (!proc.HasExited)
+                    {
+                        proc.Kill();
+                    }
+                }
+                Console.WriteLine("---------------Read end------------------");
+                Console.WriteLine($"Total execute time :{(proc.ExitTime - proc.StartTime).TotalMilliseconds} ms");
+                Console.WriteLine($"Exited Code ： {proc.ExitCode}");
+
+            }
+
+            return Json(new AjaxResult<Object>("发布到头条失败！"));
+        }
+
+        ///编码（Base64方式的编码与解码）
+        public static string EncodeBase64(string code_type, string code)
+        {
+            string encode = "";
+            byte[] bytes = Encoding.GetEncoding(code_type).GetBytes(code);
+            try
+            {
+                encode = Convert.ToBase64String(bytes);
+            }
+            catch
+            {
+                encode = code;
+            }
+            return encode;
+        }
+        ///解码（Base64方式的编码与解码）
+        public static string DecodeBase64(string code_type, string code)
+        {
+            string decode = "";
+            byte[] bytes = Convert.FromBase64String(code);
+            try
+            {
+                decode = Encoding.GetEncoding(code_type).GetString(bytes);
+            }
+            catch
+            {
+                decode = code;
+            }
+            return decode;
+        }
     }
 }

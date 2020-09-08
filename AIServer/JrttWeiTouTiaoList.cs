@@ -93,6 +93,17 @@ namespace AIServer
             return new AjaxResult<Object>("添加成功！", 0);
         }
 
+        /// <summary>
+        /// 根据ID 查询原片 头条内容
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Ypjrttweitoutiaoinfo Sel_Ypjrttweitoutiaoinfo(long id) 
+        {
+            return db.Ypjrttweitoutiaoinfo.Where(w => w.Id == id).FirstOrDefault();
+        }
+
+
 
     }
 }

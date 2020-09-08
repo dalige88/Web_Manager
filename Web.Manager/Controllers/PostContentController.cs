@@ -298,14 +298,6 @@ namespace Web.Manager.Controllers
 
             }
 
-
-
-
-
-
-
-
-
             return Json(new AjaxResult<Object>("发布到头条失败！"));
         }
 

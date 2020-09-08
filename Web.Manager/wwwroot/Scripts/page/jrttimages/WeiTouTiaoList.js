@@ -38,6 +38,7 @@ var wttlist = {
        
     },
     yp_outList: function (result, j) {
+        var PYScript = $('#PYScript').val();
         var html = '';
         $.each(result, function (i) {
             j++;
@@ -45,9 +46,8 @@ var wttlist = {
             html += '<tr>\
                     <td align="center">' + itemData.id + '</td>\
                     <td align="center">' + itemData.content + '</td>\
-                    <td align="center"><div style=\'width: 100px;\'><xmp>' + itemData.images + '</xmp></div></td >\
-                    <td align="center">' + itemData.createTime + '</td >\
-                    <td align="center">|&nbsp;&nbsp;|</td>';
+                    <td align="center">' + itemData.createTime + '</td>\
+                    <td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\'>发布微头条到平台</a>|</td>';
 
             html += '</td></tr>';
         });
@@ -68,7 +68,19 @@ var wttlist = {
             html += '</td></tr>';
         });
         $('#goodsbody').html(html);
-    }
+    },
+    postJRTT: function (id) {
+        var postData = {};
+        postData.id = id;
+        postData.PYScript = $('#PYScript').val();
+        var url = "/JRTTImages/Ajax_PostWTT";
+        ajaxHelper.post(url, postData, function (d) {
+            msg.success('操作成功！', function () {
+                //window.location.href = "/JRTTImages/ImagesList?pid="+;
+                history.go(-1);
+            });
+        });
+    },
 }
 
 
