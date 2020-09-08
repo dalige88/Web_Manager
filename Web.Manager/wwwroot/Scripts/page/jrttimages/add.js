@@ -37,16 +37,28 @@ var JRTTImages = {
     },
 
     saveInfo: function () {
-        var postData = {};
-        postData.PlatforminfoID = $('#pid').val();
-        postData.Url = $('#serverFilePath').val(); 
-        postData.PYScript = $('#PYScript').val(); 
+        var pics = "";
+        var pic_url = document.getElementsByName("pic_url");
+        for (var i = 0; i < pic_url.length; i++) {
+            
+            if (i < pic_url.length-1 ) {
+                pics += pic_url[i].value + ",";
+            } else {
+                pics += pic_url[i].value;
+            }
+        }
+        //alert(pics);
 
-        var url = "/JRTTImages/Ajax_AddJRTTImages";
+        var postData = {};
+        postData.Pid = $('#pid').val();
+        postData.Content = $('#content').val(); 
+        postData.Images = pics;
+
+        var url = "/JRTTImages/Ajax_AddWTT";
 
         ajaxHelper.post(url, postData, function (d) {
             msg.success('操作成功！', function () {
-                window.location.href = "/JRTTImages/ImagesList?pid=" + postData.PlatforminfoID;
+                history.go(-1);
             });
         });
 
@@ -116,7 +128,7 @@ function fileLoad(ele) {
 
 
             var serve_img = document.getElementById("serve_URL").innerHTML;
-            serve_img += "<div class=\"row rowmb15\" id=\"" + rowmb15_fwqdz_ + "\"><div class=\"col-md-12\"><label class=\"col-sm-3 edit-group-label\">服务器地址" + numimg + "：</label><div class=\"col-sm-5\"><textarea class=\"form-control\" name=\"pic_url\" style=\"height: 100px; \" disabled>" + responseStr.data.urlPath + "</textarea></div></ br>";
+            serve_img += "<div class=\"row rowmb15\" id=\"" + rowmb15_fwqdz_ + "\"><div class=\"col-md-12\"><label class=\"col-sm-3 edit-group-label\">服务器图片" + numimg + "：</label><div class=\"col-sm-5\"><textarea class=\"form-control\" name=\"pic_url\" style=\"height: 100px; \" disabled>" + responseStr.data.serverFilePath + "</textarea></div></ br>";
             //alert(html);
             document.getElementById("serve_URL").innerHTML = serve_img;
 

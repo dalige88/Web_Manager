@@ -86,7 +86,7 @@ namespace AIServer
             model.Createtime = DateTime.Now;
             model.Images = req.Images;
             model.PlatformId = req.Pid;
-            model.Status = req.Status;
+            model.Status = (int)AIDB.Enum.JrttWeiTouTiaoEnum.status.未发布;
 
             db.Ypjrttweitoutiaoinfo.Add(model);
             db.SaveChanges();

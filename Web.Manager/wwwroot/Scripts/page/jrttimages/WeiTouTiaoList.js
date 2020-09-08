@@ -45,9 +45,8 @@ var wttlist = {
             html += '<tr>\
                     <td align="center">' + itemData.id + '</td>\
                     <td align="center">' + itemData.content + '</td>\
-                    <td align="center">' + itemData.images + '</td >\
+                    <td align="center"><div style=\'width: 100px;\'><xmp>' + itemData.images + '</xmp></div></td >\
                     <td align="center">' + itemData.createTime + '</td >\
-                    <td align="center">' + itemData.status + '</td>\
                     <td align="center">|&nbsp;&nbsp;|</td>';
 
             html += '</td></tr>';
