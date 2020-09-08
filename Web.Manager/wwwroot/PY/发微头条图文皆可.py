@@ -38,7 +38,7 @@ def update_file(local_image_path):
 
 
     reponse = requests.post(url=url, data=data, headers=headers)
-
+    
     dt = json.loads(reponse.text)
     # AddData(data)
     
@@ -65,11 +65,11 @@ headers = {
 def post_weitt(content, image=None):
     # res = update_file(local_image_path)
     
-
-    # image=r(image).split(',')
+    image=image.replace("/","\\")
+    images=(image).split(',')
 
     cont = ''
-   
+    
     num = 0
     for item in content:
         if num>1:
@@ -77,28 +77,31 @@ def post_weitt(content, image=None):
         num=num+1
     
     # 再把加密后的结果解码
-    temp = base64.b64decode(cont)
-    print(temp.decode())
+    temp = base64.b64decode(cont).decode()
+    temp=temp.replace("\n","____")
+    
+    
+    image_uris = []
+    web_uri = ''
+    for i in images:
+        json_res = update_file(i)
+        uri = json_res.get('web_uri')
+        image_uris.append(uri)
+        web_uri = ','.join(image_uris)
+    
+    
+    data = {
+        'content': temp,
+        'image_uris': web_uri,
+    }
 
-    # image_uris = []
-    # web_uri = ''
-    # for i in image:
-    #     json_res = update_file(i)
-    #     uri = json_res.get('web_uri')
-    #     image_uris.append(uri)
-    #     web_uri = ','.join(image_uris)
-    # 
-    # 
-    # data = {
-    #     'content': content,
-    #     'image_uris': web_uri,
-    # }
-    # 
-    # reponse = requests.post(url=API_PUBLISH, data=data, headers=headers)
-    # 
-    # dt = json.loads(reponse.text)
-    # 
-    # print(dt)
+    
+    
+    reponse = requests.post(url=API_PUBLISH, data=data, headers=headers)
+    
+    dt = json.loads(reponse.text)
+    
+    print(dt)
 
 
 contents="有的新娘礼服通常是用买的，但这样真的划算吗？ 有别于亚洲普遍的婚纱租借服务，在美国，新娘婚纱都是要掏钱购买的，因此婚纱往往会是婚礼中的一笔不小投资(注意，这是投资…不是开销XD)。而且在美国婚礼上，新娘也不会像华人婚礼中的一整晚换好几套礼服轮番登场。(当然你也可以来个中西合并换装登场～反正婚礼当天新娘最大！)"
@@ -111,6 +114,7 @@ post_weitt(
     sys.argv,
     sys.argv[1]
     )
+
 
 
 

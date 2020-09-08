@@ -196,13 +196,18 @@ namespace Web.Manager.Controllers
 
             //开始同步信息
             //string[] imgs = model.Images.Split(',');
+            //base64加密
             string content= EncodeBase64("utf-8", model.Content);
+            //string imgs= EncodeBase64("utf-8", model.Images);
 
             string script = PYScript + " " + model.Images + " " + content;
             //string script = "E:/work/NET/WebManager/WebManager/Web.Manager/wwwroot/PY/发微头条图文皆可.py  1111 123123";
 
+            //base64解码
+            //string ss = DecodeBase64("utf-8", content);
+
             //PY执行脚本
-            return Json(Ajax_PublicPostWTT(script));
+            return Ajax_PublicPostWTT(script);
         }
 
 
@@ -231,7 +236,7 @@ namespace Web.Manager.Controllers
                         string jsonText = sr.ReadLine();
                         JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
 
-                        if (jo["code"].ToString() == "0")
+                        if (jo["status_code"].ToString() == "0")
                         {
                             return Json(new AjaxResult<Object>("头条发布成功！", 0));
                         }
