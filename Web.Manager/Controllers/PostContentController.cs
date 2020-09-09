@@ -44,7 +44,7 @@ namespace Web.Manager.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private string UpdateContent(string data) 
+        private string UpdateContent(string data)
         {
             //截取图片字段
             //获取截取的src
@@ -89,6 +89,9 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "添加")]
         public IActionResult AddPostContent()
         {
+            //PY执行脚本（获取和设置当前目录）
+            string py_url = Environment.CurrentDirectory + "/wwwroot/PY/发布头条文章.py";
+            ViewBag.pyscript = py_url;
             List<Platforminfo> list = pl.GetAllList();
             return View(list);
         }
@@ -99,10 +102,9 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "编辑")]
         public IActionResult EditPostContent(long id)
         {
-            string str2 = Environment.CurrentDirectory;          //获取和设置当前目录（即该进程从中启动的目录）的完全限定路径。
-            //E:\work\NET\WebManager\WebManager\Web.Manager
-            //E:/work/NET/WebManager/WebManager/Web.Manager/wwwroot/PY/发布头条文章.py
-            ViewBag.pyscript = str2 + "/wwwroot/PY/发布头条文章.py";
+            //PY执行脚本（获取和设置当前目录）
+            string py_url = Environment.CurrentDirectory + "/wwwroot/PY/发布头条文章.py";
+            ViewBag.pyscript = py_url;
 
 
             List<Platforminfo> list = pl.GetAllList();
@@ -158,6 +160,10 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("推广渠道信息错误！"));
             }
+            if (string.IsNullOrWhiteSpace(req.HeadImg)||string.IsNullOrWhiteSpace(req.HeadImgServer))
+            {
+                return Json(new AjaxResult<Object>("请上传头像！"));
+            }
             req.CreateManagerID = CurAccount.ManagerId;//当前管理员ID
             return Json(pc.AddPostcontent(req));
         }
@@ -170,7 +176,7 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "编辑文章（提交）")]
         public JsonResult Ajax_EditPostcontent(PostContentReq req)
         {
-            
+
             if (req.ID < 1)
             {
                 return Json(new AjaxResult<Object>("请选择您要编辑的文章！"));
@@ -187,7 +193,7 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("请输入作者！"));
             }
-            if (req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 && req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.禁用)
+            if (req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 && req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.未发布)
             {
                 return Json(new AjaxResult<Object>("启用状态错误！"));
             }
@@ -195,7 +201,7 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("文章类型错误！"));
             }
-            if (string.IsNullOrWhiteSpace(req.HeadImg)||string.IsNullOrWhiteSpace(req.HeadImgServer))
+            if (string.IsNullOrWhiteSpace(req.HeadImg) || string.IsNullOrWhiteSpace(req.HeadImgServer))
             {
                 return Json(new AjaxResult<Object>("请上传首页头图！"));
             }
@@ -231,9 +237,9 @@ namespace Web.Manager.Controllers
 
 
         [MenuItemAttribute("发帖管理", "文章管理", "发布头条平台")]
-        public JsonResult Ajax_PostJRTTWenZhang(string PYScript, long id,string HeadImg)
+        public JsonResult Ajax_PostJRTTWenZhang(string PYScript, long id, string HeadImg)
         {
-            if (id<1)
+            if (id < 1)
             {
                 return Json(new AjaxResult<Object>("信息错误！"));
             }
@@ -249,7 +255,7 @@ namespace Web.Manager.Controllers
             Postcontent model = pc.SelPostcontent(id);
             //string ss = UpdateContent(model.MsgContent);
             //return null;
-            
+
             string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + UpdateContent(model.MsgContent);
             //string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + ss;
             script = script.Replace('"', '`');
@@ -277,6 +283,7 @@ namespace Web.Manager.Controllers
 
                         if (jo["code"].ToString() == "0")
                         {
+                            pc.UpOpenStatus(id, (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布);
                             return Json(new AjaxResult<Object>("头条发布成功！", 0));
                         }
                         else
@@ -284,7 +291,7 @@ namespace Web.Manager.Controllers
                             return Json(new AjaxResult<Object>("发布失败！"));
                         }
 
-                        
+
                     }
 
                     if (!proc.HasExited)

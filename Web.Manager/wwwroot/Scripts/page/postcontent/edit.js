@@ -71,6 +71,9 @@ var PostContent = {
             postData.OpenStatus = $('.OpenStatus:checked').eq(0).val();
         }
 
+        if (postData.HeadImgServer == null || postData.HeadImgServer == "") {
+            msg.error("请上传头像！");
+        }
 
         var url = "/PostContent/Ajax_EditPostcontent";
 

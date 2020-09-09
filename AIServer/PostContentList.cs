@@ -43,7 +43,7 @@ namespace AIServer
                             CreateType = b.CreateType,
                             CreateTypeName = b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.AI创建 ? "AI创建": b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.人工创建 ? "人工创建" : "",
                             OpenStatus = b.OpenStatus,
-                            OpenStatusName = b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 ? "头条网已发布" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.禁用 ? "禁用" : "",
+                            OpenStatusName = b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 ? "头条网已发布" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.未发布 ? "未发布" : "",
                             CreateUserType = b.CreateUserType,
                             CreateUserTypeName = b.CreateUserType == (int)AIDB.Enum.PostContentEnum.CreateUserType.用户 ? "用户" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.CreateUserType.管理员 ? "管理员" : "",
                             MsgType = b.MsgType,
@@ -96,6 +96,8 @@ namespace AIServer
             model.MsgType = req.MsgType;
             model.PlatformId = req.PlatformID;
             model.SubChannelId = req.SubChannelID;
+            model.HeadImg = req.HeadImg;
+            model.HeadImgServer = req.HeadImgServer;
             db.Postcontent.Add(model);
 
             if (db.SaveChanges() > 0)
@@ -171,6 +173,21 @@ namespace AIServer
         }
 
 
+        /// <summary>
+        /// 修改  是否发布状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        public int UpOpenStatus(long id,int status) 
+        {
+            Postcontent model = db.Postcontent.Where(w => w.Id == id).FirstOrDefault();
+            if (model!=null)
+            {
+                model.OpenStatus = status;
+                return db.SaveChanges();
+            }
 
+            return 0;
+        }
     }
 }

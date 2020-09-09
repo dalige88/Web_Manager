@@ -70,6 +70,17 @@ var JRTTImages = {
         box.remove();
         var box1 = document.getElementById(rowmb15_fwqdz_);
         box1.remove();
+    },
+    calculation: function ()
+    {
+        var nMax = 2000;
+        var textDom = document.getElementById("content");
+        var len = textDom.value.length;
+        if (len > nMax) {
+            textDom.value = textDom.value.substring(0, nMax);
+            return;
+        }
+        document.getElementById("messages").innerText = "你还可以输入" + (nMax - len) + "个字";
     }
 };
 

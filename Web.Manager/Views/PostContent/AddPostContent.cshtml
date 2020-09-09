@@ -79,6 +79,44 @@
             </div>
         </div>
 
+        <div class="row rowmb15">
+            <div class="col-md-12">
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>PY脚本地址：</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control" id="PYScript" name="PYScript">@ViewBag.pyscript</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowmb5">
+            <div class="col-md-12">
+                <label class="col-sm-2 edit-group-label"><span class="spanrequired">*</span>首页头图：</label>
+                <div class="col-md-7">
+                    <form action="" name="formurl" method="post" enctype="multipart/form-data">
+                        <div style="position:relative;width:300px;height:300px">
+                            <label style="background:url(/Content/images/icon/up.png) no-repeat  center;background-size:50%;display:none;position:absolute;top:50%;left:50%;height:100px;width:100px;transform:translate3d(-50px,-50px,0)" id="imgspan"></label>
+                            <input type="file" id="ImgUrl" name="ImgUrl" value="" style="display:none;position:absolute;top:150px;left:50px;">
+                            <input type="hidden" value="" id="ImgUrl_hidden" />
+                            <img id="showImg" style="width: 300px;height: 300px;opacity:0.5;" src="../../Content/images/photo3.jpg">
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowmb15">
+            <div class="col-md-12">
+                <label class="col-sm-3 edit-group-label">服务器物理图片地址：</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control" id="serverFilePath" name="serverFilePath" style="height:100px;" disabled></textarea>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="row rowmb5">
             <div class="col-md-12">
                 <label class="col-sm-2 edit-group-label"><span class="spanrequired">*</span>内容：</label>

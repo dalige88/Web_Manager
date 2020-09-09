@@ -125,11 +125,11 @@
                     &nbsp;&nbsp;&nbsp;
                     @if (Model.OpenStatus == 0)
                     {
-                        <label><input type="radio" value="0" name="OpenStatus" class="OpenStatus" checked /> 禁用</label>
+                        <label><input type="radio" value="0" name="OpenStatus" class="OpenStatus" checked /> 未发布</label>
                     }
                     else
                     {
-                        <label><input type="radio" value="0" name="OpenStatus" class="OpenStatus" /> 禁用</label>
+                        <label><input type="radio" value="0" name="OpenStatus" class="OpenStatus" /> 未发布</label>
                     }
 
                 </div>
@@ -156,7 +156,7 @@
                         <div style="position:relative;width:300px;height:300px">
                             <label style="background:url(/Content/images/icon/up.png) no-repeat  center;background-size:50%;display:none;position:absolute;top:50%;left:50%;height:100px;width:100px;transform:translate3d(-50px,-50px,0)" id="imgspan"></label>
                             <input type="file" id="ImgUrl" name="ImgUrl" value="" style="display:none;position:absolute;top:150px;left:50px;">
-                            <input type="hidden" value="" id="ImgUrl_hidden" />
+                            <input type="hidden" value="@Model.HeadImgServer" id="ImgUrl_hidden" />
                             @if (string.IsNullOrWhiteSpace(Model.HeadImg))
                             {<img id="showImg" style="width: 300px;height: 300px;opacity:0.5;" src="../../Content/images/photo3.jpg">
 

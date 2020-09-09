@@ -207,7 +207,7 @@ namespace Web.Manager.Controllers
             //string ss = DecodeBase64("utf-8", content);
 
             //PY执行脚本
-            return Ajax_PublicPostWTT(script);
+            return Ajax_PublicPostWTT(script,id);
         }
 
 
@@ -216,8 +216,9 @@ namespace Web.Manager.Controllers
         /// PY执行脚本
         /// </summary>
         /// <param name="script"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public JsonResult Ajax_PublicPostWTT(string script)
+        public JsonResult Ajax_PublicPostWTT(string script,long id)
         {
             var psi = new ProcessStartInfo("python", script) { RedirectStandardOutput = true };
             var proc = Process.Start(psi);
@@ -238,7 +239,9 @@ namespace Web.Manager.Controllers
 
                         if (jo["status_code"].ToString() == "0")
                         {
+                            wtt.UpYpStatus_YFB(id, (int)AIDB.Enum.JrttWeiTouTiaoEnum.status.头条平台已发布);
                             return Json(new AjaxResult<Object>("头条发布成功！", 0));
+                            
                         }
                         else
                         {

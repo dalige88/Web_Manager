@@ -16,7 +16,9 @@
             <div class="col-md-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>微头条内容：</label>
                 <div class="col-sm-5">
-                    <textarea class="form-control" id="content" name="content" style="height:100px;"></textarea>
+                    <textarea class="form-control" id="content" name="content" style="height:200px; width:100%;" maxlength="2000" onkeyup="JRTTImages.calculation()"></textarea>
+                    <span id="messages" style="color:red;"></span>
+                    (2000字以内)
                 </div>
             </div>
         </div>

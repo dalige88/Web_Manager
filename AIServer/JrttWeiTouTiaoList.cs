@@ -103,7 +103,23 @@ namespace AIServer
             return db.Ypjrttweitoutiaoinfo.Where(w => w.Id == id).FirstOrDefault();
         }
 
-
+        /// <summary>
+        /// 改变微头条  已发布  状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public int UpYpStatus_YFB(long id,int status) 
+        {
+            Ypjrttweitoutiaoinfo model = db.Ypjrttweitoutiaoinfo.Where(w => w.Id == id).FirstOrDefault();
+            if (model==null)
+            {
+                return 0;
+            }
+            model.Status = status;
+            //model.Status = (int)AIDB.Enum.JrttWeiTouTiaoEnum.status.头条平台已发布;
+            return db.SaveChanges();
+        }
 
     }
 }

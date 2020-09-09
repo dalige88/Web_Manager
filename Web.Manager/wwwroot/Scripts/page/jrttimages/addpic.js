@@ -1,11 +1,6 @@
 ﻿
-//实例化编辑器
-var um = UM.getEditor('myEditor');
 $(function () {
-
-    PostContent.createEditor();
-    //PostContent.loadPlat();
-    PostContent.pageBind();
+    JRTTImages.pageBind();
 
     //点击图片去触发input file框
     $('#showImg').click(function () {
@@ -32,82 +27,35 @@ $(function () {
 
 });
 
-
-var PostContent = {
+var JRTTImages = {
     pageBind: function () {
 
         $('#btn_save').click(function () {
-            PostContent.saveInfo();
+            JRTTImages.saveInfo();
         });
-
-    }, createEditor: function () {
-        um = UM.getEditor('myEditor');
+       
     },
 
     saveInfo: function () {
         var postData = {};
-        postData.MsgTitle = $('#MsgTitle').val();
-        postData.MsgAuthor = $('#MsgAuthor').val();
-        postData.MsgContent = um.getContent();
-        postData.MsgType = 0;
-        postData.PlatformID = $('#MenuPid').val();
-        postData.SubChannelID = $('#MenuSub').val();
-        postData.HeadImg = $('#serverFilePath').val();
-        postData.HeadImgServer = $('#ImgUrl_hidden').val();
-        if ($('.RoleStatus:checked').length > 0) {
-            postData.MsgType = $('.RoleStatus:checked').eq(0).val();
-        }
+        postData.PlatforminfoID = $('#pid').val();
+        postData.Url = $('#serverFilePath').val(); 
+        postData.PYScript = $('#PYScript').val();
+        var url = "/JRTTImages/Ajax_AddJRTTImages";
 
-        if (postData.HeadImgServer == null || postData.HeadImgServer == "") {
-            msg.error("请上传头像！");
-        }
+        if (postData.Url == null || postData.Url=="") {
+            msg.error("请上传图片");
+        } else {
+            ajaxHelper.post(url, postData, function (d) {
+                msg.success('操作成功！', function () {
+                    window.location.href = "/JRTTImages/ImagesList?pid=" + postData.PlatforminfoID;
 
-        var url = "/PostContent/Ajax_AddPostcontent";
-
-        ajaxHelper.post(url, postData, function (d) {
-            msg.success('操作成功！', function () {
-                window.location.href = "/PostContent/Index";
+                });
             });
-        });
+        }
 
     },
-
-    loadSubData: function () {
-        
-        var Pid = $('#MenuPid').val();
-
-        var postData = {};
-        postData.pid = Pid;
-        
-        var url = "/Subchannel/Ajax_GetAllList";
-
-        ajaxHelper.post(url, postData, function (d) {
-            console.log(d);
-            if (d.length > 0) {
-                PostContent.loadSubHtml(d);
-            } else {
-                $('#MenuSub').html('<option value="">--请选择渠道--</option>');
-            }
-        });
-
-
-        
-    },
-
-    loadSubHtml: function (result)
-    {
-        var html = '';
-        $.each(result, function (i) {
-            var itemData = result[i];
-            html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
-        });
-        $('#MenuSub').html(html);
-
-    }
 };
-
-
-
 
 
 //上传文件
@@ -145,9 +93,9 @@ function fileLoad(ele) {
             document.getElementById("showImg").src = responseStr.data.urlPath;
             document.getElementById("ImgUrl_hidden").value = responseStr.data.urlPath;
             document.getElementById("serverFilePath").value = responseStr.data.serverFilePath;
+            /*document.getElementById("ImgUrl_hidden_img").src = responseStr.data.urlPath;*/
 
-        }
-        ,
+        },
         error: function (responseStr) {
             alert("系统建议管理(提交单)数据加载错误");
             document.getElementById("showImg").src = "/Content/images/loading/error.jpg";
@@ -155,3 +103,5 @@ function fileLoad(ele) {
 
     });
 }
+
+

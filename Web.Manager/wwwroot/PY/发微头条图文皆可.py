@@ -78,7 +78,7 @@ def post_weitt(content, image=None):
     
     # 再把加密后的结果解码
     temp = base64.b64decode(cont).decode()
-    temp=temp.replace("\n","____")
+    temp=temp.replace("\n","      ")
     
     
     image_uris = []
