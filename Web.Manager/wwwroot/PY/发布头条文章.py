@@ -148,7 +148,7 @@ post_article(
    sys.argv[1],
    sys.argv[2],
    sys.argv,
-   run_ad=False
+   run_ad=true
    )
 
 

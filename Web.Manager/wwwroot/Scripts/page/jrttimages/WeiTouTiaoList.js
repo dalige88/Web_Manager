@@ -41,14 +41,19 @@ var wttlist = {
         var PYScript = $('#PYScript').val();
         var html = '';
         $.each(result, function (i) {
+            var fb = "";
             j++;
             var itemData = result[i];
             html += '<tr>\
                     <td align="center">' + itemData.id + '</td>\
                     <td align="center">' + itemData.content + '</td>\
-                    <td align="center">' + "(" + wttlist.statusFun(itemData.status) + ")" + itemData.createTime + '</td>\
-                    <td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\'>发布微头条到平台</a>|</td>';
+                    <td align="center">' + "(" + wttlist.statusFun(itemData.status) + ")" + itemData.createTime + '</td>';
 
+            if (wttlist.statusFun(itemData.status) == "已发布") {
+                html += '<td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\' style="color:green;">重新发布</a>&nbsp;&nbsp;|</td>';
+            } else {
+                html += '<td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\' style="color:red;">发布微头条</a>|</td>';
+            }
             html += '</td></tr>';
         });
         $('#goodsbody').html(html);

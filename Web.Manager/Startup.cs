@@ -47,11 +47,11 @@ namespace Web.Manager
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
             services.AddDbContext<web_managerContext>(opt => opt.UseMySql(Configuration.GetConnectionString("web_manager")));
             services.AddDbContext<ai_platformContext>(opt => opt.UseMySql(Configuration.GetConnectionString("ai_platform")));
-            web_managerContext a = new web_managerContext();
-            if(a.Database.GetPendingMigrations().Any())
-            {
-                a.Database.Migrate();
-            }
+            //web_managerContext a = new web_managerContext();
+            //if(a.Database.GetPendingMigrations().Any())
+            //{
+            //    a.Database.Migrate();
+            //}
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddControllersWithViews(r =>
