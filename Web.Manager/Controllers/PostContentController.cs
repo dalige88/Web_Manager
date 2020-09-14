@@ -24,6 +24,7 @@ namespace Web.Manager.Controllers
         #region Menu
         PostContentList pc;
         PlatformList pl;
+        JRTTImagesController jc;
 
         #endregion
 
@@ -255,10 +256,12 @@ namespace Web.Manager.Controllers
             Postcontent model = pc.SelPostcontent(id);
             //string ss = UpdateContent(model.MsgContent);
             //return null;
+            //base64加密
+            string content = jc.EncodeBase64("utf-8", UpdateContent(model.MsgContent));
 
-            string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + UpdateContent(model.MsgContent);
+            string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + content;
             //string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + ss;
-            script = script.Replace('"', '`');
+            //script = script.Replace('"', '`');
 
             /*var psi = new ProcessStartInfo("python", "E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py C:/Users/Administrator/Desktop/temp/1234.jpg") { RedirectStandardOutput = true };*/
             var psi = new ProcessStartInfo("python", script) { RedirectStandardOutput = true };

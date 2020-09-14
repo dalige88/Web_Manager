@@ -73,6 +73,8 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
             cont+=item+" "
         num=num+1
     
+    # 再把加密后的结果解码
+    temp = base64.b64decode(cont).decode()
     # cont = cont.replace('`','"')
 
     """
@@ -129,7 +131,8 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
     data = {
         'article_type': 0,
         'title': title,
-        'content': cont.replace('`','"'),
+        # 'content': cont.replace('`','"'),
+        'content': temp,
         'save': 1,
         'source':'21',
         'pgc_feed_covers': _cover,
