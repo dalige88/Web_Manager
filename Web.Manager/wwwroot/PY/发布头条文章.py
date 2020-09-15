@@ -6,6 +6,7 @@ import json
 import os
 import time
 import sys
+import base64
 
 from urllib3 import encode_multipart_formdata
 
@@ -63,10 +64,10 @@ def time_to_date(timestamp,format="%Y-%m-%d %H:%M:%S"):
 
 # 发布文章
 def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writting_race_mode=0,extern_link=None):
-    # print(content)
+
     # 发布内容
     cont = ''
-   
+    
     num = 0
     for item in content:
         if num>2:
@@ -75,7 +76,8 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
     
     # 再把加密后的结果解码
     temp = base64.b64decode(cont).decode()
-    # cont = cont.replace('`','"')
+
+    # print(temp)
 
     """
     :param title: 图文作品 标题
@@ -87,7 +89,6 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
     :param cover_img: 封面图，可以是图片网络地址 或是 本地图片路径
     """
 
-    # url = "https://mp.toutiao.com/core/article/edit_article_post/?source=mp&type=article"
     url = "https://www.toutiao.com/mp/agw/article/publish/?source=toutiaoPC&type=article&app_name=toutiao.com&_signature=_02B4Z6wo00101THtXvgAAIBBmSz-lcS7g0kx6FpAABM-rY1jg1YJjYnU87.vj45feF.AZcJPBE.VWCWzrV7J6H-OYnkGSENp5INLD6Xibr4iekdB1OMY6L7V87AzCDLgw8oPo9lIUdOEN-m446"
 
     headers = {
@@ -98,18 +99,18 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
         "Origin": "https://www.toutiao.com",
         "X-CSRFToken": "54d481cf1d0c7778fb88f139a44bbf7c",
         "X-Requested-With": "XMLHttpRequest",
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.10 #Safari/537.36",
         "Content-Type": "application/x-www-form-urlencoded",
         "Referer": "https://www.toutiao.com/",
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9",
     }
-
+    
     _time = time_to_date(time.time() + 3600) if not timer_time else timer_time
     cover = {}
     
     res = update_file(local_image_path)
-
+    
     width = res.get('width')
     height = res.get('height')
     cover = {
@@ -126,19 +127,14 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
                  '","ic_uri":"","thumb_width":' + cover['thumb_width'] + \
                  ',"thumb_height":' + cover['thumb_height'] + '}]' if cover else '[]'
     
-
-
     data = {
         'article_type': 0,
         'title': title,
-        # 'content': cont.replace('`','"'),
         'content': temp,
         'save': 1,
         'source':'21',
         'pgc_feed_covers': _cover,
     }
-
-    # print(cont)
 
    
     reponse = requests.post(url=url, data=data, headers=headers)
@@ -151,8 +147,10 @@ post_article(
    sys.argv[1],
    sys.argv[2],
    sys.argv,
-   run_ad=true
+   run_ad=True
    )
+
+
 
 
 
