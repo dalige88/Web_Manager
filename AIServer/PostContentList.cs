@@ -84,8 +84,8 @@ namespace AIServer
             }
 
             Postcontent model = new Postcontent();
-            model.MsgTitle = req.MsgTitle.Trim();
-            model.MsgContent = req.MsgContent.Trim();
+            model.MsgTitle = req.MsgTitle.Trim().Replace(" ", "");
+            model.MsgContent = req.MsgContent.Trim().Replace(" style=\"white-space: nowrap;\"", "");
             model.MsgAuthor = req.MsgAuthor.Trim();
             model.CreateTime = DateTime.Now;
             model.CreateManagerId = req.CreateManagerID;
@@ -120,8 +120,8 @@ namespace AIServer
                 return new AjaxResult<Object>("您编辑的帖子信息不存在！");
             }
 
-            model.MsgTitle = req.MsgTitle.Trim();
-            model.MsgContent = req.MsgContent.Trim();
+            model.MsgTitle = req.MsgTitle.Trim().Replace(" ","");
+            model.MsgContent = req.MsgContent.Trim().Replace(" style=\"white-space: nowrap;\"", "");
             model.MsgAuthor = req.MsgAuthor.Trim();
             model.HeadImg = req.HeadImg.Trim();
             model.HeadImgServer = req.HeadImgServer.Trim();

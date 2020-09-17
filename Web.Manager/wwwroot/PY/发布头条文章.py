@@ -77,7 +77,7 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
     # 再把加密后的结果解码
     temp = base64.b64decode(cont).decode()
 
-    # print(temp)
+    # print(title)
 
     """
     :param title: 图文作品 标题
@@ -85,12 +85,12 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
     :param extern_link: 扩展链接
     :param timer_time: 定时发布的时间
     :param run_ad: 是否投放头条广告
-    :param writting_race_mode: 参加 新写作大赛 的模式： 0:不参加 1:参加主竞赛单元评选 2:参加青年竞赛单元评选
+    :param writting_race_mode: 参加 新写作大赛 的模式： 0:不参加 1:参加主竞赛单元评选 2:参加青年竞赛单元选
     :param cover_img: 封面图，可以是图片网络地址 或是 本地图片路径
     """
-
-    url = "https://www.toutiao.com/mp/agw/article/publish/?source=toutiaoPC&type=article&app_name=toutiao.com&_signature=_02B4Z6wo00101THtXvgAAIBBmSz-lcS7g0kx6FpAABM-rY1jg1YJjYnU87.vj45feF.AZcJPBE.VWCWzrV7J6H-OYnkGSENp5INLD6Xibr4iekdB1OMY6L7V87AzCDLgw8oPo9lIUdOEN-m446"
-
+    
+    url = "https://www.toutiao.com/mp/agw/article/publish/#source=toutiaoPC&type=article&app_name=toutiao.com&_signature=_02B4Z6wo00101THtXvgAAIBBmSz#lcS7g0kx6FpAABM-rY1jg1YJjYnU87.vj45feF.AZcJPBE.VWCWzrV7J6H#OYnkGSENp5INLD6Xibr4iekdB1OMY6L7V87AzCDLgw8oPo9lIUdOEN-m446"
+    
     headers = {
         "cookie" :COOKIE,
         "Host": "www.toutiao.com",
@@ -99,7 +99,7 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
         "Origin": "https://www.toutiao.com",
         "X-CSRFToken": "54d481cf1d0c7778fb88f139a44bbf7c",
         "X-Requested-With": "XMLHttpRequest",
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.10 #Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)#Chrome/75.0.3770.10 #Safari/537.36",
         "Content-Type": "application/x-www-form-urlencoded",
         "Referer": "https://www.toutiao.com/",
         "Accept-Encoding": "gzip, deflate",
@@ -135,8 +135,8 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
         'source':'21',
         'pgc_feed_covers': _cover,
     }
-
-   
+    
+    
     reponse = requests.post(url=url, data=data, headers=headers)
     dt = json.loads(reponse.text)
     

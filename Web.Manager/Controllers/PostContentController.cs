@@ -258,8 +258,9 @@ namespace Web.Manager.Controllers
             //return null;
             //base64加密
             string content = jc.EncodeBase64("utf-8", UpdateContent(model.MsgContent));
+            
 
-            string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + content;
+            string script = PYScript + " " + model.HeadImg.Replace(" ", "") + " " + model.MsgTitle.Replace(" ", "") + " " + content;
             //string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + ss;
             //script = script.Replace('"', '`');
 
