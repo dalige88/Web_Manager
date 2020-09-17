@@ -149,6 +149,8 @@ namespace Web.Manager.Controllers
             {
                 YPJrttWeiTouTiaoReq model = new YPJrttWeiTouTiaoReq();
                 model.Content = req.Content;
+                model.PageIndex = req.PageIndex;
+                model.PageSize = req.PageSize;
                 return Json(wtt.YPGetList(model));
             }
 
@@ -197,7 +199,7 @@ namespace Web.Manager.Controllers
             //开始同步信息
             //string[] imgs = model.Images.Split(',');
             //base64加密
-            string content= EncodeBase64("utf-8", model.Content);
+            string content = EncodeBase64("utf-8", model.Content);
             //string imgs= EncodeBase64("utf-8", model.Images);
 
             string script = PYScript + " " + model.Images + " " + content;
@@ -207,7 +209,7 @@ namespace Web.Manager.Controllers
             //string ss = DecodeBase64("utf-8", content);
 
             //PY执行脚本
-            return Ajax_PublicPostWTT(script,id);
+            return Ajax_PublicPostWTT(script, id);
         }
 
 
@@ -218,7 +220,7 @@ namespace Web.Manager.Controllers
         /// <param name="script"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public JsonResult Ajax_PublicPostWTT(string script,long id)
+        public JsonResult Ajax_PublicPostWTT(string script, long id)
         {
             var psi = new ProcessStartInfo("python", script) { RedirectStandardOutput = true };
             var proc = Process.Start(psi);
@@ -241,7 +243,7 @@ namespace Web.Manager.Controllers
                         {
                             wtt.UpYpStatus_YFB(id, (int)AIDB.Enum.JrttWeiTouTiaoEnum.status.头条平台已发布);
                             return Json(new AjaxResult<Object>("头条发布成功！", 0));
-                            
+
                         }
                         else
                         {

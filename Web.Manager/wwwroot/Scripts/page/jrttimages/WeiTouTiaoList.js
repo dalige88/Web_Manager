@@ -16,6 +16,7 @@ var wttlist = {
         Param.Status = $('#Status').val();
         url = '/JRTTImages/Ajax_WTTGetList';
 
+
         //原片
         if (Param.Status == 0) {
             $("#infoPage").page({
@@ -83,7 +84,7 @@ var wttlist = {
             msg.success('操作成功！', function () {
                 window.location.reload();
                 //window.location.href = "/JRTTImages/ImagesList?pid="+;
-                history.go(-1);
+                //history.go(-1);
             });
         });
     },
