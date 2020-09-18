@@ -21,6 +21,7 @@ namespace AIDB.Models
         public virtual DbSet<Jrttuserinfo> Jrttuserinfo { get; set; }
         public virtual DbSet<Jrttweitoutiaoinfo> Jrttweitoutiaoinfo { get; set; }
         public virtual DbSet<Jrttwenzhanginfo> Jrttwenzhanginfo { get; set; }
+        public virtual DbSet<NewMirrorInfo> NewMirrorInfo { get; set; }
         public virtual DbSet<Platforminfo> Platforminfo { get; set; }
         public virtual DbSet<Postcontent> Postcontent { get; set; }
         public virtual DbSet<Postingrecord> Postingrecord { get; set; }
@@ -458,6 +459,37 @@ namespace AIDB.Models
                     .HasCollation("utf8_general_ci");
             });
 
+            modelBuilder.Entity<NewMirrorInfo>(entity =>
+            {
+                entity.ToTable("new_mirror_info");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasColumnType("int(10)");
+
+                entity.Property(e => e.Urls)
+                    .HasColumnName("urls")
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.YwTitle)
+                    .HasColumnName("yw_title")
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ZwTitle)
+                    .HasColumnName("zw_title")
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
             modelBuilder.Entity<Platforminfo>(entity =>
             {
                 entity.ToTable("platforminfo");
@@ -674,6 +706,13 @@ namespace AIDB.Models
                 entity.Property(e => e.PlatformId)
                     .HasColumnName("PlatformID")
                     .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.SourceLink)
+                    .HasColumnName("sourceLink")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("源链接地址")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.Status)
                     .HasColumnName("status")

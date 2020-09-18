@@ -46,14 +46,21 @@ var wttlist = {
             j++;
             var itemData = result[i];
             html += '<tr>\
-                    <td align="center">' + itemData.id + '</td>\
-                    <td align="center">' + itemData.content + '</td>\
-                    <td align="center">' + "(" + wttlist.statusFun(itemData.status) + ")" + itemData.createTime + '</td>';
+                    <td align="center">' + itemData.id + '</td>';
+
+            /*html += '<td align="center"><a href=\'' + itemData.sourceLink + '\'>' + itemData.content + '</a></td>';*/
+            if (itemData.sourceLink != "" && itemData.sourceLink != null) {
+                html += '<td align="center"><a href=\'' + itemData.sourceLink + '\'>' + itemData.content + '</a></td>';
+            } else {
+                html += '<td align="center">' + itemData.content + '</td>';
+            }
+
+            html += '<td align = "center"> ' + "(" + wttlist.statusFun(itemData.status) + ")" + itemData.createTime + '</td> ';
 
             if (wttlist.statusFun(itemData.status) == "已发布") {
-                html += '<td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\' style="color:green;">重新发布</a>&nbsp;&nbsp;|</td>';
+                html += '<td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\' style="color:green;">重新发布</a>&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'/JRTTImages/EditWttPage?id=' + itemData.id +'\'>编辑</a>&nbsp;&nbsp;|</td>';
             } else {
-                html += '<td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\' style="color:red;">发布微头条</a>|</td>';
+                html += '<td align="center">|&nbsp;&nbsp;<a href=\'javascript:wttlist.postJRTT("' + itemData.id + '")\' style="color:red;">发布微头条</a>|<br />|&nbsp;&nbsp;<a href=\'/JRTTImages/EditWttPage?id=' + itemData.id +'\'>编辑</a>&nbsp;&nbsp;|</td>';
             }
             html += '</td></tr>';
         });

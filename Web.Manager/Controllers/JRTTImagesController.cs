@@ -72,6 +72,12 @@ namespace Web.Manager.Controllers
             return View();
         }
 
+        [MenuItemAttribute("推广平台", "微头条管理", "编辑微头条")]
+        public IActionResult EditWttPage(long id)
+        {
+            Ypjrttweitoutiaoinfo model = wtt.Sel_Ypjrttweitoutiaoinfo(id);
+            return View(model);
+        }
 
         #endregion
 
@@ -174,6 +180,30 @@ namespace Web.Manager.Controllers
             }
 
             return Json(wtt.AddYPWTT(req));
+        }
+
+        /// <summary>
+        /// 编辑微头条
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [MenuItemAttribute("推广平台", "微头条管理", "编辑微头条（提交）")]
+        public JsonResult Ajax_EditWTT(JrttWeiTouTiaoReq req)
+        {
+            if (req.Id < 1)
+            {
+                return Json(new AjaxResult<Object>("请选择您要编辑的微头条！"));
+            }
+            if (string.IsNullOrWhiteSpace(req.Content))
+            {
+                return Json(new AjaxResult<Object>("微头条内容不能为空！"));
+            }
+            if (req.Pid < 1)
+            {
+                return Json(new AjaxResult<Object>("平台ID错误！"));
+            }
+
+            return Json(wtt.EditYPWTT(req));
         }
 
 

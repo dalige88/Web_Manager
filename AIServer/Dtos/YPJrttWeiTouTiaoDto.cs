@@ -33,6 +33,10 @@ namespace AIServer.Dtos
         /// 发布状态：0：未发布，1：头条平台已发布
         /// </summary>
         public int? status { get; set; }
+        /// <summary>
+        /// 源链接
+        /// </summary>
+        public string SourceLink { get; set; }
     }
 
     /// <summary>

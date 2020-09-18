@@ -134,6 +134,7 @@ def post_article(local_image_path,title,content,timer_time=None,run_ad=True,writ
         'save': 1,
         'source':'21',
         'pgc_feed_covers': _cover,
+        'article_ad_type': [2, 3][run_ad],
     }
     
     

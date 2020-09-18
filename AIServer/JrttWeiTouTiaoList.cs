@@ -34,6 +34,7 @@ namespace AIServer
                             Images = b.Images,
                             PlatformID = b.PlatformId,
                             status = b.Status,
+                            SourceLink=b.SourceLink,
                         };
             if (!string.IsNullOrWhiteSpace(req.Content))
             {
@@ -80,7 +81,7 @@ namespace AIServer
         /// <returns></returns>
         public AjaxResult<Object> AddYPWTT(JrttWeiTouTiaoReq req)
         {
-            
+
             Ypjrttweitoutiaoinfo model = new Ypjrttweitoutiaoinfo();
             model.Content = req.Content;
             model.Createtime = DateTime.Now;
@@ -94,11 +95,33 @@ namespace AIServer
         }
 
         /// <summary>
+        /// 编辑微头条
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public AjaxResult<object> EditYPWTT(JrttWeiTouTiaoReq req)
+        {
+            Ypjrttweitoutiaoinfo model = db.Ypjrttweitoutiaoinfo.Where(w => w.Id == req.Id).FirstOrDefault();
+            if (model == null)
+            {
+                return new AjaxResult<Object>("头条信息不存在！");
+            }
+
+            model.Content = req.Content;
+            if (db.SaveChanges()>0)
+            {
+                return new AjaxResult<Object>("编辑成功！", 0);
+            }
+            return new AjaxResult<Object>("编辑失败！");
+
+        }
+
+        /// <summary>
         /// 根据ID 查询原片 头条内容
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Ypjrttweitoutiaoinfo Sel_Ypjrttweitoutiaoinfo(long id) 
+        public Ypjrttweitoutiaoinfo Sel_Ypjrttweitoutiaoinfo(long id)
         {
             return db.Ypjrttweitoutiaoinfo.Where(w => w.Id == id).FirstOrDefault();
         }
@@ -109,10 +132,10 @@ namespace AIServer
         /// <param name="id"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public int UpYpStatus_YFB(long id,int status) 
+        public int UpYpStatus_YFB(long id, int status)
         {
             Ypjrttweitoutiaoinfo model = db.Ypjrttweitoutiaoinfo.Where(w => w.Id == id).FirstOrDefault();
-            if (model==null)
+            if (model == null)
             {
                 return 0;
             }

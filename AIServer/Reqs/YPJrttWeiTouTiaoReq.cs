@@ -22,6 +22,7 @@ namespace AIServer.Reqs
     /// </summary>
     public class JrttWeiTouTiaoReq : PageModel
     {
+        public long Id { get; set; }
         /// <summary>
         /// 查询关键字
         /// </summary>

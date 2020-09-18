@@ -11,5 +11,6 @@ namespace AIDB.Models
         public string Images { get; set; }
         public long? PlatformId { get; set; }
         public int? Status { get; set; }
+        public string SourceLink { get; set; }
     }
 }
