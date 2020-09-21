@@ -30,7 +30,7 @@ namespace AIServer.Reqs
         /// <summary>
         /// 平台ID
         /// </summary>
-        public long Pid { get; set; }
+        public string Pid { get; set; }
         /// <summary>
         /// 发布状态：0：未发布，1：已发布
         /// </summary>

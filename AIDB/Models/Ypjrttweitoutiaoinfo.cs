@@ -9,7 +9,7 @@ namespace AIDB.Models
         public string Content { get; set; }
         public DateTime? Createtime { get; set; }
         public string Images { get; set; }
-        public long? PlatformId { get; set; }
+        public string PlatformIds { get; set; }
         public int? Status { get; set; }
         public string SourceLink { get; set; }
     }

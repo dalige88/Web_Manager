@@ -49,9 +49,17 @@ var JRTTImages = {
             }
         }
         //alert(pics);
+        //选中的渠道信息
+        var qd = "";
+        $('input[class="qudao"]:checked').each(function () {
+            qd += $(this).val() + ',';
+        });
+        //将字符串中最后一个元素","逗号去掉，
+        qd = qd.substring(0, qd.lastIndexOf(','));
+
 
         var postData = {};
-        postData.Pid = $('#MenuSub').val();
+        postData.Pid = qd;
         postData.Content = $('#content').val();
         postData.Images = pics;
 
@@ -104,7 +112,7 @@ var JRTTImages = {
             var itemData = result[i];
 
             //html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
-            htmls += '<label style=\"font-weight:bold;\"><input type=\"checkbox\" value=\"' + itemData.id + '\" />' + itemData.subChannelName +'</label>&nbsp;&nbsp;&nbsp;&nbsp;';
+            htmls += '<label style=\"font-weight:bold;\"><input type=\"checkbox\" value=\"' + itemData.id + '\" class=\"qudao\" />' + itemData.subChannelName + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
 
         });
         //$('#MenuSub').html(html);

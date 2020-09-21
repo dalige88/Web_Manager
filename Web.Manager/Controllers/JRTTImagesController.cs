@@ -173,7 +173,7 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("微头条内容不能为空！"));
             }
-            if (req.Pid < 1)
+            if (string.IsNullOrWhiteSpace(req.Pid))
             {
                 return Json(new AjaxResult<Object>("平台ID错误！"));
             }
@@ -197,7 +197,7 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("微头条内容不能为空！"));
             }
-            if (req.Pid < 1)
+            if (string.IsNullOrWhiteSpace(req.Pid))
             {
                 return Json(new AjaxResult<Object>("平台ID错误！"));
             }

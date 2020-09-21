@@ -28,7 +28,7 @@ namespace AIServer.Dtos
         /// <summary>
         /// 平台ID
         /// </summary>
-        public long? PlatformID { get; set; }
+        public string PlatformID { get; set; }
         /// <summary>
         /// 发布状态：0：未发布，1：头条平台已发布
         /// </summary>

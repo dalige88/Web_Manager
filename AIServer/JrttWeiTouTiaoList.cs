@@ -32,7 +32,7 @@ namespace AIServer
                             Content = b.Content,
                             CreateTime = b.Createtime,
                             Images = b.Images,
-                            PlatformID = b.PlatformId,
+                            PlatformID = b.PlatformIds,
                             status = b.Status,
                             SourceLink=b.SourceLink,
                         };
@@ -86,7 +86,7 @@ namespace AIServer
             model.Content = req.Content;
             model.Createtime = DateTime.Now;
             model.Images = req.Images;
-            model.PlatformId = req.Pid;
+            model.PlatformIds = req.Pid;
             model.Status = (int)AIDB.Enum.JrttWeiTouTiaoEnum.status.未发布;
 
             db.Ypjrttweitoutiaoinfo.Add(model);
@@ -106,7 +106,7 @@ namespace AIServer
             {
                 return new AjaxResult<Object>("头条信息不存在！");
             }
-
+            model.PlatformIds = req.Pid;
             model.Content = req.Content;
             if (db.SaveChanges()>0)
             {

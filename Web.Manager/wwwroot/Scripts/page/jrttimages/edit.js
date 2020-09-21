@@ -25,10 +25,18 @@ var JRTTImages = {
             }
         }
         //alert(pics);
+        //选中的渠道信息
+        var qd = "";
+        $('input[class="qudao"]:checked').each(function () {
+            qd += $(this).val() + ',';
+        });
+        //将字符串中最后一个元素","逗号去掉，
+        qd = qd.substring(0, qd.lastIndexOf(','));
+        
 
         var postData = {};
         postData.Id = $('#id').val();
-        postData.Pid = $('#MenuSub').val();
+        postData.Pid = qd;
         postData.Content = $('#content').val(); 
         postData.Images = pics;
 
@@ -76,18 +84,28 @@ var JRTTImages = {
     },
 
     loadSubHtml: function (result) {
+        var htmls = '';
         var Pid = $('#pid').val();
-        var html = '';
+
+       var pids = Pid.split(',');
         $.each(result, function (i) {
             var itemData = result[i];
-            if (Pid == itemData.id) {
-                html += '<option value=' + itemData.id + ' selected=\'selected\'> ' + itemData.subChannelName + ' </option>';
-            } else {
-                html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
+            html = "";
+            for (var j = 0; j < pids.length; j++) {
+                if (pids[j] == itemData.id) {
+                    html += '<label style=\"font-weight:bold;\"><input type=\"checkbox\" value=\"' + itemData.id + '\" class=\"qudao\" checked />' + itemData.subChannelName + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
+                } 
             }
 
+            if (html=="") {
+                html = '<label style=\"font-weight:bold;\"><input type=\"checkbox\" value=\"' + itemData.id + '\" class=\"qudao\" />' + itemData.subChannelName + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+           
+            htmls += html;
+
+
         });
-        $('#MenuSub').html(html);
+        $('#qudao').html(htmls);
     },
 };
 

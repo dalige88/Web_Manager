@@ -712,9 +712,11 @@ namespace AIDB.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.PlatformId)
-                    .HasColumnName("PlatformID")
-                    .HasColumnType("bigint(20)");
+                entity.Property(e => e.PlatformIds)
+                    .HasColumnName("PlatformIDs")
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.SourceLink)
                     .HasColumnName("sourceLink")
