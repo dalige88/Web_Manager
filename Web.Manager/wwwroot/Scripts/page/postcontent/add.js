@@ -3,6 +3,8 @@
 var um = UM.getEditor('myEditor');
 $(function () {
 
+    PostContent.loadSubData();
+
     PostContent.createEditor();
     //PostContent.loadPlat();
     PostContent.pageBind();
@@ -50,7 +52,7 @@ var PostContent = {
         postData.MsgAuthor = $('#MsgAuthor').val();
         postData.MsgContent = um.getContent();
         postData.MsgType = 0;
-        postData.PlatformID = $('#MenuPid').val();
+/*        postData.PlatformID = $('#MenuPid').val();*/
         postData.SubChannelID = $('#MenuSub').val();
         postData.HeadImg = $('#serverFilePath').val();
         postData.HeadImgServer = $('#ImgUrl_hidden').val();
@@ -74,10 +76,8 @@ var PostContent = {
 
     loadSubData: function () {
         
-        var Pid = $('#MenuPid').val();
 
         var postData = {};
-        postData.pid = Pid;
         
         var url = "/Subchannel/Ajax_GetAllList";
 

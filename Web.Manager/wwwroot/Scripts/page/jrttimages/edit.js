@@ -1,7 +1,7 @@
 ﻿
 $(function () {
     JRTTImages.pageBind();
-
+    JRTTImages.loadSubData();
 });
 
 var JRTTImages = {
@@ -28,7 +28,7 @@ var JRTTImages = {
 
         var postData = {};
         postData.Id = $('#id').val();
-        postData.Pid = $('#pid').val();
+        postData.Pid = $('#MenuSub').val();
         postData.Content = $('#content').val(); 
         postData.Images = pics;
 
@@ -59,7 +59,36 @@ var JRTTImages = {
             return;
         }
         document.getElementById("messages").innerText = "你还可以输入" + (nMax - len) + "个字";
-    }
+    },
+
+
+    loadSubData: function () {
+        var postData = {};
+        var url = "/Subchannel/Ajax_GetAllList";
+        ajaxHelper.post(url, postData, function (d) {
+            console.log(d);
+            if (d.length > 0) {
+                JRTTImages.loadSubHtml(d);
+            } else {
+                $('#MenuSub').html('<option value="">--请选择渠道--</option>');
+            }
+        });
+    },
+
+    loadSubHtml: function (result) {
+        var Pid = $('#pid').val();
+        var html = '';
+        $.each(result, function (i) {
+            var itemData = result[i];
+            if (Pid == itemData.id) {
+                html += '<option value=' + itemData.id + ' selected=\'selected\'> ' + itemData.subChannelName + ' </option>';
+            } else {
+                html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
+            }
+
+        });
+        $('#MenuSub').html(html);
+    },
 };
 
 

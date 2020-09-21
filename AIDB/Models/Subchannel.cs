@@ -15,5 +15,7 @@ namespace AIDB.Models
         public string UserPwd { get; set; }
         public string Remark { get; set; }
         public string AnalogPacket { get; set; }
+        public long? ManagerId { get; set; }
+        public string ManagerName { get; set; }
     }
 }

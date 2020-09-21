@@ -35,7 +35,6 @@ var postcontentlist = {
                     <td align="center">' + itemData.msgTitle + '</td>\
                     <td align="center">' + itemData.msgAuthor + '</td>\
                     <td align="center">' + tools.nullToEmptyString(itemData.createTime) + '</td >\
-                    <td align="center">' + itemData.platformName + '</td >\
                     <td align="center">' + itemData.subChannelName + '</td>\
                     <td align="center">' + StatusName + '</td>\
                     <td align="center">' + itemData.createTypeName + '</td>\

@@ -12,9 +12,13 @@ namespace AIServer.Reqs
         /// </summary>
         public long ID { get; set; }
         /// <summary>
-        /// 推广平台ID
+        /// 发布管理员ID
         /// </summary>
-        public long PlatformID { get; set; }
+        public long ManagerID { get; set; }
+        /// <summary>
+        /// 发布管理员名称
+        /// </summary>
+        public string ManagerName { get; set; }
         /// <summary>
         /// 子渠道名称
         /// </summary>

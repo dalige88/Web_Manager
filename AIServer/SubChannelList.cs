@@ -64,7 +64,7 @@ namespace AIServer
             }
 
             Subchannel model = new Subchannel();
-            model.PlatformId = req.PlatformID;
+            
             model.SubChannelName = req.SubChannelName;
             model.AddressUrl = req.AddressURL;
             model.CreateTime = DateTime.Now;
@@ -73,6 +73,8 @@ namespace AIServer
             model.UserPwd = req.UserPwd;
             model.Remark = req.Remark;
             model.AnalogPacket = req.AnalogPacket;
+            model.ManagerId = req.ManagerID;
+            model.ManagerName = req.ManagerName;
 
             db.Subchannel.Add(model);
             db.SaveChanges();
@@ -143,9 +145,9 @@ namespace AIServer
         /// 根据平台查询所有渠道
         /// </summary>
         /// <returns></returns>
-        public List<Subchannel> GetAllList(long pid)
+        public List<Subchannel> GetAllList()
         {
-            return db.Subchannel.Where(w => w.PlatformId == pid).OrderByDescending(w => w.Id).ToList();
+            return db.Subchannel.OrderByDescending(w => w.Id).ToList();
         }
 
         /// <summary>

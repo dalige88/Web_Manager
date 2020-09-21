@@ -93,8 +93,7 @@ namespace Web.Manager.Controllers
             //PY执行脚本（获取和设置当前目录）
             string py_url = Environment.CurrentDirectory + "/wwwroot/PY/发布头条文章.py";
             ViewBag.pyscript = py_url;
-            List<Platforminfo> list = pl.GetAllList();
-            return View(list);
+            return View();
         }
         /// <summary>
         /// 编辑
@@ -153,10 +152,10 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("文章类型错误！"));
             }
-            if (req.PlatformID < 1)
+           /* if (req.PlatformID < 1)
             {
                 return Json(new AjaxResult<Object>("推广平台信息错误！"));
-            }
+            } */
             if (req.SubChannelID < 1)
             {
                 return Json(new AjaxResult<Object>("推广渠道信息错误！"));

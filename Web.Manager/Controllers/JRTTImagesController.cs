@@ -66,9 +66,8 @@ namespace Web.Manager.Controllers
         }
 
         [MenuItemAttribute("推广平台", "微头条管理", "添加微头条")]
-        public IActionResult AddWttPage(long pid)
+        public IActionResult AddWttPage()
         {
-            ViewBag.pid = pid;
             return View();
         }
 

@@ -12,7 +12,6 @@ var wttlist = {
     loadData: function () {
         var Param = {};
         Param.Content = $('#KeyWord').val();
-        Param.Pid = $('#pid').val();
         Param.Status = $('#Status').val();
         url = '/JRTTImages/Ajax_WTTGetList';
 

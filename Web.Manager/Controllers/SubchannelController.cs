@@ -9,6 +9,7 @@ using AIServer.Reqs;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Web.Manager.WebManager.Entity;
 using WebManager.Core.Entity;
 using YL.Base;
 
@@ -21,7 +22,7 @@ namespace Web.Manager.Controllers
     {
         #region Menu
         SubChannelList sh;
-
+        AdminUser user;
         #endregion
 
         #region 页面
@@ -32,9 +33,8 @@ namespace Web.Manager.Controllers
         }
 
         [MenuItemAttribute("推广平台", "推广平台渠道管理", "添加")]
-        public IActionResult AddSubchannel(string pid) 
+        public IActionResult AddSubchannel() 
         {
-            ViewBag.pid = pid;
             return View();
         }
 
@@ -70,7 +70,8 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("请输入模拟提交数据包！"));
             }
-
+            req.ManagerID = user.CurAccount.ManagerId;
+            req.ManagerName = user.CurAccount.ManagerName;
             return Json(sh.AddSubchannel(req));
         }
 
@@ -107,12 +108,12 @@ namespace Web.Manager.Controllers
         }
 
         /// <summary>
-        /// 根据平台ID查询所有平台信息
+        /// 查询所有渠道信息
         /// </summary>
         /// <returns></returns>
-        public JsonResult Ajax_GetAllList(long pid)
+        public JsonResult Ajax_GetAllList()
         {
-            List<Subchannel> list = sh.GetAllList(pid);
+            List<Subchannel> list = sh.GetAllList();
 
             return Json(new AjaxResult<List<Subchannel>>(list));
         }

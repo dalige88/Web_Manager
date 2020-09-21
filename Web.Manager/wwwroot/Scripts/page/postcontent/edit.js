@@ -4,7 +4,7 @@ var um = UM.getEditor('myEditor');
 $(function () {
     
     PostContent.createEditor();
-    PostContent.loadPlaData();
+    PostContent.loadSubData();
     PostContent.pageBind();
     //PostContent.insertHtml($('#msgcontent').val());
 
@@ -85,7 +85,7 @@ var PostContent = {
 
     },
 
-
+/*
 
     loadPlaData: function () {
         var postData = {};
@@ -112,15 +112,14 @@ var PostContent = {
             
         });
         $('#MenuPid').html(html);
-    },
+    },*/
 
 
 
 
 
-    loadSubData: function (Pid) {
+    loadSubData: function () {
         var postData = {};
-        postData.pid = Pid;
         var url = "/Subchannel/Ajax_GetAllList";
         ajaxHelper.post(url, postData, function (d) {
             if (d.length > 0) {
@@ -132,10 +131,16 @@ var PostContent = {
     },
 
     loadSubHtml: function (result) {
+        var Pid = $('#pid').val();
         var html = '';
         $.each(result, function (i) {
             var itemData = result[i];
-            html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
+            if (Pid == itemData.id) {
+                html += '<option value=' + itemData.id + ' selected=\'selected\'> ' + itemData.subChannelName + ' </option>';
+            } else {
+                html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
+            }
+            
         });
         $('#MenuSub').html(html);
     },

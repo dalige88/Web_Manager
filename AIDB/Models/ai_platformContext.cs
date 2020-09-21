@@ -652,6 +652,15 @@ namespace AIDB.Models
 
                 entity.Property(e => e.CreateTime).HasColumnType("datetime");
 
+                entity.Property(e => e.ManagerId)
+                    .HasColumnName("ManagerID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.ManagerName)
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
                 entity.Property(e => e.PlatformId)
                     .HasColumnName("PlatformID")
                     .HasColumnType("bigint(20)");
