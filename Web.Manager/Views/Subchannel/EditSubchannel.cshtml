@@ -19,6 +19,47 @@
     <div class="row mt30 mtop15">
         <input type="hidden" id="ID" name="ID" value="@Model.Id" />
         <div class="row rowmb15">
+            <div class="col-md-pull-12">
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>PY 视频 发布脚本：</label>
+                <div class="col-sm-5">
+                    <input class="form-control" id="PYScript_Video" name="PYScript_Video" type="text" value="@Model.PyscriptVideo" placeholder="请填写（视频发布脚本.py）" />
+                </div>
+            </div>
+        </div>
+        <div class="row rowmb15">
+            <div class="col-md-pull-12">
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>PY 短文 发布脚本：</label>
+                <div class="col-sm-5">
+                    <input class="form-control" id="PYScript_ShortEssay" name="PYScript_ShortEssay" type="text" value="@Model.PyscriptShortEssay" placeholder="请填写（短文发布脚本.py）" />
+                </div>
+            </div>
+        </div>
+        <div class="row rowmb15">
+            <div class="col-md-pull-12">
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>PY 长文 发布脚本：</label>
+                <div class="col-sm-5">
+                    <input class="form-control" id="PYScript_LongEssay" name="PYScript_LongEssay" type="text" value="@Model.PyscriptLongEssay" placeholder="请填写（长文发布脚本.py）" />
+                </div>
+            </div>
+        </div>
+        <div class="row rowmb15">
+            <div class="col-md-pull-12">
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>PY 评论 发布脚本：</label>
+                <div class="col-sm-5">
+                    <input class="form-control" id="PYScript_Comment" name="PYScript_Comment" type="text" value="@Model.PyscriptComment" placeholder="请填写（评论发布脚本.py）" />
+                </div>
+            </div>
+        </div>
+        <div class="row rowmb15">
+            <div class="col-md-pull-12">
+                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>PY 图库 发布脚本：</label>
+                <div class="col-sm-5">
+                    <input class="form-control" id="PYScript_PIC" name="PYScript_PIC" type="text" value="@Model.PyscriptPic" placeholder="请填写（评论发布脚本.py）" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowmb15">
             <div class="col-md-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>推广平台渠道名称：</label>
                 <div class="col-sm-5">
@@ -40,7 +81,7 @@
             <div class="col-md-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>模拟提交数据包（COOKIE）：</label>
                 <div class="col-sm-5">
-                    <textarea class="form-control" id="AnalogPacket" name="AnalogPacket">@Model.AnalogPacket</textarea>
+                    <textarea class="form-control" id="AnalogPacket" name="AnalogPacket" style="min-height:200px;">@Model.AnalogPacket</textarea>
                 </div>
             </div>
         </div>

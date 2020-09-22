@@ -29,7 +29,7 @@ namespace AIServer
             Pagination<PostContentDto> page = new Pagination<PostContentDto>();
 
             var query = from b in db.Postcontent
-                        join d in db.Subchannel on b.SubChannelId equals d.Id
+                        //join d in db.Subchannel on b.SubChannelId equals d.Id
                         select new PostContentDto
                         {
                             ID = b.Id,
@@ -42,14 +42,14 @@ namespace AIServer
                             CreateType = b.CreateType,
                             CreateTypeName = b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.AI创建 ? "AI创建": b.CreateType == (int)AIDB.Enum.PostContentEnum.CreateType.人工创建 ? "人工创建" : "",
                             OpenStatus = b.OpenStatus,
-                            OpenStatusName = b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 ? "头条网已发布" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.未发布 ? "未发布" : "",
+                            OpenStatusName = b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.已发布 ? "已发布" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.OpenStatus.未发布 ? "未发布" : "",
                             CreateUserType = b.CreateUserType,
                             CreateUserTypeName = b.CreateUserType == (int)AIDB.Enum.PostContentEnum.CreateUserType.用户 ? "用户" : b.OpenStatus == (int)AIDB.Enum.PostContentEnum.CreateUserType.管理员 ? "管理员" : "",
                             MsgType = b.MsgType,
                             MsgTypeName = b.MsgType == (int)AIDB.Enum.PostContentEnum.MsgType.文本图片视频 ? "文本图片视频" : b.MsgType == (int)AIDB.Enum.PostContentEnum.MsgType.纯图片 ? "图片" : b.MsgType == (int)AIDB.Enum.PostContentEnum.MsgType.纯文本 ? "文本" : b.MsgType == (int)AIDB.Enum.PostContentEnum.MsgType.纯视频 ? "视频" : "",
-                            PlatformID = b.PlatformId,
+                            PlatformIDs = b.PlatformIds,
                             SubChannelID = b.SubChannelId,
-                            SubChannelName = d.SubChannelName,
+                            //SubChannelName = d.SubChannelName,
                             MsgTitle = b.MsgTitle,
                             MsgAuthor = b.MsgAuthor
                         };
@@ -89,11 +89,11 @@ namespace AIServer
             model.CreateManagerId = req.CreateManagerID;
             model.CreateUserId = req.CreateUserID;
             model.CreateType = (int)AIDB.Enum.PostContentEnum.CreateType.人工创建;
-            model.OpenStatus = (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布;
+            model.OpenStatus = (int)AIDB.Enum.PostContentEnum.OpenStatus.已发布;
             model.CreateUserType = (int)AIDB.Enum.PostContentEnum.CreateUserType.管理员;
             model.MsgType = req.MsgType;
-            //model.PlatformId = req.PlatformID;
-            model.SubChannelId = req.SubChannelID;
+            model.PlatformIds = req.PlatformIDs;
+            //model.SubChannelId = req.SubChannelID;
             model.HeadImg = req.HeadImg;
             model.HeadImgServer = req.HeadImgServer;
             db.Postcontent.Add(model);
@@ -130,10 +130,13 @@ namespace AIServer
             model.OpenStatus = req.OpenStatus;
             //model.CreateUserType = req.CreateUserType;
             model.MsgType = req.MsgType;
-            //model.PlatformId = req.PlatformID;
-            model.SubChannelId = req.SubChannelID;
-            db.SaveChanges();
-            return new AjaxResult<Object>("编辑成功！", 0);
+            model.PlatformIds = req.PlatformIDs;
+            //model.SubChannelId = req.SubChannelID;
+            if (db.SaveChanges() > 0)
+            {
+                return new AjaxResult<Object>("编辑成功！", 0);
+            }
+            return new AjaxResult<Object>("编辑失败！");
         }
 
         /// <summary>

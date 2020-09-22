@@ -152,14 +152,14 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("文章类型错误！"));
             }
-           /* if (req.PlatformID < 1)
+            if (string.IsNullOrWhiteSpace(req.PlatformIDs))
             {
                 return Json(new AjaxResult<Object>("推广平台信息错误！"));
-            } */
-            if (req.SubChannelID < 1)
-            {
-                return Json(new AjaxResult<Object>("推广渠道信息错误！"));
             }
+            /* if (req.SubChannelID < 1)
+             {
+                 return Json(new AjaxResult<Object>("推广渠道信息错误！"));
+             }*/
             if (string.IsNullOrWhiteSpace(req.HeadImg)||string.IsNullOrWhiteSpace(req.HeadImgServer))
             {
                 return Json(new AjaxResult<Object>("请上传头像！"));
@@ -193,7 +193,7 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("请输入作者！"));
             }
-            if (req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布 && req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.未发布)
+            if (req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.已发布 && req.OpenStatus != (int)AIDB.Enum.PostContentEnum.OpenStatus.未发布)
             {
                 return Json(new AjaxResult<Object>("启用状态错误！"));
             }
@@ -204,6 +204,10 @@ namespace Web.Manager.Controllers
             if (string.IsNullOrWhiteSpace(req.HeadImg) || string.IsNullOrWhiteSpace(req.HeadImgServer))
             {
                 return Json(new AjaxResult<Object>("请上传首页头图！"));
+            }
+            if (string.IsNullOrWhiteSpace(req.PlatformIDs))
+            {
+                return Json(new AjaxResult<Object>("请选择发送渠道！"));
             }
 
             return Json(pc.EditPostcontent(req));
@@ -286,8 +290,8 @@ namespace Web.Manager.Controllers
 
                         if (jo["code"].ToString() == "0")
                         {
-                            pc.UpOpenStatus(id, (int)AIDB.Enum.PostContentEnum.OpenStatus.头条网已发布);
-                            return Json(new AjaxResult<Object>("头条发布成功！", 0));
+                            pc.UpOpenStatus(id, (int)AIDB.Enum.PostContentEnum.OpenStatus.已发布);
+                            return Json(new AjaxResult<Object>("发布成功！", 0));
                         }
                         else
                         {

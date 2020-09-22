@@ -31,11 +31,6 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "图片管理", "添加图片")]
         public IActionResult Add(long pid)
         {
-            string str2 = Environment.CurrentDirectory;          //获取和设置当前目录（即该进程从中启动的目录）的完全限定路径。
-            //E:\work\NET\WebManager\WebManager\Web.Manager
-            //E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py
-            ViewBag.pyscript = str2 + "/wwwroot/PY/上传图片到材料库.py";
-
             ViewData["pid"] = pid;
             return View();
         }
@@ -59,8 +54,8 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "微头条管理", "微头条列表")]
         public IActionResult WeiTouTiaoList()
         {
-            string str2 = Environment.CurrentDirectory;
-            ViewBag.pyscript = str2 + "\\wwwroot\\PY\\发微头条图文皆可.py";
+            /*string str2 = Environment.CurrentDirectory;
+            ViewBag.pyscript = str2 + "\\wwwroot\\PY\\发微头条图文皆可.py";*/
 
             return View();
         }
@@ -87,12 +82,26 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "图片管理", "（上传）今日头条")]
         public JsonResult Ajax_AddJRTTImages(JrttimagesReq req)
         {
-            /*string fileName = "shell/";
-           fileName += "linux.sh";*/
-            //var psi = new ProcessStartInfo("dotnet", "--info") { RedirectStandardOutput = true };
-            string script = req.PYScript + " " + req.Url;
+            Subchannel sb = sh.SelSubchannel((long)Convert.ToInt32(req.PlatforminfoID));
+            if (sb == null)
+            {
+                return Json(new AjaxResult<Object>("渠道信息错误！"));
+            }
+            if (string.IsNullOrWhiteSpace(sb.PyscriptPic))
+            {
+                return Json(new AjaxResult<Object>("渠道《"+sb.SubChannelName+"》，没有填写发布图片脚本！"));
+            }
+            if (string.IsNullOrWhiteSpace(sb.AnalogPacket))
+            {
+                return Json(new AjaxResult<Object>("渠道COOKIE错误！"));
+            }
 
-            /*var psi = new ProcessStartInfo("python", "E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py C:/Users/Administrator/Desktop/temp/1234.jpg") { RedirectStandardOutput = true };*/
+            //base64加密（COOKIE）
+            string ck = EncodeBase64("utf-8", sb.AnalogPacket);
+
+            //string script = "E:/work/NET/WebManager/WebManager/Web.Manager/wwwroot/PY/上传图片到材料库.py" + " " + ck + " " + req.Url;
+            string script = sb.PyscriptPic + " " + ck + " " + req.Url;
+
             var psi = new ProcessStartInfo("python", script) { RedirectStandardOutput = true };
             var proc = Process.Start(psi);
             if (proc == null)
@@ -109,6 +118,7 @@ namespace Web.Manager.Controllers
                     {
                         //Console.WriteLine(sr.ReadLine());
                         string jsonText = sr.ReadLine();
+                        Console.WriteLine(jsonText);
                         JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
 
                         JrttimagesReq md = new JrttimagesReq();
@@ -213,10 +223,6 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("信息错误！"));
             }
-            if (string.IsNullOrWhiteSpace(PYScript))
-            {
-                return Json(new AjaxResult<Object>("脚本地址错误！"));
-            }
 
             Ypjrttweitoutiaoinfo model = wtt.Sel_Ypjrttweitoutiaoinfo(id);
             if (model == null)
@@ -224,8 +230,44 @@ namespace Web.Manager.Controllers
                 return Json(new AjaxResult<Object>("头条信息不存在！"));
             }
 
+            //循环查询脚本
+            var pids = model.PlatformIds.Split(',');
+            foreach (var item in pids)
+            {
+                
+                Subchannel md = sh.SelSubchannel((long)Convert.ToInt32(item));
+                if (md != null)
+                {
+                    if (string.IsNullOrWhiteSpace(md.PyscriptShortEssay))
+                    {
+                        return Json(new AjaxResult<Object>("渠道《" + md.SubChannelName + "》，没有填写发布短文脚本！"));
+                    }
+                    if (string.IsNullOrWhiteSpace(md.AnalogPacket))
+                    {
+                        return Json(new AjaxResult<Object>("渠道COOKIE错误！"));
+                    }
 
-            //开始同步信息
+                    //base64加密（COOKIE）
+                    string ck = EncodeBase64("utf-8", md.AnalogPacket);
+
+                    //base64加密
+                    string content = EncodeBase64("utf-8", model.Content);
+
+                    string script = md.PyscriptShortEssay + " " + ck + " " + model.Images + " " + content;
+
+                    //base64解码
+                    //string ss = DecodeBase64("utf-8", content);
+
+                    //PY执行脚本
+                    return Ajax_PublicPostWTT(script, id);
+                }
+                
+            }
+
+            return Json(new AjaxResult<Object>("发布完成！", 0));
+
+            #region  
+            /*//开始同步信息
             //string[] imgs = model.Images.Split(',');
             //base64加密
             string content = EncodeBase64("utf-8", model.Content);
@@ -238,7 +280,9 @@ namespace Web.Manager.Controllers
             //string ss = DecodeBase64("utf-8", content);
 
             //PY执行脚本
-            return Ajax_PublicPostWTT(script, id);
+            return Ajax_PublicPostWTT(script, id);*/
+
+            #endregion
         }
 
 
@@ -271,7 +315,7 @@ namespace Web.Manager.Controllers
                         if (jo["status_code"].ToString() == "0")
                         {
                             wtt.UpYpStatus_YFB(id, (int)AIDB.Enum.JrttWeiTouTiaoEnum.status.头条平台已发布);
-                            return Json(new AjaxResult<Object>("头条发布成功！", 0));
+                            return Json(new AjaxResult<Object>("发布成功！", 0));
 
                         }
                         else
@@ -293,7 +337,7 @@ namespace Web.Manager.Controllers
 
             }
 
-            return Json(new AjaxResult<Object>("发布到头条失败！"));
+            return Json(new AjaxResult<Object>("发布失败！"));
         }
 
         ///编码（Base64方式的编码与解码）

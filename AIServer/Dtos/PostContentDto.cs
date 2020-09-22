@@ -60,7 +60,7 @@ namespace AIServer.Dtos
         /// <summary>
         /// 推广平台ID
         /// </summary>
-        public long PlatformID { get; set; }
+        public string PlatformIDs { get; set; }
         /// <summary>
         /// 推广平台名称
         /// </summary>

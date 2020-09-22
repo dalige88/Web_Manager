@@ -40,7 +40,7 @@ var JRTTImages = {
         var postData = {};
         postData.PlatforminfoID = $('#pid').val();
         postData.Url = $('#serverFilePath').val(); 
-        postData.PYScript = $('#PYScript').val();
+        //postData.PYScript = $('#PYScript').val();
         var url = "/JRTTImages/Ajax_AddJRTTImages";
 
         if (postData.Url == null || postData.Url=="") {

@@ -19,7 +19,7 @@ namespace AIDB.Enum
         /// </summary>
         public enum OpenStatus
         {
-            头条网已发布 = 1,
+            已发布 = 1,
             未发布 = 0,
             
         }

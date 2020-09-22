@@ -17,29 +17,35 @@
     </div>
     <div class="row mt30 mtop15">
         @*<div class="row rowmb15">
-            <div class="col-md-12">
-                <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>平台：</label>
-                <div class="col-sm-5">
+                <div class="col-md-12">
+                    <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>平台：</label>
+                    <div class="col-sm-5">
 
-                    <select id="MenuPid" name="MenuPid" onclick="PostContent.loadSubData()">
-                        @foreach (var item in Model)
-                        {
-                            <option value="@item.Id"> @item.PlatformName </option>
-                        }
-                    </select>
+                        <select id="MenuPid" name="MenuPid" onclick="PostContent.loadSubData()">
+                            @foreach (var item in Model)
+                            {
+                                <option value="@item.Id"> @item.PlatformName </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mycl"></div>
                 </div>
-                <div class="mycl"></div>
-            </div>
-        </div>>*@
+            </div>>*@
 
         <div class="row rowmb15">
             <div class="col-md-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>发送渠道：</label>
                 <div class="col-sm-5">
 
-                    <select id="MenuSub" name="MenuSub" style="min-width:200px; width:100%;">
-                        <option value="">--请选择渠道--</option>
-                    </select>
+                    @* <select id="MenuSub" name="MenuSub" style="min-width:200px; width:100%;">
+                            <option value="">--请选择渠道--</option>
+                        </select>*@
+
+                    <div id="qudao">
+
+                    </div>
+
+
                 </div>
                 <div class="mycl"></div>
             </div>
@@ -79,14 +85,14 @@
             </div>
         </div>
 
-        <div class="row rowmb15">
+        @*<div class="row rowmb15">
             <div class="col-md-12">
                 <label class="col-sm-3 edit-group-label"><span class="spanrequired">*</span>PY脚本地址：</label>
                 <div class="col-sm-5">
                     <textarea class="form-control" id="PYScript" name="PYScript">@ViewBag.pyscript</textarea>
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="row rowmb5">
             <div class="col-md-12">

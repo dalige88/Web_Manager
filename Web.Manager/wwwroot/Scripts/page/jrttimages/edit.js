@@ -72,13 +72,14 @@ var JRTTImages = {
 
     loadSubData: function () {
         var postData = {};
+        postData.types = 1;
         var url = "/Subchannel/Ajax_GetAllList";
         ajaxHelper.post(url, postData, function (d) {
             console.log(d);
             if (d.length > 0) {
                 JRTTImages.loadSubHtml(d);
             } else {
-                $('#MenuSub').html('<option value="">--请选择渠道--</option>');
+                //$('#MenuSub').html('<option value="">--请选择渠道--</option>');
             }
         });
     },
@@ -90,7 +91,7 @@ var JRTTImages = {
        var pids = Pid.split(',');
         $.each(result, function (i) {
             var itemData = result[i];
-            html = "";
+            var html = "";
             for (var j = 0; j < pids.length; j++) {
                 if (pids[j] == itemData.id) {
                     html += '<label style=\"font-weight:bold;\"><input type=\"checkbox\" value=\"' + itemData.id + '\" class=\"qudao\" checked />' + itemData.subChannelName + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';

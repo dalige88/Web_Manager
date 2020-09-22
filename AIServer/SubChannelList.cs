@@ -64,7 +64,11 @@ namespace AIServer
             }
 
             Subchannel model = new Subchannel();
-            
+            model.PyscriptVideo = req.PYScript_Video;
+            model.PyscriptShortEssay = req.PYScript_ShortEssay;
+            model.PyscriptLongEssay = req.PYScript_LongEssay;
+            model.PyscriptComment = req.PYScript_Comment;
+            model.PyscriptPic = req.PYScript_PIC;
             model.SubChannelName = req.SubChannelName;
             model.AddressUrl = req.AddressURL;
             model.CreateTime = DateTime.Now;
@@ -93,6 +97,11 @@ namespace AIServer
             {
                 return new AjaxResult<Object>("推广子平台渠道不存在！");
             }
+            model.PyscriptVideo = req.PYScript_Video;
+            model.PyscriptShortEssay = req.PYScript_ShortEssay;
+            model.PyscriptLongEssay = req.PYScript_LongEssay;
+            model.PyscriptComment = req.PYScript_Comment;
+            model.PyscriptPic = req.PYScript_PIC;
 
             model.SubChannelName = req.SubChannelName;
             model.AddressUrl = req.AddressURL;
@@ -142,11 +151,33 @@ namespace AIServer
         }
 
         /// <summary>
-        /// 根据平台查询所有渠道
+        /// 根据平台查询所有渠道 
         /// </summary>
+        /// <param name="types">1:短文脚本,2:长文脚本,3:评论脚本,4:视频脚本</param>
         /// <returns></returns>
-        public List<Subchannel> GetAllList()
+        public List<Subchannel> GetAllList(int types)
         {
+            //查询  短文脚本
+            if (types == 1)
+            {
+                return db.Subchannel.Where(w => !string.IsNullOrWhiteSpace(w.PyscriptShortEssay)).OrderByDescending(w => w.Id).ToList();
+            }
+            //查询  长文脚本
+            if (types == 2)
+            {
+                return db.Subchannel.Where(w => !string.IsNullOrWhiteSpace(w.PyscriptLongEssay)).OrderByDescending(w => w.Id).ToList();
+            }
+            //查询  评论脚本
+            if (types == 3)
+            {
+                return db.Subchannel.Where(w => !string.IsNullOrWhiteSpace(w.PyscriptComment)).OrderByDescending(w => w.Id).ToList();
+            }
+            //查询  视频脚本
+            if (types == 4)
+            {
+                return db.Subchannel.Where(w => !string.IsNullOrWhiteSpace(w.PyscriptVideo)).OrderByDescending(w => w.Id).ToList();
+            }
+
             return db.Subchannel.OrderByDescending(w => w.Id).ToList();
         }
 
@@ -155,7 +186,7 @@ namespace AIServer
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public int AddJrttImagesinfo(Jrttimagesinfo model) 
+        public int AddJrttImagesinfo(Jrttimagesinfo model)
         {
             db.Jrttimagesinfo.Add(model);
             return db.SaveChanges();

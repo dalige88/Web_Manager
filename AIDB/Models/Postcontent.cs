@@ -14,7 +14,7 @@ namespace AIDB.Models
         public int OpenStatus { get; set; }
         public int CreateUserType { get; set; }
         public int MsgType { get; set; }
-        public long PlatformId { get; set; }
+        public string PlatformIds { get; set; }
         public long SubChannelId { get; set; }
         public string MsgTitle { get; set; }
         public string MsgAuthor { get; set; }

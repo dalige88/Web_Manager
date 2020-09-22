@@ -574,9 +574,12 @@ namespace AIDB.Models
 
                 entity.Property(e => e.OpenStatus).HasColumnType("int(255)");
 
-                entity.Property(e => e.PlatformId)
-                    .HasColumnName("PlatformID")
-                    .HasColumnType("bigint(20)");
+                entity.Property(e => e.PlatformIds)
+                    .IsRequired()
+                    .HasColumnName("PlatformIDs")
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.SubChannelId)
                     .HasColumnName("SubChannelID")
@@ -664,6 +667,41 @@ namespace AIDB.Models
                 entity.Property(e => e.PlatformId)
                     .HasColumnName("PlatformID")
                     .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.PyscriptComment)
+                    .HasColumnName("PYScript_Comment")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("PY评论发布脚本（评论）")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PyscriptLongEssay)
+                    .HasColumnName("PYScript_LongEssay")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("PY长文发布脚本（文章）")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PyscriptPic)
+                    .HasColumnName("PYScript_PIC")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("PY图库发布脚本（图库：上传图片）")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PyscriptShortEssay)
+                    .HasColumnName("PYScript_ShortEssay")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("PY短文发布脚本（微头条）")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PyscriptVideo)
+                    .HasColumnName("PYScript_Video")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("PY视频发布脚本（视频）")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.Remark)
                     .HasColumnType("varchar(400)")

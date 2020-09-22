@@ -58,6 +58,14 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "推广平台渠道管理", "添加推广平台渠道（提交）")]
         public JsonResult Ajax_AddSubchannel(SubchannelReq req) 
         {
+            if (string.IsNullOrWhiteSpace(req.PYScript_Video)&& 
+                string.IsNullOrWhiteSpace(req.PYScript_ShortEssay)&& 
+                string.IsNullOrWhiteSpace(req.PYScript_LongEssay)&& 
+                string.IsNullOrWhiteSpace(req.PYScript_Comment)&&
+                string.IsNullOrWhiteSpace(req.PYScript_PIC))
+            {
+                return Json(new AjaxResult<Object>("必须填写至少一个PY执行脚本程序！"));
+            }
             if (string.IsNullOrWhiteSpace(req.SubChannelName))
             {
                 return Json(new AjaxResult<Object>("请输入推广平台渠道名称！"));
@@ -78,6 +86,14 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "推广平台渠道管理", "编辑推广平台渠道（提交）")]
         public JsonResult Ajax_EditSubchannel(SubchannelReq req) 
         {
+            if (string.IsNullOrWhiteSpace(req.PYScript_Video) &&
+                string.IsNullOrWhiteSpace(req.PYScript_ShortEssay) &&
+                string.IsNullOrWhiteSpace(req.PYScript_LongEssay) &&
+                string.IsNullOrWhiteSpace(req.PYScript_Comment)&&
+                string.IsNullOrWhiteSpace(req.PYScript_PIC))
+            {
+                return Json(new AjaxResult<Object>("必须填写至少一个PY执行脚本程序！"));
+            }
             if (req.ID < 1)
             {
                 return Json(new AjaxResult<Object>("请选择您要编辑的推广平台渠道！"));
@@ -111,9 +127,9 @@ namespace Web.Manager.Controllers
         /// 查询所有渠道信息
         /// </summary>
         /// <returns></returns>
-        public JsonResult Ajax_GetAllList()
+        public JsonResult Ajax_GetAllList(int types=0)
         {
-            List<Subchannel> list = sh.GetAllList();
+            List<Subchannel> list = sh.GetAllList(types);
 
             return Json(new AjaxResult<List<Subchannel>>(list));
         }

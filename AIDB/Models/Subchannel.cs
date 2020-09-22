@@ -17,5 +17,10 @@ namespace AIDB.Models
         public string AnalogPacket { get; set; }
         public long? ManagerId { get; set; }
         public string ManagerName { get; set; }
+        public string PyscriptVideo { get; set; }
+        public string PyscriptShortEssay { get; set; }
+        public string PyscriptLongEssay { get; set; }
+        public string PyscriptComment { get; set; }
+        public string PyscriptPic { get; set; }
     }
 }

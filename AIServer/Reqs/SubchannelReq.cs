@@ -8,6 +8,26 @@ namespace AIServer.Reqs
     public class SubchannelReq : PageModel
     {
         /// <summary>
+        /// PY视频发布脚本（视频）
+        /// </summary>
+        public string PYScript_Video { get; set; }
+        /// <summary>
+        /// PY短文发布脚本（微头条）
+        /// </summary>
+        public string PYScript_ShortEssay { get; set; }
+        /// <summary>
+        /// PY长文发布脚本（文章）
+        /// </summary>
+        public string PYScript_LongEssay { get; set; }
+        /// <summary>
+        /// PY评论发布脚本（评论）
+        /// </summary>
+        public string PYScript_Comment { get; set; }
+        /// <summary>
+        /// PY图库发布脚本（图库）
+        /// </summary>
+        public string PYScript_PIC { get; set; }
+        /// <summary>
         /// ID
         /// </summary>
         public long ID { get; set; }

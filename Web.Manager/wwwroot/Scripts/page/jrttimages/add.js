@@ -94,13 +94,14 @@ var JRTTImages = {
 
     loadSubData: function () {
         var postData = {};
+        postData.types = 1;
         var url = "/Subchannel/Ajax_GetAllList";
         ajaxHelper.post(url, postData, function (d) {
             console.log(d);
             if (d.length > 0) {
                 JRTTImages.loadSubHtml(d);
             } else {
-                $('#MenuSub').html('<option value="">--请选择渠道--</option>');
+                //$('#MenuSub').html('<option value="">--请选择渠道--</option>');
             }
         });
     },

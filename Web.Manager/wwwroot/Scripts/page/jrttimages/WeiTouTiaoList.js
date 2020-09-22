@@ -84,7 +84,7 @@ var wttlist = {
     postJRTT: function (id) {
         var postData = {};
         postData.id = id;
-        postData.PYScript = $('#PYScript').val();
+        /*postData.PYScript = $('#PYScript').val();*/
         var url = "/JRTTImages/Ajax_PostWTT";
         ajaxHelper.post(url, postData, function (d) {
             msg.success('操作成功！', function () {

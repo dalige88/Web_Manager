@@ -51,6 +51,13 @@ var PostContent = {
     },
 
     saveInfo: function () {
+        //选中的渠道信息
+        var qd = "";
+        $('input[class="qudao"]:checked').each(function () {
+            qd += $(this).val() + ',';
+        });
+        //将字符串中最后一个元素","逗号去掉，
+        qd = qd.substring(0, qd.lastIndexOf(','));
         
         var postData = {};
         postData.ID = $('#id').val();
@@ -58,8 +65,8 @@ var PostContent = {
         postData.MsgAuthor = $('#MsgAuthor').val();
         postData.MsgContent = um.getContent();
         postData.MsgType = 0;
-        postData.PlatformID = $('#MenuPid').val();
-        postData.SubChannelID = $('#MenuSub').val();
+        postData.PlatformIDs = qd;
+        //postData.SubChannelID = $('#MenuSub').val();
         postData.HeadImg = $('#serverFilePath').val();
         postData.HeadImgServer = $('#ImgUrl_hidden').val();
         if ($('.RoleStatus:checked').length > 0) {
@@ -120,29 +127,39 @@ var PostContent = {
 
     loadSubData: function () {
         var postData = {};
+        postData.types = 2;
         var url = "/Subchannel/Ajax_GetAllList";
         ajaxHelper.post(url, postData, function (d) {
             if (d.length > 0) {
                 PostContent.loadSubHtml(d);
             } else {
-                $('#MenuSub').html('<option value="">--请选择渠道--</option>');
+                //$('#MenuSub').html('<option value="">--请选择渠道--</option>');
             }
         });
     },
 
     loadSubHtml: function (result) {
         var Pid = $('#pid').val();
-        var html = '';
+        var htmls = '';
+
+        var pids = Pid.split(',');
         $.each(result, function (i) {
             var itemData = result[i];
-            if (Pid == itemData.id) {
-                html += '<option value=' + itemData.id + ' selected=\'selected\'> ' + itemData.subChannelName + ' </option>';
-            } else {
-                html += '<option value=' + itemData.id + '> ' + itemData.subChannelName + ' </option>';
+            var html = "";
+            for (var j = 0; j < pids.length; j++) {
+                if (pids[j] == itemData.id) {
+                    html += '<label style=\"font-weight:bold;\"><input type=\"checkbox\" value=\"' + itemData.id + '\" class=\"qudao\" checked />' + itemData.subChannelName + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
+                }
             }
+
+            if (html == "") {
+                html = '<label style=\"font-weight:bold;\"><input type=\"checkbox\" value=\"' + itemData.id + '\" class=\"qudao\" />' + itemData.subChannelName + '</label>&nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+
+            htmls += html;
             
         });
-        $('#MenuSub').html(html);
+        $('#qudao').html(htmls);
     },
 
     //按钮的操作

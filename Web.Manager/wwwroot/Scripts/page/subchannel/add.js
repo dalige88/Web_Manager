@@ -9,11 +9,16 @@ var Subchannel = {
         $('#btn_save').click(function () {
             Subchannel.saveInfo();
         });
-       
+
     },
 
     saveInfo: function () {
         var postData = {};
+        postData.PYScript_Video = $('#PYScript_Video').val();
+        postData.PYScript_ShortEssay = $('#PYScript_ShortEssay').val();
+        postData.PYScript_LongEssay = $('#PYScript_LongEssay').val();
+        postData.PYScript_Comment = $('#PYScript_Comment').val();
+        postData.PYScript_PIC = $('#PYScript_PIC').val();
         postData.PlatformID = $('#PlatformID').val();
         postData.SubChannelName = $('#SubChannelName').val();
         postData.AddressURL = $('#AddressURL').val();
