@@ -144,5 +144,28 @@ namespace AIServer
             return db.SaveChanges();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public AjaxResult<object> DelYPWTT(long id) 
+        {
+            if (id<1)
+            {
+                return new AjaxResult<Object>("请选择您要删除的对象！");
+            }
+            Ypjrttweitoutiaoinfo model = db.Ypjrttweitoutiaoinfo.Where(w => w.Id == id).FirstOrDefault();
+            if (model==null)
+            {
+                return new AjaxResult<Object>("您要删除的对象不存在！");
+            }
+            db.Remove(model);
+            if (db.SaveChanges()>0)
+            {
+                return new AjaxResult<Object>("删除成功！", 0);
+            }
+            return new AjaxResult<Object>("删除失败！");
+        }
     }
 }

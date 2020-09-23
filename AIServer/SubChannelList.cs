@@ -25,7 +25,6 @@ namespace AIServer
         {
             Pagination<SubchannelDto> page = new Pagination<SubchannelDto>();
             var query = from b in db.Subchannel
-                        join c in db.Platforminfo on b.PlatformId equals c.Id
                         select new SubchannelDto
                         {
                             ID = b.Id,
@@ -37,7 +36,6 @@ namespace AIServer
                             UserName = b.UserName,
                             UserPwd = b.UserPwd,
                             Remark = b.Remark,
-                            PlatformName = c.PlatformName,
                             StatesName = b.States == 0 ? "有效" : b.States == 1 ? "无效" : "",
 
                         };

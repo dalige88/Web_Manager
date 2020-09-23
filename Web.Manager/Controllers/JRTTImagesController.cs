@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebManager.Core.Entity;
 using YL.Base;
+using System.IO;
 
 namespace Web.Manager.Controllers
 {
@@ -89,7 +90,7 @@ namespace Web.Manager.Controllers
             }
             if (string.IsNullOrWhiteSpace(sb.PyscriptPic))
             {
-                return Json(new AjaxResult<Object>("渠道《"+sb.SubChannelName+"》，没有填写发布图片脚本！"));
+                return Json(new AjaxResult<Object>("渠道《" + sb.SubChannelName + "》，没有填写发布图片脚本！"));
             }
             if (string.IsNullOrWhiteSpace(sb.AnalogPacket))
             {
@@ -219,6 +220,7 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("推广平台", "微头条管理", "发布微头条到平台")]
         public JsonResult Ajax_PostWTT(string PYScript, long id)
         {
+            
             if (id < 1)
             {
                 return Json(new AjaxResult<Object>("信息错误！"));
@@ -229,23 +231,35 @@ namespace Web.Manager.Controllers
             {
                 return Json(new AjaxResult<Object>("头条信息不存在！"));
             }
+            //验证图片路径
+            string[] Images = model.Images.Split(",");
+            foreach (var it in Images)
+            {
+                string its = it.Replace("/", "\\");
+                its = its.Substring(0, its.LastIndexOf("\\"));
+                if (!Directory.Exists(its))
+                {
+                    return Json(new AjaxResult<Object>("图片路劲错误！"));
+                }
+            }
 
             //循环查询脚本
             var pids = model.PlatformIds.Split(',');
             foreach (var item in pids)
             {
-                
+
                 Subchannel md = sh.SelSubchannel((long)Convert.ToInt32(item));
                 if (md != null)
                 {
                     if (string.IsNullOrWhiteSpace(md.PyscriptShortEssay))
                     {
-                        return Json(new AjaxResult<Object>("渠道《" + md.SubChannelName + "》，没有填写发布短文脚本！"));
+                        return Json(new AjaxResult<Object>("渠道《" + md.SubChannelName + "》，没有填写发布 短文 脚本！"));
                     }
                     if (string.IsNullOrWhiteSpace(md.AnalogPacket))
                     {
                         return Json(new AjaxResult<Object>("渠道COOKIE错误！"));
                     }
+
 
                     //base64加密（COOKIE）
                     string ck = EncodeBase64("utf-8", md.AnalogPacket);
@@ -261,7 +275,7 @@ namespace Web.Manager.Controllers
                     //PY执行脚本
                     return Ajax_PublicPostWTT(script, id);
                 }
-                
+
             }
 
             return Json(new AjaxResult<Object>("发布完成！", 0));
@@ -285,7 +299,15 @@ namespace Web.Manager.Controllers
             #endregion
         }
 
-
+        [MenuItemAttribute("推广平台", "微头条管理", "删除")]
+        public JsonResult Ajax_DelWTT(long id) 
+        {
+            if (id < 1)
+            {
+                return Json(new AjaxResult<Object>("请选择您要删除的对象！"));
+            }
+            return Json(wtt.DelYPWTT(id));
+        }
         #endregion
         /// <summary>
         /// PY执行脚本

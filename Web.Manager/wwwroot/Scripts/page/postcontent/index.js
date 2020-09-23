@@ -37,7 +37,7 @@ var postcontentlist = {
                     <td align="center">' + tools.nullToEmptyString(itemData.createTime) + '</td >\
                     <td align="center">' + StatusName + '</td>\
                     <td align="center">' + itemData.createTypeName + '</td>\
-                    <td align="center">|&nbsp;&nbsp;'+ authHelper.createLink('/PostContent/EditPostContent', 'id=' + itemData.id) + '&nbsp;&nbsp;|<br />|&nbsp;&nbsp;<a href=\'javascript:postcontentlist.delPostContent("' + itemData.id + '")\'>删除</a>&nbsp;&nbsp;|</td>';
+                    <td align="center" style="min-width:200px;">|&nbsp;&nbsp;'+ authHelper.createLink('/PostContent/EditPostContent', 'id=' + itemData.id) + '&nbsp;&nbsp;|&nbsp;&nbsp;<a href=\'javascript:postcontentlist.delPostContent("' + itemData.id + '")\'>删除</a>&nbsp;&nbsp;|</td>';
 
             html += '</td></tr>';
         });

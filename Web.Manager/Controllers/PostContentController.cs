@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AIDB.Models;
 using AIServer;
@@ -25,7 +26,7 @@ namespace Web.Manager.Controllers
         PostContentList pc;
         PlatformList pl;
         JRTTImagesController jc;
-
+        SubChannelList sh;
         #endregion
 
         #region 页面
@@ -102,11 +103,6 @@ namespace Web.Manager.Controllers
         [MenuItemAttribute("发帖管理", "文章管理", "编辑")]
         public IActionResult EditPostContent(long id)
         {
-            //PY执行脚本（获取和设置当前目录）
-            string py_url = Environment.CurrentDirectory + "/wwwroot/PY/发布头条文章.py";
-            ViewBag.pyscript = py_url;
-
-
             List<Platforminfo> list = pl.GetAllList();
             ViewBag.pl_list = list;
 
@@ -257,17 +253,58 @@ namespace Web.Manager.Controllers
             }
 
             Postcontent model = pc.SelPostcontent(id);
-            //string ss = UpdateContent(model.MsgContent);
-            //return null;
-            //base64加密
-            string content = jc.EncodeBase64("utf-8", UpdateContent(model.MsgContent));
-            
+            if (model == null)
+            {
+                return Json(new AjaxResult<Object>("文章不存在！"));
+            }
 
-            string script = PYScript + " " + model.HeadImg.Replace(" ", "") + " " + model.MsgTitle.Replace(" ", "") + " " + content;
-            //string script = PYScript + " " + model.HeadImg.Trim() + " " + model.MsgTitle.Trim() + " " + ss;
-            //script = script.Replace('"', '`');
+            //循环查询脚本
+            var pids = model.PlatformIds.Split(',');
 
-            /*var psi = new ProcessStartInfo("python", "E:/work/NET_Pro/ai_manager/Web_Manager/Web.Manager/wwwroot/PY/上传图片到材料库.py C:/Users/Administrator/Desktop/temp/1234.jpg") { RedirectStandardOutput = true };*/
+            foreach (var item in pids)
+            {
+                Subchannel md = sh.SelSubchannel((long)Convert.ToInt32(item));
+                if (md!=null)
+                {
+                    if (string.IsNullOrWhiteSpace(md.PyscriptLongEssay))
+                    {
+                        return Json(new AjaxResult<Object>("渠道《" + md.SubChannelName + "》，没有填写发布 长文 脚本！"));
+                    }
+                    if (string.IsNullOrWhiteSpace(md.AnalogPacket))
+                    {
+                        return Json(new AjaxResult<Object>("渠道COOKIE错误！"));
+                    }
+
+                    //base64加密（COOKIE）
+                    string ck = EncodeBase64("utf-8", md.AnalogPacket);
+
+                    //base64加密（内容）
+                    string content = jc.EncodeBase64("utf-8", UpdateContent(model.MsgContent));
+
+                    string script = PYScript + " " + model.HeadImg.Replace(" ", "") + " " + model.MsgTitle.Replace(" ", "") + " " + ck + " " + content;
+
+
+                    //PY执行脚本
+                    return Ajax_PublicPostWTT(script, id);
+
+                }
+
+            }
+
+            return Json(new AjaxResult<Object>("发布完成！", 0));
+        }
+
+
+        #endregion
+
+        /// <summary>
+        /// PY执行脚本
+        /// </summary>
+        /// <param name="script"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public JsonResult Ajax_PublicPostWTT(string script, long id)
+        {
             var psi = new ProcessStartInfo("python", script) { RedirectStandardOutput = true };
             var proc = Process.Start(psi);
             if (proc == null)
@@ -282,9 +319,6 @@ namespace Web.Manager.Controllers
                 {
                     while (!sr.EndOfStream)
                     {
-                        //Console.WriteLine(sr.ReadLine());
-                        //<img class="" src="http://p1.pstatp.com/origin/pgc-image/56e3500885e240ebb8901af9d7a2bb99" ic="undefined" image_type="" mime_type="" web_uri="pgc-image/56e3500885e240ebb8901af9d7a2bb99" img_width="640" img_height="640">
-                        //{'code': 0, 'data': {'pgc_id': '6867566989301252622'}, 'err_no': 0, 'message': '提交成功', 'now': 1598980042, 'reason': '提交成功'}
                         string jsonText = sr.ReadLine();
                         JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
 
@@ -292,6 +326,7 @@ namespace Web.Manager.Controllers
                         {
                             pc.UpOpenStatus(id, (int)AIDB.Enum.PostContentEnum.OpenStatus.已发布);
                             return Json(new AjaxResult<Object>("发布成功！", 0));
+
                         }
                         else
                         {
@@ -312,10 +347,39 @@ namespace Web.Manager.Controllers
 
             }
 
-            return Json(new AjaxResult<Object>("发布到头条失败！"));
+            return Json(new AjaxResult<Object>("发布失败！"));
         }
 
 
-        #endregion
+        ///编码（Base64方式的编码与解码）
+        public string EncodeBase64(string code_type, string code)
+        {
+            string encode = "";
+            byte[] bytes = Encoding.GetEncoding(code_type).GetBytes(code);
+            try
+            {
+                encode = Convert.ToBase64String(bytes);
+            }
+            catch
+            {
+                encode = code;
+            }
+            return encode;
+        }
+        ///解码（Base64方式的编码与解码）
+        public string DecodeBase64(string code_type, string code)
+        {
+            string decode = "";
+            byte[] bytes = Convert.FromBase64String(code);
+            try
+            {
+                decode = Encoding.GetEncoding(code_type).GetString(bytes);
+            }
+            catch
+            {
+                decode = code;
+            }
+            return decode;
+        }
     }
 }

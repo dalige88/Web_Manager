@@ -26,7 +26,6 @@ var subchannellist = {
             var itemData = result[i];
             html += '<tr>\
                     <td align="center">' + itemData.id + '</td>\
-                    <td align="center">' + itemData.platformName + '</td>\
                     <td align="center">' + itemData.subChannelName + '</td>\
                     <td align="center">' + itemData.statesName + '</td >\
                     <td align="center">' + itemData.addressURL + '</td >\

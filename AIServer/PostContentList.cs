@@ -89,7 +89,7 @@ namespace AIServer
             model.CreateManagerId = req.CreateManagerID;
             model.CreateUserId = req.CreateUserID;
             model.CreateType = (int)AIDB.Enum.PostContentEnum.CreateType.人工创建;
-            model.OpenStatus = (int)AIDB.Enum.PostContentEnum.OpenStatus.已发布;
+            model.OpenStatus = (int)AIDB.Enum.PostContentEnum.OpenStatus.未发布;
             model.CreateUserType = (int)AIDB.Enum.PostContentEnum.CreateUserType.管理员;
             model.MsgType = req.MsgType;
             model.PlatformIds = req.PlatformIDs;

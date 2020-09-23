@@ -10,6 +10,15 @@ from urllib3 import encode_multipart_formdata
 
 # 再把加密后的结果解码（cookie）
 COOKIE = base64.b64decode(sys.argv[1]).decode()
+# 解析 csrftoken ，否则会出错
+csrftoken = ''
+ck = COOKIE.split(';')
+for item in ck:
+    if 'csrftoken' in item:
+        # print(item)
+        csrftoken = item.split('=')[1]
+        # print(csrftoken)
+
 
 # 发布微头条地址 （域名）
 API_PUBLISH = 'https://www.toutiao.com/c/ugc/content/publish/'
@@ -44,7 +53,7 @@ def update_file(local_image_path):
     dt = json.loads(reponse.text)
     
     
-    print(dt)
+    # print(dt)
     return dt
 
 
@@ -54,7 +63,7 @@ headers = {
     "Connection": "close",
     "Accept": "text/javascript, text/html, application/xml, text/xml, */*",
     "Origin": "https://www.toutiao.com",
-    "X-CSRFToken": "54d481cf1d0c7778fb88f139a44bbf7c",
+    "X-CSRFToken": csrftoken,
     "X-Requested-With": "XMLHttpRequest",
     "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100#Safari/537.36",
     "Content-Type": "application/x-www-form-urlencoded",
@@ -102,12 +111,13 @@ def post_weitt(content, image=None):
     }
     
     
-    # print(web_uri)
-    # reponse = requests.post(url=API_PUBLISH, data=data, headers=headers)
-    # 
-    # dt = json.loads(reponse.text)
-    # 
-    # print(dt)
+    # print(data)
+
+    reponse = requests.post(url=API_PUBLISH, data=data, headers=headers)
+    
+    dt = json.loads(reponse.text)
+    
+    print(dt)
 
 
 post_weitt(
