@@ -6,11 +6,8 @@ namespace AIDB.Models
     public partial class Usercommentlistinfo
     {
         public long Id { get; set; }
+        public long UserCommentTargetInfoId { get; set; }
         public long? ParentId { get; set; }
-        public long? PlatformId { get; set; }
-        public int? CommentType { get; set; }
-        public long? CommentTargetId { get; set; }
-        public string CommentTargetTitle { get; set; }
         public string UserId { get; set; }
         public string UserAccount { get; set; }
         public string UserNice { get; set; }

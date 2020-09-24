@@ -15,26 +15,6 @@ namespace AIServer.Dtos
         /// </summary>
         public long? ParentID { get; set; }
         /// <summary>
-        /// 平台渠道ID
-        /// </summary>
-        public long? PlatformID { get; set; }
-        /// <summary>
-        /// 评论对象类型：1：短文，2：长文：3：视频
-        /// </summary>
-        public int? CommentType { get; set; }
-        /// <summary>
-        ///  评论对象类型名称
-        /// </summary>
-        public string CommentTypeName { get; set; }
-        /// <summary>
-        /// 评论对象ID
-        /// </summary>
-        public long? CommentTargetID { get; set; }
-        /// <summary>
-        /// 评论对象标题
-        /// </summary>
-        public string CommentTargetTitle { get; set; }
-        /// <summary>
         /// 用户ID
         /// </summary>
         public string UserID { get; set; }
@@ -82,8 +62,10 @@ namespace AIServer.Dtos
         /// 备注
         /// </summary>
         public string Remark { get; set; }
-
-
+        /// <summary>
+        /// 评论对象表ID
+        /// </summary>
+        public long UserCommentTargetInfoID { get; set; }
 
 
 

@@ -27,6 +27,7 @@ namespace AIDB.Models
         public virtual DbSet<Postingrecord> Postingrecord { get; set; }
         public virtual DbSet<Subchannel> Subchannel { get; set; }
         public virtual DbSet<Usercommentlistinfo> Usercommentlistinfo { get; set; }
+        public virtual DbSet<Usercommenttargetinfo> Usercommenttargetinfo { get; set; }
         public virtual DbSet<Ypjrttweitoutiaoinfo> Ypjrttweitoutiaoinfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -740,18 +741,7 @@ namespace AIDB.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.CommentTargetId)
-                    .HasColumnName("CommentTargetID")
-                    .HasColumnType("bigint(20)");
-
-                entity.Property(e => e.CommentTargetTitle)
-                    .HasColumnType("varchar(200)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
-
                 entity.Property(e => e.CommentTime).HasColumnType("datetime");
-
-                entity.Property(e => e.CommentType).HasColumnType("int(11)");
 
                 entity.Property(e => e.ManagerId)
                     .HasColumnName("ManagerID")
@@ -764,10 +754,6 @@ namespace AIDB.Models
 
                 entity.Property(e => e.ParentId)
                     .HasColumnName("ParentID")
-                    .HasColumnType("bigint(20)");
-
-                entity.Property(e => e.PlatformId)
-                    .HasColumnName("PlatformID")
                     .HasColumnType("bigint(20)");
 
                 entity.Property(e => e.Remark)
@@ -789,6 +775,10 @@ namespace AIDB.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
+                entity.Property(e => e.UserCommentTargetInfoId)
+                    .HasColumnName("UserCommentTargetInfoID")
+                    .HasColumnType("bigint(20)");
+
                 entity.Property(e => e.UserId)
                     .HasColumnName("UserID")
                     .HasColumnType("varchar(100)")
@@ -797,6 +787,42 @@ namespace AIDB.Models
 
                 entity.Property(e => e.UserNice)
                     .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Usercommenttargetinfo>(entity =>
+            {
+                entity.ToTable("usercommenttargetinfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CommentTargetId)
+                    .HasColumnName("CommentTargetID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CommentTargetTitle)
+                    .IsRequired()
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CommentType).HasColumnType("int(11)");
+
+                entity.Property(e => e.PlatformId)
+                    .HasColumnName("PlatformID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Remark)
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.TableName)
+                    .IsRequired()
+                    .HasColumnType("varchar(100)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
             });
