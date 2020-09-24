@@ -26,6 +26,7 @@ namespace AIDB.Models
         public virtual DbSet<Postcontent> Postcontent { get; set; }
         public virtual DbSet<Postingrecord> Postingrecord { get; set; }
         public virtual DbSet<Subchannel> Subchannel { get; set; }
+        public virtual DbSet<Usercommentlistinfo> Usercommentlistinfo { get; set; }
         public virtual DbSet<Ypjrttweitoutiaoinfo> Ypjrttweitoutiaoinfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -721,6 +722,80 @@ namespace AIDB.Models
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.UserPwd)
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Usercommentlistinfo>(entity =>
+            {
+                entity.ToTable("usercommentlistinfo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CommentContent)
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CommentTargetId)
+                    .HasColumnName("CommentTargetID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CommentTargetTitle)
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CommentTime).HasColumnType("datetime");
+
+                entity.Property(e => e.CommentType).HasColumnType("int(11)");
+
+                entity.Property(e => e.ManagerId)
+                    .HasColumnName("ManagerID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.ManagerName)
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ParentId)
+                    .HasColumnName("ParentID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.PlatformId)
+                    .HasColumnName("PlatformID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Remark)
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ReplyContent)
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ReplyTime).HasColumnType("datetime");
+
+                entity.Property(e => e.SignStatus).HasColumnType("int(11)");
+
+                entity.Property(e => e.UserAccount)
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("UserID")
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.UserNice)
                     .HasColumnType("varchar(200)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");

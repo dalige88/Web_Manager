@@ -60,4 +60,30 @@ namespace AIDB.Enum
 
 
     }
+
+    /// <summary>
+    /// 用户评论列表
+    /// </summary>
+    public class UserCommentListEnum 
+    {
+        /// <summary>
+        /// 评论对象类型：1：短文，2：长文：3：视频
+        /// </summary>
+        public enum CommentType
+        {
+            短文 = 1,
+            长文 = 2,
+            视频 = 3,
+        }
+
+        /// <summary>
+        /// 标记状态：0：未标记，1：意向客户，2：恶意评论
+        /// </summary>
+        public enum SignStatus 
+        {
+            未标记 = 0,
+            意向客户 = 1,
+            恶意评论 = 2,
+        }
+    }
 }
