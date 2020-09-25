@@ -19,7 +19,7 @@ namespace AIServer
         }
 
         /// <summary>
-        /// 评论列表
+        /// 用户评论列表
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
@@ -57,7 +57,6 @@ namespace AIServer
                 query = query.Where(w => w.ParentID == req.ParentID);
             }
 
-
             page.TotalCount = query.Count();
             page.dataList = query.OrderByDescending(m => m.ID).Skip((req.PageIndex - 1) * req.PageSize).Take(req.PageSize).ToList();
             return new AjaxResult<Pagination<UserCommentListDto>>(page);
@@ -74,13 +73,16 @@ namespace AIServer
             var query = from b in db.Usercommenttargetinfo
                         select new UserCommentTargetListDto
                         {
-                            ID=b.Id,
-                            PlatformID=b.PlatformId,
+                            ID = b.Id,
+                            PlatformID = b.PlatformId,
+                            PlatformName = db.Subchannel.Where(w => w.Id == b.PlatformId).FirstOrDefault().SubChannelName,
                             CommentType=b.CommentType,
+                            CommentTypeName = b.CommentType==(int)AIDB.Enum.UserCommentListEnum.CommentType.短文?"短文": b.CommentType == (int)AIDB.Enum.UserCommentListEnum.CommentType.长文 ? "长文" : b.CommentType == (int)AIDB.Enum.UserCommentListEnum.CommentType.视频 ? "视频" : "",
                             CommentTargetID=b.CommentTargetId,
                             CommentTargetTitle=b.CommentTargetTitle,
                             Remark=b.Remark,
                             TableName=b.TableName,
+                            SoureUrl=b.SoureUrl,
                         };
 
             if (req.PlatformID>0)
@@ -99,8 +101,8 @@ namespace AIServer
             page.TotalCount = query.Count();
             page.dataList = query.OrderByDescending(m => m.ID).Skip((req.PageIndex - 1) * req.PageSize).Take(req.PageSize).ToList();
             return new AjaxResult<Pagination<UserCommentTargetListDto>>(page);
-
         }
+
 
 
     }

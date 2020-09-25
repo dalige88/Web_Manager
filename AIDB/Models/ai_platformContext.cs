@@ -820,6 +820,11 @@ namespace AIDB.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
+                entity.Property(e => e.SoureUrl)
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
                 entity.Property(e => e.TableName)
                     .IsRequired()
                     .HasColumnType("varchar(100)")

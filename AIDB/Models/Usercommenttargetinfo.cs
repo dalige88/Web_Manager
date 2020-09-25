@@ -12,5 +12,6 @@ namespace AIDB.Models
         public string CommentTargetTitle { get; set; }
         public string Remark { get; set; }
         public string TableName { get; set; }
+        public string SoureUrl { get; set; }
     }
 }
