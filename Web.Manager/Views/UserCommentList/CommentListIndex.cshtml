@@ -1,0 +1,58 @@
+﻿@using Web.Manager.WebManager.Entity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "CommentListIndex";
+}
+@await Html.PartialAsync("_nav", new WebManager.Core.Entity.NavigationModel("发帖管理", "评论发布管理", "用户评论列表", true))
+<div class="row bgwhitebox10 mymgb15">
+    <div class="row bgwhitebox10 mymgb15">
+        <input type="hidden" id="tid" name="tid" value="@ViewBag.tid" />
+
+        <div class="detail-search" style="border-bottom: 2px solid #01ACE2;padding-bottom:10px;">
+            <div class="col-sm-9 mypdl0">
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                关键字：
+                <input type="text" id="KeyWord" class="mysearch-text" style="width:300px;" placeholder="评论内容" maxlength="10" />
+
+            </div>
+            <div class="col-sm-3 mypdr0" style="text-align:right;">
+                <button id="searchBtn" class="btn btn-success btn-sm"><i class="fa fa-search"></i>查询</button>
+            </div>
+
+            <div class="mycl"></div>
+        </div>
+        <div class="row mtop15">
+            <div class="row">
+                <div class="col-sm-12" style="padding:0px;">
+                    <table class="table table-bordered mytable">
+                        <thead>
+                            <tr>
+                                <th width="5%">ID</th>
+                                <th width="20%">评论对象标题</th>
+                                <th width="10%">用户账号</th>
+                                <th width="10%">用户昵称</th>
+                                <th width="35%">评论内容</th>
+                                <th width="10%">评论时间</th>
+                                <th width="10%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="goodsbody"></tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div id="infoPage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @section CssExtend{
+        <link rel="stylesheet" href="@HtmlExtention.GetUrlContent("/Scripts/plugins/sspager/ss_page.css")" />
+    }
+    @section JsExtend{
+        <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/plugins/sspager/ss_page.js")"></script>
+        <script type="text/javascript" src="@HtmlExtention.GetUrlContent("/Scripts/page/usercommentlist/commentlistindex.js")"></script>
+    }

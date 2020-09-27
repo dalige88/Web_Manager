@@ -741,7 +741,22 @@ namespace AIDB.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.CommentTime).HasColumnType("datetime");
+                entity.Property(e => e.CommentTargetId)
+                    .HasColumnName("CommentTargetID")
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CommentTime)
+                    .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.DongtaiId)
+                    .HasColumnName("dongtai_id")
+                    .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.ManagerId)
                     .HasColumnName("ManagerID")
@@ -766,7 +781,10 @@ namespace AIDB.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.ReplyTime).HasColumnType("datetime");
+                entity.Property(e => e.ReplyTime)
+                    .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.SignStatus).HasColumnType("int(11)");
 
@@ -774,10 +792,6 @@ namespace AIDB.Models
                     .HasColumnType("varchar(200)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
-
-                entity.Property(e => e.UserCommentTargetInfoId)
-                    .HasColumnName("UserCommentTargetInfoID")
-                    .HasColumnType("bigint(20)");
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("UserID")
@@ -801,7 +815,9 @@ namespace AIDB.Models
 
                 entity.Property(e => e.CommentTargetId)
                     .HasColumnName("CommentTargetID")
-                    .HasColumnType("bigint(20)");
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.CommentTargetTitle)
                     .IsRequired()

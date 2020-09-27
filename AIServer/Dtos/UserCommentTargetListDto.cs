@@ -26,7 +26,7 @@ namespace AIServer.Dtos
         /// <summary>
         /// 评论对象ID
         /// </summary>
-        public long? CommentTargetID { get; set; }
+        public string CommentTargetID { get; set; }
         /// <summary>
         /// 评论对象标题
         /// </summary>
@@ -43,6 +43,9 @@ namespace AIServer.Dtos
         /// 源网址
         /// </summary>
         public string SoureUrl { get; set; }
-
+        /// <summary>
+        /// 评论条数
+        /// </summary>
+        public int PinLunCount { get; set; }
     }
 }

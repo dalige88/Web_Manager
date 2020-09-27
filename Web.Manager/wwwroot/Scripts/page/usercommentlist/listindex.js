@@ -35,7 +35,7 @@ var UserCommentList = {
                     <td align="center">' + itemData.platformName + '</td>\
                     <td align="center">' + itemData.commentTypeName + '</td>\
                     <td align="center"><a href=\"' + itemData.soureUrl + '\" target=\"_blank\">' + itemData.commentTargetTitle + '</a></td >\
-                    <td align="center"></td>';
+                    <td align="center"><a href=\'/UserCommentList/CommentListIndex?id=' + itemData.commentTargetID + '\'>(' + itemData.pinLunCount+ ')评论>></a></td>';
 
             html += '</td></tr>';
         });

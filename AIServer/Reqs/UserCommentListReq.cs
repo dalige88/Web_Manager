@@ -63,7 +63,7 @@ namespace AIServer.Reqs
         /// <summary>
         /// 评论对象表ID
         /// </summary>
-        public long UserCommentTargetInfoID { get; set; }
+        public string UserCommentTargetInfoID { get; set; }
 
 
 

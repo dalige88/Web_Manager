@@ -33,7 +33,7 @@ namespace AIServer.Dtos
         /// <summary>
         /// 评论时间
         /// </summary>
-        public DateTime? CommentTime { get; set; }
+        public string CommentTime { get; set; }
         /// <summary>
         /// 回复内容
         /// </summary>
@@ -49,7 +49,7 @@ namespace AIServer.Dtos
         /// <summary>
         /// 回复时间
         /// </summary>
-        public DateTime? ReplyTime { get; set; }
+        public string ReplyTime { get; set; }
         /// <summary>
         /// 标记状态：0：未标记，1：意向客户，2：恶意评论
         /// </summary>
@@ -65,8 +65,19 @@ namespace AIServer.Dtos
         /// <summary>
         /// 评论对象表ID
         /// </summary>
-        public long UserCommentTargetInfoID { get; set; }
-
+        public string UserCommentTargetInfoID { get; set; }
+        /// <summary>
+        /// 评论ID（dongtai_id）
+        /// </summary>
+        public string dongtai_id { get; set; }
+        /// <summary>
+        /// 评论对象ID（item_id）
+        /// </summary>
+        public string CommentTargetID { get; set; }
+        /// <summary>
+        /// 评论对象标题
+        /// </summary>
+        public string CommentTargetTitle { get; set; }
 
 
     }

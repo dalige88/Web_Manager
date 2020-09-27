@@ -21,18 +21,24 @@ namespace Web.Manager.Controllers
         {
             return View();
         }
+        [MenuItemAttribute("发帖管理", "评论发布管理", "用户评论列表")]
+        public IActionResult CommentListIndex(long id)
+        {
+            ViewBag.tid = id;
+            return View();
+        }
 
         #endregion
 
         #region Ajax调用
 
-        [MenuItemAttribute("发帖管理", "评论发布管理", "用户评论对象列表（获取）")]
+        [MenuItemAttribute("发帖管理", "评论发布管理", "用户评论列表（获取）")]
         public JsonResult Ajax_GetUserCommentList(UserCommentListReq req)
         {
             return Json(ucl.GetUserCommentList(req));
         }
 
-        [MenuItemAttribute("发帖管理", "评论发布管理", "用户评论列表（获取）")]
+        [MenuItemAttribute("发帖管理", "评论发布管理", "用户评论对象列表（获取）")]
         public JsonResult Ajax_GetList(UserCommentTargetListReq req)
         {
             return Json(ucl.GetList(req));
