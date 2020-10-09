@@ -7,9 +7,10 @@ $(function () {
     var images = $('#images').val().split(',');
     for (var i = 0; i < images.length; i++) {
 
-        var im = "/" + images[i].substring(images[i].lastIndexOf("upload"), images[i].length);
+        var im = images[i].substring(images[i].lastIndexOf("upload"), images[i].length);
+        im = im.replace("C:/Users/Administrator/Desktop/temp/", "http://47.100.172.61:8099/");
         images_html += "<div class=\"row rowmb15\"><div class=\"col-md-12\"><label class=\"col-sm-2 edit-group-label\"><span class=\"spanrequired\">*</span>图片" + (i + 1) + "：</label><div class=\"col-md-7\" ><img class=\"showimg\" src=\"" + im + "\" style=\"width:60%\"></div></div></div>";
-
+        
     }
     $('#showui_li').html(images_html);
 });

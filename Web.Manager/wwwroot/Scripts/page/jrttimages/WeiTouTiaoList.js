@@ -49,7 +49,7 @@ var wttlist = {
 
             /*html += '<td align="center"><a href=\'' + itemData.sourceLink + '\'>' + itemData.content + '</a></td>';*/
             if (itemData.sourceLink != "" && itemData.sourceLink != null) {
-                html += '<td align="center"><a href=\'' + itemData.sourceLink + '\'>' + itemData.content + '</a></td>';
+                html += '<td align="center"><a href=\'' + itemData.sourceLink + '\' target=\'_blank\'>' + itemData.content + '</a></td>';
             } else {
                 html += '<td align="center">' + itemData.content + '</td>';
             }
