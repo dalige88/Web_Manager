@@ -1,4 +1,4 @@
-﻿Scaffold-DbContext "server=47.100.172.61;userid=root;pwd=root;port=3306;database=ai_platform;sslmode=none;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models -Force
+﻿Scaffold-DbContext "server=127.0.0.1;userid=root;pwd=root;port=3306;database=ai_platform;sslmode=none;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models -Force
 
 -OutputDir *** 实体文件所存放的文件目录
 -ContextDir *** DbContext文件存放的目录

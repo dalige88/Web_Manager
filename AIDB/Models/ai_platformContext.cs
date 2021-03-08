@@ -28,6 +28,7 @@ namespace AIDB.Models
         public virtual DbSet<Subchannel> Subchannel { get; set; }
         public virtual DbSet<Usercommentlistinfo> Usercommentlistinfo { get; set; }
         public virtual DbSet<Usercommenttargetinfo> Usercommenttargetinfo { get; set; }
+        public virtual DbSet<Videoyoutube> Videoyoutube { get; set; }
         public virtual DbSet<Ypjrttweitoutiaoinfo> Ypjrttweitoutiaoinfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,7 +36,7 @@ namespace AIDB.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=47.100.172.61;userid=root;pwd=root;port=3306;database=ai_platform;sslmode=none", x => x.ServerVersion("5.7.26-mysql"));
+                optionsBuilder.UseMySql("server=127.0.0.1;userid=root;pwd=root;port=3306;database=ai_platform;sslmode=none", x => x.ServerVersion("5.7.26-mysql"));
             }
         }
 
@@ -172,8 +173,8 @@ namespace AIDB.Models
                 entity.Property(e => e.Text)
                     .HasColumnName("text")
                     .HasColumnType("varchar(600)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id")
@@ -738,8 +739,8 @@ namespace AIDB.Models
 
                 entity.Property(e => e.CommentContent)
                     .HasColumnType("varchar(400)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.CommentTargetId)
                     .HasColumnName("CommentTargetID")
@@ -844,6 +845,55 @@ namespace AIDB.Models
                 entity.Property(e => e.TableName)
                     .IsRequired()
                     .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<Videoyoutube>(entity =>
+            {
+                entity.ToTable("videoyoutube");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Downloadstate)
+                    .HasColumnName("downloadstate")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Downloadtime)
+                    .HasColumnName("downloadtime")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Downloadurls)
+                    .HasColumnName("downloadurls")
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Localsrc)
+                    .HasColumnName("localsrc")
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Poststate)
+                    .HasColumnName("poststate")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Posttime)
+                    .HasColumnName("posttime")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.YwTitle)
+                    .HasColumnName("yw_title")
+                    .HasColumnType("varchar(400)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ZwTitle)
+                    .HasColumnName("zw_title")
+                    .HasColumnType("varchar(200)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
             });
